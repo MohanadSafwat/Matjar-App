@@ -45,6 +45,18 @@ flutter:
     - family: DancingScript
       fonts:
         - asset: fonts/static/DancingScript-Regular.ttf
+        
+    - family: Matjar
+      fonts:
+        - asset: icons/Matjar.ttf
+
+    - family: Matjar1
+      fonts:
+        - asset: icons/Matjar1.ttf
+
+    - family: Source Sans Pro
+      fonts:
+        - asset: fonts/SourceSansPro-Regular.ttf
           
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
