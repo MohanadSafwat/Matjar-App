@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'matjar_icons1.dart';
 import 'matjar_icons.dart';
-//try
 
 class Profile extends StatefulWidget {
   @override
