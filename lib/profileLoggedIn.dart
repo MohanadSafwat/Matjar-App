@@ -69,6 +69,7 @@ class _ProfileLoggedInState extends State<ProfileLoggedIn> {
               ),
               FlatButton(
                 padding: EdgeInsets.zero,
+                onPressed: () {},
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
