@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'matjar_icons.dart';
 import 'Custom Widget/customComponents.dart';
+import 'constants.dart';
 
 class ProfileInfoSeller extends StatefulWidget {
   @override

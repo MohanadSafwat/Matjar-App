@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'matjar_icons1.dart';
 import 'matjar_icons.dart';
+import 'constants.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -14,25 +15,60 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(255, 0, 0, 1),
-        toolbarHeight: 75,
-        leading: FlatButton(
-          onPressed: () {},
-          child: Icon(
-            Matjar.keyboard_arrow_left,
-            size: 35,
-            color: Colors.white,
+        title: Text(
+          "Matjar",
+          style: TextStyle(
+            fontSize: 40,
+            fontFamily: "DancingScript",
           ),
         ),
-        title: Icon(
-          Matjar.matjar_logo,
-          size: 70,
-        ),
-        actions: [
-          SizedBox(
-            width: 210,
+        backgroundColor: mainColor,
+        toolbarHeight: 80,
+        centerTitle: true,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        iconSize: 30,
+        currentIndex: currentIndex,
+        backgroundColor: Colors.white,
+        selectedFontSize: 13,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Matjar.home,
+              color: Color.fromRGBO(255, 0, 0, 1),
+            ),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Matjar.categories,
+              color: Color.fromRGBO(255, 0, 0, 1),
+            ),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Matjar.cart,
+              color: Color.fromRGBO(255, 0, 0, 1),
+            ),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Matjar.sign_in_and_sign_up_logo,
+              color: Color.fromRGBO(255, 0, 0, 1),
+            ),
+            label: "",
           ),
         ],
+        /* onTap: (index) {
+            setState(() {
+              currentIndex = index;
+            });
+          }, */
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -143,8 +179,8 @@ class _ProfileState extends State<Profile> {
                     ),
                     Text(
                       'Help',
-                      style:
-                      TextStyle(fontFamily: 'Source Sans Pro', fontSize: 20),
+                      style: TextStyle(
+                          fontFamily: 'Source Sans Pro', fontSize: 20),
                     )
                   ],
                 ),
@@ -176,8 +212,8 @@ class _ProfileState extends State<Profile> {
                     ),
                     Text(
                       'Contact Us',
-                      style:
-                      TextStyle(fontFamily: 'Source Sans Pro', fontSize: 20),
+                      style: TextStyle(
+                          fontFamily: 'Source Sans Pro', fontSize: 20),
                     )
                   ],
                 ),
@@ -209,8 +245,8 @@ class _ProfileState extends State<Profile> {
                     ),
                     Text(
                       'Dark Mode',
-                      style:
-                      TextStyle(fontFamily: 'Source Sans Pro', fontSize: 20),
+                      style: TextStyle(
+                          fontFamily: 'Source Sans Pro', fontSize: 20),
                     ),
                     SizedBox(
                       width: 90,
@@ -230,7 +266,7 @@ class _ProfileState extends State<Profile> {
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 110),
-                margin: EdgeInsets.symmetric(vertical:5),
+                margin: EdgeInsets.symmetric(vertical: 5),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -252,7 +288,6 @@ class _ProfileState extends State<Profile> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 62),
                 margin: EdgeInsets.symmetric(vertical: 10),
-
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -300,15 +335,13 @@ class _ProfileState extends State<Profile> {
                         fontSize: 13,
                       ),
                     ),
-
-
                   ],
                 ),
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 30),
                 child: FlatButton(
-                  onPressed: (){},
+                  onPressed: () {},
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -317,8 +350,7 @@ class _ProfileState extends State<Profile> {
                         style: TextStyle(
                             fontFamily: 'Source Sans Pro',
                             fontSize: 13,
-                            color: Color.fromRGBO(83, 169, 252, 1)
-                        ),
+                            color: Color.fromRGBO(83, 169, 252, 1)),
                       ),
                     ],
                   ),
@@ -327,70 +359,6 @@ class _ProfileState extends State<Profile> {
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        iconSize: 30,
-        currentIndex: currentIndex,
-        backgroundColor: Colors.white,
-        selectedFontSize: 13,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Matjar.home,
-              color: Color.fromRGBO(255, 0, 0, 1),
-            ),
-            title: Text(
-              'Home',
-              style: TextStyle(
-                color: Color.fromRGBO(255, 0, 0, 1),
-              ),
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Matjar.categories,
-              color: Color.fromRGBO(255, 0, 0, 1),
-            ),
-            title: Text(
-              'Categories',
-              style: TextStyle(
-                color: Color.fromRGBO(255, 0, 0, 1),
-              ),
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Matjar.cart,
-              color: Color.fromRGBO(255, 0, 0, 1),
-            ),
-            title: Text(
-              'Cart',
-              style: TextStyle(
-                color: Color.fromRGBO(255, 0, 0, 1),
-              ),
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Matjar.sign_in_and_sign_up_logo,
-              color: Color.fromRGBO(255, 0, 0, 1),
-            ),
-            title: Text(
-              'Profile',
-              style: TextStyle(
-                color: Color.fromRGBO(255, 0, 0, 1),
-              ),
-            ),
-          ),
-        ],
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
       ),
     );
   }

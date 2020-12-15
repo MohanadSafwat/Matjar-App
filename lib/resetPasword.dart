@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Custom Widget/customComponents.dart';
 import 'matjar_icons.dart';
+import 'constants.dart';
 
 var mainColor = Colors.red[700];
 var white = Colors.white;
@@ -17,7 +18,18 @@ class _ResetPasswordState extends State<ResetPassword> {
     return Scaffold(
         resizeToAvoidBottomPadding: false,
         backgroundColor: white,
-        appBar: CustomAppBar(),
+        appBar: AppBar(
+          title: Text(
+            "Matjar",
+            style: TextStyle(
+              fontSize: 40,
+              fontFamily: "DancingScript",
+            ),
+          ),
+          backgroundColor: mainColor,
+          toolbarHeight: 80,
+          centerTitle: true,
+        ),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           iconSize: 30,
@@ -32,55 +44,35 @@ class _ResetPasswordState extends State<ResetPassword> {
                 Matjar.home,
                 color: Color.fromRGBO(255, 0, 0, 1),
               ),
-              title: Text(
-                'Home',
-                style: TextStyle(
-                  color: Color.fromRGBO(255, 0, 0, 1),
-                ),
-              ),
+              label: "",
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Matjar.categories,
                 color: Color.fromRGBO(255, 0, 0, 1),
               ),
-              title: Text(
-                'Categories',
-                style: TextStyle(
-                  color: Color.fromRGBO(255, 0, 0, 1),
-                ),
-              ),
+              label: "",
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Matjar.cart,
                 color: Color.fromRGBO(255, 0, 0, 1),
               ),
-              title: Text(
-                'Cart',
-                style: TextStyle(
-                  color: Color.fromRGBO(255, 0, 0, 1),
-                ),
-              ),
+              label: "",
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Matjar.sign_in_and_sign_up_logo,
                 color: Color.fromRGBO(255, 0, 0, 1),
               ),
-              title: Text(
-                'Profile',
-                style: TextStyle(
-                  color: Color.fromRGBO(255, 0, 0, 1),
-                ),
-              ),
+              label: "",
             ),
           ],
-          onTap: (index) {
+          /* onTap: (index) {
             setState(() {
               currentIndex = index;
             });
-          },
+          }, */
         ),
         body: Column(
           children: [

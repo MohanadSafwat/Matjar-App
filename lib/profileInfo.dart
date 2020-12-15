@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'matjar_icons1.dart';
-
+import 'constants.dart';
 import 'matjar_icons.dart';
 
 class ProfileInfo extends StatefulWidget {
@@ -15,25 +14,60 @@ class _ProfileInfoState extends State<ProfileInfo> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(255, 0, 0, 1),
-        toolbarHeight: 75,
-        leading: FlatButton(
-          onPressed: () {},
-          child: Icon(
-            Matjar.keyboard_arrow_left,
-            size: 35,
-            color: Colors.white,
+        title: Text(
+          "Matjar",
+          style: TextStyle(
+            fontSize: 40,
+            fontFamily: "DancingScript",
           ),
         ),
-        title: Icon(
-          Matjar.matjar_logo,
-          size: 70,
-        ),
-        actions: [
-          SizedBox(
-            width: 210,
+        backgroundColor: mainColor,
+        toolbarHeight: 80,
+        centerTitle: true,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        iconSize: 30,
+        currentIndex: currentIndex,
+        backgroundColor: Colors.white,
+        selectedFontSize: 13,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Matjar.home,
+              color: Color.fromRGBO(255, 0, 0, 1),
+            ),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Matjar.categories,
+              color: Color.fromRGBO(255, 0, 0, 1),
+            ),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Matjar.cart,
+              color: Color.fromRGBO(255, 0, 0, 1),
+            ),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Matjar.sign_in_and_sign_up_logo,
+              color: Color.fromRGBO(255, 0, 0, 1),
+            ),
+            label: "",
           ),
         ],
+        /* onTap: (index) {
+            setState(() {
+              currentIndex = index;
+            });
+          }, */
       ),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 33, vertical: 25),
@@ -64,18 +98,19 @@ class _ProfileInfoState extends State<ProfileInfo> {
                 ),
               ],
             ),
-            Row(
-              children:[ Padding(
-                padding: const EdgeInsets.only(left:25.0,top:15),
-                child: Text('First Name',style: TextStyle(
-                    fontSize: 17,
-                    fontFamily: 'Source Sans Pro'
-                ),),
-              ),]
-            ),
-
+            Row(children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0, top: 15),
+                child: Text(
+                  'First Name',
+                  style: TextStyle(fontSize: 17, fontFamily: 'Source Sans Pro'),
+                ),
+              ),
+            ]),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 10, ),
+              margin: EdgeInsets.symmetric(
+                horizontal: 10,
+              ),
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 25),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -88,18 +123,19 @@ class _ProfileInfoState extends State<ProfileInfo> {
                 ],
               ),
             ),
-            Row(
-                children:[ Padding(
-                  padding: const EdgeInsets.only(left:25.0,top:10),
-                  child: Text('Last Name',style: TextStyle(
-                      fontSize: 17,
-                      fontFamily: 'Source Sans Pro'
-                  ),),
-                ),]
-            ),
-
+            Row(children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0, top: 10),
+                child: Text(
+                  'Last Name',
+                  style: TextStyle(fontSize: 17, fontFamily: 'Source Sans Pro'),
+                ),
+              ),
+            ]),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 10, ),
+              margin: EdgeInsets.symmetric(
+                horizontal: 10,
+              ),
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 25),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -112,18 +148,19 @@ class _ProfileInfoState extends State<ProfileInfo> {
                 ],
               ),
             ),
-            Row(
-                children:[ Padding(
-                  padding: const EdgeInsets.only(left:25.0,top:10),
-                  child: Text('Email',style: TextStyle(
-                      fontSize: 17,
-                      fontFamily: 'Source Sans Pro'
-                  ),),
-                ),]
-            ),
-
+            Row(children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0, top: 10),
+                child: Text(
+                  'Email',
+                  style: TextStyle(fontSize: 17, fontFamily: 'Source Sans Pro'),
+                ),
+              ),
+            ]),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 10,),
+              margin: EdgeInsets.symmetric(
+                horizontal: 10,
+              ),
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 25),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -136,19 +173,19 @@ class _ProfileInfoState extends State<ProfileInfo> {
                 ],
               ),
             ),
-            Row(
-                children:[ Padding(
-                  padding: const EdgeInsets.only(left:25.0,top:10),
-                  child: Text('Address',
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontFamily: 'Source Sans Pro'
-                  ),),
-                ),]
-            ),
-
+            Row(children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0, top: 10),
+                child: Text(
+                  'Address',
+                  style: TextStyle(fontSize: 17, fontFamily: 'Source Sans Pro'),
+                ),
+              ),
+            ]),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 10, ),
+              margin: EdgeInsets.symmetric(
+                horizontal: 10,
+              ),
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 25),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -161,18 +198,19 @@ class _ProfileInfoState extends State<ProfileInfo> {
                 ],
               ),
             ),
-            Row(
-                children:[ Padding(
-                  padding: const EdgeInsets.only(left:25.0,top:10),
-                  child: Text('Contact',style: TextStyle(
-                      fontSize: 17,
-                      fontFamily: 'Source Sans Pro'
-                  ),),
-                ),]
-            ),
-
+            Row(children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0, top: 10),
+                child: Text(
+                  'Contact',
+                  style: TextStyle(fontSize: 17, fontFamily: 'Source Sans Pro'),
+                ),
+              ),
+            ]),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 10, ),
+              margin: EdgeInsets.symmetric(
+                horizontal: 10,
+              ),
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 25),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -185,101 +223,45 @@ class _ProfileInfoState extends State<ProfileInfo> {
                 ],
               ),
             ),
-            SizedBox(height: 15,),
+            SizedBox(
+              height: 15,
+            ),
             Row(
               children: [
-                SizedBox(width: 10,),
-
-                FlatButton(onPressed: (){}, child: Text(
-                  'Edit',
-                  style: TextStyle(
+                SizedBox(
+                  width: 10,
+                ),
+                FlatButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Edit',
+                    style: TextStyle(
                       fontSize: 18,
                       fontFamily: 'Source Sans Pro',
-                    color: Colors.white,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
                   color: Color.fromRGBO(244, 52, 52, 1),
                 ),
-                SizedBox(width: 70,),
-
-                FlatButton(onPressed: (){}, child: Text(
-                  'Change Password',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontFamily: 'Source Sans Pro',
-                    color: Colors.white,
-                  ),
+                SizedBox(
+                  width: 70,
                 ),
+                FlatButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Change Password',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'Source Sans Pro',
+                      color: Colors.white,
+                    ),
+                  ),
                   color: Color.fromRGBO(244, 52, 52, 1),
                 ),
               ],
             )
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        iconSize: 30,
-        currentIndex: currentIndex,
-        backgroundColor: Colors.white,
-        selectedFontSize: 13,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Matjar.home,
-              color: Color.fromRGBO(255, 0, 0, 1),
-            ),
-            title: Text(
-              'Home',
-              style: TextStyle(
-                color: Color.fromRGBO(255, 0, 0, 1),
-              ),
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Matjar.categories,
-              color: Color.fromRGBO(255, 0, 0, 1),
-            ),
-            title: Text(
-              'Categories',
-              style: TextStyle(
-                color: Color.fromRGBO(255, 0, 0, 1),
-              ),
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Matjar.cart,
-              color: Color.fromRGBO(255, 0, 0, 1),
-            ),
-            title: Text(
-              'Cart',
-              style: TextStyle(
-                color: Color.fromRGBO(255, 0, 0, 1),
-              ),
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Matjar.sign_in_and_sign_up_logo,
-              color: Color.fromRGBO(255, 0, 0, 1),
-            ),
-            title: Text(
-              'Profile',
-              style: TextStyle(
-                color: Color.fromRGBO(255, 0, 0, 1),
-              ),
-            ),
-          ),
-        ],
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
       ),
     );
   }

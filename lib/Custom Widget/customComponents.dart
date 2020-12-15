@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:matjar_login_signup/matjar_icons.dart';
 import 'package:matjar_login_signup/matjar_icons1.dart';
+import '../constants.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -8,25 +9,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Color.fromRGBO(255, 0, 0, 1),
-      toolbarHeight: 75,
-      leading: FlatButton(
-        onPressed: () {},
-        child: Icon(
-          Matjar.keyboard_arrow_left,
-          size: 35,
-          color: Colors.white,
+      title: Text(
+        "Matjar",
+        style: TextStyle(
+          fontSize: 40,
+          fontFamily: "DancingScript",
         ),
       ),
-      title: Icon(
-        Matjar.matjar_logo,
-        size: 70,
-      ),
-      actions: [
-        SizedBox(
-          width: 210,
-        ),
-      ],
+      backgroundColor: mainColor,
+      toolbarHeight: 80,
+      centerTitle: true,
     );
   }
 }
