@@ -71,7 +71,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
       ),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 33, vertical: 25),
-        child: Column(
+        child: ListView(
           children: [
             Row(
               children: [
@@ -244,7 +244,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                   color: Color.fromRGBO(244, 52, 52, 1),
                 ),
                 SizedBox(
-                  width: 70,
+                  width: 50,
                 ),
                 FlatButton(
                   onPressed: () {},
