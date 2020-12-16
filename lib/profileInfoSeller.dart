@@ -176,15 +176,15 @@ class _ProfileInfoSellerState extends State<ProfileInfoSeller> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomButton(
-                    text: 'Edit',
-                    horizontal: 10.0,
-                    vertical: 10.0,
-                  ),
+                      text: 'Edit',
+                      horizontal: 10.0,
+                      vertical: 10.0,
+                      fnc: () {}),
                   CustomButton(
-                    text: 'Change Password',
-                    horizontal: 10.0,
-                    vertical: 10.0,
-                  ),
+                      text: 'Change Password',
+                      horizontal: 10.0,
+                      vertical: 10.0,
+                      fnc: () {}),
                 ],
               ),
             )

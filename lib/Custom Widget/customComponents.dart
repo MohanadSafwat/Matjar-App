@@ -26,7 +26,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 class CustomButton extends StatelessWidget {
   final String text;
   final double vertical, horizontal;
-  CustomButton({@required this.text, this.horizontal, this.vertical});
+  Function fnc;
+  CustomButton({@required this.text, this.horizontal, this.vertical, this.fnc});
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
@@ -37,7 +38,7 @@ class CustomButton extends StatelessWidget {
           fontSize: 18,
         ),
       ),
-      onPressed: () {},
+      onPressed: fnc,
       color: Colors.red,
       padding: EdgeInsets.symmetric(vertical: vertical, horizontal: horizontal),
     );
