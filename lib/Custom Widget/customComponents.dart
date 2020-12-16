@@ -47,10 +47,12 @@ class CustomButton extends StatelessWidget {
 
 class CustomTextField extends StatelessWidget {
   final String lable;
-  CustomTextField({@required this.lable});
+  final TextEditingController control;
+  CustomTextField({@required this.lable, this.control});
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: control,
       decoration: InputDecoration(
         labelText: lable,
         border: OutlineInputBorder(
