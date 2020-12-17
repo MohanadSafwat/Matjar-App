@@ -7,8 +7,8 @@ class ProductAction{
 
 CollectionReference firestore = FirebaseFirestore.instance.collection('Category');
 
- Future<void>addProduct(Item item,String category ){
-  return firestore.doc(category).collection('items').doc('2').set({
+ Future<void>addProduct({Item item} ){
+  return firestore.doc(item.categoryName).collection('items').doc('2').set({
     itemName : item.name,
     itemPrice :item.price,
     itemBrand:item.brand,
