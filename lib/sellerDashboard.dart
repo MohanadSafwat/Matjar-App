@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:matjar_login_signup/actions/productActions.dart';
+import 'package:matjar_login_signup/modules/item.dart';
 import 'Custom Widget/customComponents.dart';
 import 'matjar_icons.dart';
 import 'constants.dart';
@@ -12,6 +14,12 @@ class SellerDashboard extends StatefulWidget {
 }
 
 class _SellerDashboardState extends State<SellerDashboard> {
+  ProductAction productAction;
+  TextEditingController itemNameController = TextEditingController();
+  TextEditingController itemPriceController = TextEditingController();
+  TextEditingController itemCategoryController = TextEditingController();
+  TextEditingController itemNoInStockController = TextEditingController();
+  TextEditingController itemBrandController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,7 +128,10 @@ class _SellerDashboardState extends State<SellerDashboard> {
                     ),
                   ),
                   Padding(padding: EdgeInsets.all(10)),
-                  CustomTextField(lable: 'Product Name'),
+                  CustomTextField(
+                    lable: 'Product Name',
+                    control: itemNameController,
+                  ),
                   Padding(padding: EdgeInsets.all(5)),
                   Container(
                     decoration: BoxDecoration(
@@ -143,22 +154,34 @@ class _SellerDashboardState extends State<SellerDashboard> {
                                 fontSize: 17.0, color: Colors.grey[700]),
                           ),
                           CustomButton(
-                              text: 'Upload',
-                              vertical: 1,
-                              horizontal: 2,
-                              fnc: () {}),
+                            text: 'Upload',
+                            vertical: 1,
+                            horizontal: 2,
+                          ),
                         ],
                       ),
                     ),
                   ),
                   Padding(padding: EdgeInsets.all(5)),
-                  CustomTextField(lable: 'Category'),
+                  CustomTextField(
+                    lable: 'Category',
+                    control: itemCategoryController,
+                  ),
                   Padding(padding: EdgeInsets.all(5)),
-                  CustomTextField(lable: 'Price'),
+                  CustomTextField(
+                    lable: 'Price',
+                    control: itemPriceController,
+                  ),
                   Padding(padding: EdgeInsets.all(5)),
-                  CustomTextField(lable: 'Number of items'),
+                  CustomTextField(
+                    lable: 'Number of items',
+                    control: itemNoInStockController,
+                  ),
                   Padding(padding: EdgeInsets.all(5)),
-                  CustomTextField(lable: 'Brand'),
+                  CustomTextField(
+                    lable: 'Brand',
+                    control: itemBrandController,
+                  ),
                   Padding(padding: EdgeInsets.all(5)),
                   CustomTextField(lable: 'Specs'),
                   Padding(
@@ -167,10 +190,21 @@ class _SellerDashboardState extends State<SellerDashboard> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         CustomButton(
-                            text: 'Add',
-                            vertical: 10,
-                            horizontal: 12,
-                            fnc: () {}),
+                          text: 'Add',
+                          vertical: 10,
+                          horizontal: 12,
+                          onclick: () {
+                            productAction.addProduct(
+                                item: Item(
+                                    name: itemNameController.text,
+                                    brand: itemBrandController.text,
+                                    price:
+                                        double.parse(itemPriceController.text),
+                                    categoryName: itemCategoryController.text,
+                                    numberInStock: int.parse(
+                                        itemNoInStockController.text)));
+                          },
+                        ),
                       ],
                     ),
                   ),
