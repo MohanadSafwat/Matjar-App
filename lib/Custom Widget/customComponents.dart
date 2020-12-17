@@ -26,8 +26,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 class CustomButton extends StatelessWidget {
   final String text;
   final double vertical, horizontal;
-  Function fnc;
-  CustomButton({@required this.text, this.horizontal, this.vertical, this.fnc});
+  final Function fnc;
+  CustomButton({@required this.text, this.horizontal, this.vertical,this.fnc});
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
@@ -47,16 +47,16 @@ class CustomButton extends StatelessWidget {
 
 class CustomTextField extends StatelessWidget {
   final String lable;
-  final TextEditingController control;
+  final TextEditingController control ;
   CustomTextField({@required this.lable, this.control});
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: control,
+    return TextField(controller: control ,
       decoration: InputDecoration(
         labelText: lable,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
+          
         ),
       ),
     );
