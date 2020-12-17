@@ -35,7 +35,7 @@ class LandingPage extends StatelessWidget {
                 if (user == null) {
                   return SignUp();
                 } else {
-                  return HomePage();
+                  return MyHomePage();
                 }
               }
 
