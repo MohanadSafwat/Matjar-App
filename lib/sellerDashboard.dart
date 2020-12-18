@@ -20,6 +20,17 @@ class _SellerDashboardState extends State<SellerDashboard> {
   TextEditingController itemCategoryController = TextEditingController();
   TextEditingController itemNoInStockController = TextEditingController();
   TextEditingController itemBrandController = TextEditingController();
+  TextEditingController itemSpecsType1Controller = TextEditingController();
+  TextEditingController itemSpecsType2Controller = TextEditingController();
+  TextEditingController itemSpecsType3Controller = TextEditingController();
+  TextEditingController itemSpecsType4Controller = TextEditingController();
+  TextEditingController itemSpecsValue1Controller = TextEditingController();
+  TextEditingController itemSpecsValue2Controller = TextEditingController();
+  TextEditingController itemSpecsValue3Controller = TextEditingController();
+  TextEditingController itemSpecsValue4Controller = TextEditingController();
+
+  var photoText = 'Photo';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -149,7 +160,7 @@ class _SellerDashboardState extends State<SellerDashboard> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Photos',
+                            photoText,
                             style: TextStyle(
                                 fontSize: 17.0, color: Colors.grey[700]),
                           ),
@@ -157,6 +168,11 @@ class _SellerDashboardState extends State<SellerDashboard> {
                             text: 'Upload',
                             vertical: 1,
                             horizontal: 2,
+                            fnc: () {
+                              uploadImage().whenComplete(() => setState(() {
+                                    photoText = 'Photo Uploaded';
+                                  }));
+                            },
                           ),
                         ],
                       ),
@@ -183,7 +199,100 @@ class _SellerDashboardState extends State<SellerDashboard> {
                     control: itemBrandController,
                   ),
                   Padding(padding: EdgeInsets.all(5)),
-                  CustomTextField(lable: 'Specs'),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      border: Border.all(
+                        width: 1,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 5.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Specs',
+                            style: TextStyle(
+                                fontSize: 17.0, color: Colors.grey[700]),
+                          ),
+                          Row(children: [
+                            Expanded(
+                              child: CustomTextField(
+                                lable: 'Name',
+                                control: itemSpecsType1Controller,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Expanded(
+                              child: CustomTextField(
+                                  lable: 'Value', control: itemSpecsValue1Controller),
+                            )
+                          ]),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Row(children: [
+                            Expanded(
+                              child: CustomTextField(
+                                lable: 'Name',
+                                control: itemSpecsType2Controller,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Expanded(
+                              child: CustomTextField(
+                                  lable: 'Value', control: itemSpecsValue2Controller),
+                            )
+                          ]),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Row(children: [
+                            Expanded(
+                              child: CustomTextField(
+                                lable: 'Name',
+                                control: itemSpecsType3Controller,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Expanded(
+                              child: CustomTextField(
+                                  lable: 'Value', control: itemSpecsValue3Controller),
+                            )
+                          ]),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Row(children: [
+                            Expanded(
+                              child: CustomTextField(
+                                lable: 'Name',
+                                control: itemSpecsType4Controller,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Expanded(
+                              child: CustomTextField(
+                                  lable: 'Value', control: itemSpecsValue4Controller),
+                            )
+                          ])
+                        ],
+                      ),
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20.0),
                     child: Row(
@@ -193,16 +302,25 @@ class _SellerDashboardState extends State<SellerDashboard> {
                           text: 'Add',
                           vertical: 10,
                           horizontal: 12,
-                          onclick: () {
-                            productAction.addProduct(
-                                item: Item(
-                                    name: itemNameController.text,
-                                    brand: itemBrandController.text,
-                                    price:
-                                        double.parse(itemPriceController.text),
-                                    categoryName: itemCategoryController.text,
-                                    numberInStock: int.parse(
-                                        itemNoInStockController.text)));
+                          fnc: () {
+                            counter();
+                            int count = getCounter();
+                            productAction = ProductAction(Item(
+                                name: itemNameController.text,
+                                brand: itemBrandController.text,
+                                price: double.parse(itemPriceController.text),
+                                categoryName: itemCategoryController.text,
+                                numberInStock:
+                                int.parse(itemNoInStockController.text),
+                                specs: {
+                                  itemSpecsType1Controller.text:itemSpecsValue1Controller.text,
+                                  itemSpecsType2Controller.text:itemSpecsValue2Controller.text,
+                                  itemSpecsType3Controller.text:itemSpecsValue3Controller.text,
+                                  itemSpecsType4Controller.text:itemSpecsValue4Controller.text,
+                                },
+                            ));
+                            productAction.addProduct(count.toString());
+                            addCounter(count);
                           },
                         ),
                       ],
