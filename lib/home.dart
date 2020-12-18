@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:matjar_login_signup/profile.dart';
+import 'package:matjar_login_signup/sellerDashboard.dart';
 import 'matjar_icons.dart';
 import 'Categories.dart';
 
@@ -203,7 +205,11 @@ class _MyHomePageState extends State<MyHomePage> {
            icon: Icon(Matjar.cart ,color: Colors.red,)),
 
            IconButton(
-           onPressed: (){},
+           onPressed: (){
+             Navigator.push(
+                 context,
+                 MaterialPageRoute(builder: (context) => SellerDashboard()));
+           },
            icon: Icon(Matjar.sign_in_and_sign_up_logo ,color: Colors.red,)),
           ]
         ),
