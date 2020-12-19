@@ -5,3 +5,5 @@ import 'package:flutter/material.dart';
  const noOfItemsInStock= 'noOfItemsInStock';
  const itemSpecs='itemSpecs';
  const itemPhotos='itemPhotos';
+ const itemPhotoUrl ='photoUrl';
+ const itemSellerId = 'itemSellerId';
