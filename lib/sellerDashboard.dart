@@ -309,7 +309,8 @@ class _SellerDashboardState extends State<SellerDashboard> {
                           fnc: () {
                             counter();
                             int count = getCounter();
-                            Future<String> sellerId= getSellerId();
+                             getSellerId();
+                             String sellerId = sendID();
                             productAction = ProductAction();
                             productAction.addProduct(Item(
                               name: itemNameController.text,
