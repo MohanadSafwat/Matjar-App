@@ -37,6 +37,7 @@ class _SellerDashboardState extends State<SellerDashboard> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
         resizeToAvoidBottomPadding: false,
         backgroundColor: white,
@@ -335,211 +336,34 @@ class _SellerDashboardState extends State<SellerDashboard> {
                   ),
                 ],
               ),
-            )
+            ),
+            Container(
+              padding: const EdgeInsets.all(10.0),
+              child: Text('Items In Stock',
+                  style: TextStyle(
+                    fontSize: 20,
+                  )),
+              margin: EdgeInsets.only(left: 25),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Container(
+                height: 200,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) => Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 1, vertical: 1),
+                    child: Card(
+                      child: SizedBox(
+                        width: width * 0.3,
+                      ),
+                      margin: EdgeInsets.only(right: 5),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ));
   }
 }
-
-// class Login extends StatefulWidget {
-//   @override
-//   State<StatefulWidget> createState() {
-//     return LoginState();
-//   }
-// }
-//
-// class LoginState extends State<Login> {
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         resizeToAvoidBottomPadding: false,
-//         backgroundColor: white,
-//         appBar: AppBar(
-//           title: Text(
-//             "Matjar",
-//             style: TextStyle(
-//               fontSize: 30,
-//               fontFamily: "DancingScript",
-//             ),
-//           ),
-//           backgroundColor: mainColor,
-//           toolbarHeight: 80,
-//           centerTitle: true,
-//         ),
-//         bottomNavigationBar: BottomNavigationBar(
-//           type: BottomNavigationBarType.fixed,
-//           fixedColor: Colors.red, // <----------------
-//           unselectedItemColor: mainColor,
-//           showSelectedLabels: false,
-//           showUnselectedLabels: false,
-//           backgroundColor: white,
-//           iconSize: 30,
-//           items: [
-//             BottomNavigationBarItem(
-//               icon: Icon(Icons.home),
-//               label: "",
-//             ),
-//             BottomNavigationBarItem(
-//               icon: Icon(Icons.calculate),
-//               label: "",
-//             ),
-//             BottomNavigationBarItem(
-//               icon: Icon(Icons.shopping_cart),
-//               label: "",
-//             ),
-//             BottomNavigationBarItem(
-//               icon: Icon(Icons.person_sharp),
-//               label: "",
-//             ),
-//           ],
-//           /* onTap: (int x) => (x == 0)
-//               ? print("index 0 : go to first page")
-//               : print("not avilable now"), */
-//         ),
-//         body: Container(
-//           margin: EdgeInsets.only(left: 30, top: 30, right: 30, bottom: 30),
-//           //height: 700,
-//           width: 700,
-//           decoration: BoxDecoration(
-//             color: Colors.white,
-//             boxShadow: [
-//               BoxShadow(
-//                 color: Colors.grey.withOpacity(0.5),
-//                 spreadRadius: 3,
-//                 blurRadius: 7,
-//                 offset: Offset(0, 3), // changes position of shadow
-//               ),
-//             ],
-//           ),
-//           child: ListView(
-//             children: [
-//               Container(
-//                 padding: EdgeInsets.all(20),
-//                 child: Column(
-//                   children: [
-//                     Container(
-//                       alignment: Alignment.centerLeft,
-//                       child: Text(
-//                         "Welcome Back",
-//                         style: TextStyle(
-//                           fontSize: 25,
-//                           color: mainColor,
-//                           fontWeight: FontWeight.bold,
-//                         ),
-//                       ),
-//                     ),
-//                     Padding(
-//                       padding: EdgeInsets.all(10),
-//                     ),
-//                     Container(
-//                       margin: EdgeInsets.fromLTRB(10, 0, 0, 10),
-//                       alignment: Alignment.centerLeft,
-//                       child: Text(
-//                         "Email",
-//                         style: TextStyle(
-//                           fontSize: 20,
-//                         ),
-//                       ),
-//                     ),
-//                     Container(
-//                       margin: EdgeInsets.all(10),
-//                       child: TextField(
-//                         style: TextStyle(
-//                           fontSize: 20,
-//                           color: mainColor,
-//                         ),
-//                         decoration: InputDecoration(
-//                           border: OutlineInputBorder(),
-//                           hintText: "Enter your Email",
-//                         ),
-//                       ),
-//                     ),
-//                     Padding(
-//                       padding: EdgeInsets.all(10),
-//                     ),
-//                     Container(
-//                       margin: EdgeInsets.fromLTRB(10, 0, 0, 10),
-//                       alignment: Alignment.centerLeft,
-//                       child: Text(
-//                         "Password",
-//                         style: TextStyle(
-//                           fontSize: 20,
-//                         ),
-//                       ),
-//                     ),
-//                     Container(
-//                       margin: EdgeInsets.all(10),
-//                       child: TextField(
-//                         style: TextStyle(
-//                           fontSize: 20,
-//                           color: mainColor,
-//                         ),
-//                         decoration: InputDecoration(
-//                           border: OutlineInputBorder(),
-//                           hintText: "Enter your password",
-//                         ),
-//                         obscureText: true,
-//                       ),
-//                     ),
-//                     Container(
-//                       alignment: Alignment.centerRight,
-//                       child: TextButton(
-//                         child: Text(
-//                           "Forget Password?",
-//                           style: TextStyle(color: Colors.blue),
-//                         ),
-//                         onPressed: () => print("forget"),
-//                       ),
-//                     ),
-//                     Container(
-//                       width: 290.0,
-//                       height: 50,
-//                       child: ButtonTheme(
-//                         child: ElevatedButton(
-//                           child: Text(
-//                             "Login",
-//                             style: TextStyle(
-//                               color: white,
-//                               fontSize: 25,
-//                             ),
-//                           ),
-//                           onPressed: (){},
-//                           style: ButtonStyle(
-//                             backgroundColor:
-//                             MaterialStateProperty.all<Color>(mainColor),
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//                     Row(
-//                       children: [
-//                         Container(
-//                           margin: EdgeInsets.all(10),
-//                           child: Text(
-//                             "Don't have an account?",
-//                             style: TextStyle(
-//                               color: Colors.grey,
-//                               fontSize: 15,
-//                             ),
-//                           ),
-//                         ),
-//                         Container(
-//                           child: TextButton(
-//                             child: Text(
-//                               "Sign up",
-//                               style: TextStyle(color: Colors.blue),
-//                             ),
-//                             onPressed: () =>
-//                                 Navigator.of(context).pushNamed('/SignUp'),
-//                           ),
-//                         ),
-//                       ],
-//                     )
-//                   ],
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ));
-//   }
