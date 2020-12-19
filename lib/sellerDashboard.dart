@@ -4,6 +4,10 @@ import 'package:matjar_login_signup/modules/item.dart';
 import 'Custom Widget/customComponents.dart';
 import 'matjar_icons.dart';
 import 'constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 var white = Colors.white;
 int currentIndex = 3;
@@ -305,12 +309,14 @@ class _SellerDashboardState extends State<SellerDashboard> {
                           fnc: () {
                             counter();
                             int count = getCounter();
+                            Future<String> sellerId= getSellerId();
                             productAction = ProductAction();
                             productAction.addProduct(Item(
                               name: itemNameController.text,
                               brand: itemBrandController.text,
                               price: double.parse(itemPriceController.text),
                               categoryName: itemCategoryController.text,
+                              sellerId: sellerId.toString(),
                               numberInStock:
                               int.parse(itemNoInStockController.text),
                               specs: {
