@@ -305,21 +305,21 @@ class _SellerDashboardState extends State<SellerDashboard> {
                           fnc: () {
                             counter();
                             int count = getCounter();
-                            productAction = ProductAction(Item(
-                                name: itemNameController.text,
-                                brand: itemBrandController.text,
-                                price: double.parse(itemPriceController.text),
-                                categoryName: itemCategoryController.text,
-                                numberInStock:
-                                int.parse(itemNoInStockController.text),
-                                specs: {
-                                  itemSpecsType1Controller.text:itemSpecsValue1Controller.text,
-                                  itemSpecsType2Controller.text:itemSpecsValue2Controller.text,
-                                  itemSpecsType3Controller.text:itemSpecsValue3Controller.text,
-                                  itemSpecsType4Controller.text:itemSpecsValue4Controller.text,
-                                },
-                            ));
-                            productAction.addProduct(count.toString());
+                            productAction = ProductAction();
+                            productAction.addProduct(Item(
+                              name: itemNameController.text,
+                              brand: itemBrandController.text,
+                              price: double.parse(itemPriceController.text),
+                              categoryName: itemCategoryController.text,
+                              numberInStock:
+                              int.parse(itemNoInStockController.text),
+                              specs: {
+                                itemSpecsType1Controller.text:itemSpecsValue1Controller.text,
+                                itemSpecsType2Controller.text:itemSpecsValue2Controller.text,
+                                itemSpecsType3Controller.text:itemSpecsValue3Controller.text,
+                                itemSpecsType4Controller.text:itemSpecsValue4Controller.text,
+                              },
+                            ),count.toString());
                             addCounter(count);
                           },
                         ),
