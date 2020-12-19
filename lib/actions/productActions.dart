@@ -10,15 +10,15 @@ import 'package:permission_handler/permission_handler.dart';
 import './constants.dart';
 var photoUrl;
 class ProductAction{
-  Item item;
+  // Item item;
 
 
 
   // FirebaseFirestore firestore = FirebaseFirestore.instance.collection('mobiles');
-  ProductAction(this.item);
+  // ProductAction(this.item);
 CollectionReference firestore = FirebaseFirestore.instance.collection('Categories');
 
- Future<void>addProduct(String itemId){
+ Future<void>addProduct(Item item,String itemId){
 
   return firestore.doc(item.categoryName).collection('items').doc(itemId).set({
     itemName : item.name,
