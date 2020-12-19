@@ -26,8 +26,11 @@ addProductIdToSeller(itemId,item.categoryName,item.sellerId);
     itemPrice :item.price,
     itemBrand:item.brand,
     noOfItemsInStock:item.numberInStock,
-    'photoUrl' : photoUrl,
+    itemPhotoUrl : photoUrl,
     itemSpecs: item.specs,
+    itemSellerId :item.sellerId,
+
+
      })
       .then((value) => print("Product Added"))
       .catchError((error) => print("Failed to add product: $error"));
@@ -35,11 +38,17 @@ addProductIdToSeller(itemId,item.categoryName,item.sellerId);
 }
 
 }
+// List<Map<String,String>>SellerItems=[];
+var sellerItem=<Map>[];
 Future<void>addProductIdToSeller(String itemId,String itemCategoryName,String sellerId ){
   CollectionReference firestore2=FirebaseFirestore.instance.collection("sellers");
+  var map = {};
+  map={'itemCategoryName':itemCategoryName,'itemId':itemId};
+  sellerItem.add(map);
 return firestore2.doc(sellerId).set({
-  'itemCategoryName':itemCategoryName,
-  'itemId':itemId
+  'items': FieldValue.arrayUnion(sellerItem),
+  // :FieldValue.arrayUnion(itemCategoryName),
+  //
 });
 }
 Future<String> uploadImage() async {
@@ -102,11 +111,15 @@ await    FirebaseFirestore.instance
 
 
   }
-
-  Future<String> getSellerId()async{
+  String userID;
+   getSellerId()async{
   final FirebaseAuth auth=await FirebaseAuth.instance;
   final User seller=auth.currentUser;
   final uid  =seller.uid;
-  return uid;
+   userID =uid;
+}
+
+String sendID(){
+     return userID;
 }
  
