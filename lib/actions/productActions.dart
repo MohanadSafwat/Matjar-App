@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,7 +20,7 @@ class ProductAction{
 CollectionReference firestore = FirebaseFirestore.instance.collection('Categories');
 
  Future<void>addProduct(Item item,String itemId){
-
+addProductIdToSeller(itemId,item.categoryName,item.sellerId);
   return firestore.doc(item.categoryName).collection('items').doc(itemId).set({
     itemName : item.name,
     itemPrice :item.price,
@@ -34,7 +35,13 @@ CollectionReference firestore = FirebaseFirestore.instance.collection('Categorie
 }
 
 }
-
+Future<void>addProductIdToSeller(String itemId,String itemCategoryName,String sellerId ){
+  CollectionReference firestore2=FirebaseFirestore.instance.collection("sellers");
+return firestore2.doc(sellerId).set({
+  'itemCategoryName':itemCategoryName,
+  'itemId':itemId
+});
+}
 Future<String> uploadImage() async {
 
   final _storage = FirebaseStorage.instance;
@@ -95,3 +102,11 @@ await    FirebaseFirestore.instance
 
 
   }
+
+  Future<String> getSellerId()async{
+  final FirebaseAuth auth=await FirebaseAuth.instance;
+  final User seller=auth.currentUser;
+  final uid  =seller.uid;
+  return uid;
+}
+ 
