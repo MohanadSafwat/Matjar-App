@@ -173,7 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
-                                      "\$${featuredItems[index]['itemPrice']}.00",
+                                      "\$${featuredItems[index]['itemPrice']}",
                                       style: TextStyle(
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.bold
@@ -339,14 +339,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
-                                      "\$${featuredItems[index]['itemPrice']}.00",
+                                      "\$${featuredItems[index]['itemPrice']}",
                                       style: TextStyle(
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold
+                                          decoration: TextDecoration.lineThrough,
+                                          fontSize: 12.0,
                                       ),
                                     ),
                                     Text(
-                                      "\$${featuredItems[index]['offer']}.00",
+                                      "\$${featuredItems[index]['offer']}",
                                       style: TextStyle(
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.bold
