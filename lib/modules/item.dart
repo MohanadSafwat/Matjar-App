@@ -3,7 +3,9 @@ import './review.dart';
 class Item {
   String id, categoryName, name, brand, sellerId;
   int offer = 0, numberInStock, numberOfReviews;
-  double price, rate;
+  double itemQuantity;
+  double price;
+  double rate;
   bool inStock;
   Map<String, String> specs = {};
   List<Review> reviews = [];
@@ -11,6 +13,7 @@ class Item {
 
   Item(
       {this.id,
+      this.itemQuantity,
       this.brand,
       this.categoryName,
       this.inStock,
