@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import './payment.dart';
 import 'package:matjar_login_signup/actions/constants.dart';
 import 'package:matjar_login_signup/modules/item.dart';
-import 'package:matjar_login_signup/provider/cartItem.dart';
+import 'package:matjar_login_signup/cartItem.dart';
 import 'package:provider/provider.dart';
 import 'package:matjar_login_signup/payment.dart';
 
