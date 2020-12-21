@@ -71,34 +71,12 @@ priseinpound=(finalPrise/1) ;
 
 
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      bottomNavigationBar: BottomNavigationBar(
-        iconSize: 30,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.calculate), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.person_sharp), label: ""),
-        ],
-        backgroundColor: Colors.red,
-        fixedColor: Colors.white,
-        unselectedItemColor: Colors.white,
-        //selectedIconTheme: IconThemeData(color: Colors.blue),
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
-      ),
-      appBar: AppBar(
-        centerTitle: true,
-        toolbarHeight: 60,
-        backgroundColor: Colors.red,
       resizeToAvoidBottomPadding: true,
 body: ListView(     
       children:<Widget> [
 
   AppBar(
         title: Text(
-          'matgar',
           "Matjar",
           style: TextStyle(
             fontSize: 40,
@@ -109,7 +87,6 @@ body: ListView(
         toolbarHeight: 80,
         centerTitle: true,
       ),
-      body: Column(
 
       
      
@@ -129,7 +106,12 @@ body: ListView(
                 });
               },
             ),
-@ -67,6 +115,7 @@ class _PaymentState extends State<Payment> {
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 40, right: 39),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 Container(
                   padding: EdgeInsets.only(bottom: 10),
                   child: TextField(
@@ -137,7 +119,10 @@ body: ListView(
                     decoration: InputDecoration(
                       labelText: 'Name on card',
                       border: OutlineInputBorder(),
-@ -77,6 +126,7 @@ class _PaymentState extends State<Payment> {
+                    ),
+                    controller: _nameOnCard,
+                  ),
+                ),
                 Container(
                   padding: EdgeInsets.only(bottom: 10),
                   child: TextField(
@@ -145,7 +130,14 @@ body: ListView(
                     decoration: InputDecoration(
                       labelText: 'Card Number',
                       border: OutlineInputBorder(),
-@ -91,6 +141,7 @@ class _PaymentState extends State<Payment> {
+                    ),
+                    controller: _cardNumber,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Container(
+                      // margin: EdgeInsets.only(left: 168),
                       padding: EdgeInsets.only(bottom: 10),
                       width: 130,
                       child: TextField(
@@ -153,7 +145,12 @@ body: ListView(
                         decoration: InputDecoration(
                           labelText: 'valid',
                           border: OutlineInputBorder(),
-@ -103,6 +154,7 @@ class _PaymentState extends State<Payment> {
+                        ),
+                        controller: _validThrough,
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 38),
                       padding: EdgeInsets.only(bottom: 10),
                       width: 110,
                       child: TextField(
@@ -161,7 +158,17 @@ body: ListView(
                         decoration: InputDecoration(
                           labelText: 'cvv',
                           border: OutlineInputBorder(),
-@ -120,6 +172,7 @@ class _PaymentState extends State<Payment> {
+                        ),
+                        controller: _cvv,
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+          ListTile(
+            title: Text('Buy cash'),
             leading: Radio(
               value: payment_method.cash,
               groupValue: _method,
@@ -169,11 +176,15 @@ body: ListView(
               onChanged: (payment_method value) {
                 setState(() {
                   _method = value;
-@ -132,23 +185,154 @@ class _PaymentState extends State<Payment> {
+                });
+              },
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 38, right: 40),
             padding: EdgeInsets.only(bottom: 10),
             child: TextField(
               decoration: InputDecoration(
-                labelText: 'where you want to pick up',
                 labelText: 'where do you want to pick up',
                 border: OutlineInputBorder(),
               ),
@@ -265,9 +276,6 @@ Text('Price in dollars: \$ $priseindollar',style: TextStyle(fontSize: 20,color: 
           Container(
             margin: EdgeInsets.only(left:190),
             width: 100,
-            child: RaisedButton(
-                child: Text('Purshe',style: TextStyle(color: Colors.white),),
-                onPressed: (){print('1');},
             child: Builder(
                       builder:
                       (context)=>RaisedButton(
@@ -303,7 +311,6 @@ Navigator.push(context,MaterialPageRoute(builder: (context) => MyHomePage()));
 
                   },
                 
-                color: Colors.red)
                 color: Colors.red),
                 )
           )
