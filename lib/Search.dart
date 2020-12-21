@@ -2,134 +2,151 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-List<String> cat = ['electronics', 'fashion'];
-Future<QuerySnapshot> getDocuments() async {
-  return await FirebaseFirestore.instance
-      .collection('Categories')
-      .doc('mobiles')
-      .collection('items')
-      .get();
+import 'items.dart';
+
+class homee extends StatefulWidget {
+  @override
+  _homeeState createState() => _homeeState();
 }
 
-// List<DocumentSnapshot> wallpapersList;
-// List itemsName = [];
-// final CollectionReference datafetch =
-//     FirebaseFirestore.instance.collection('Categories');
-// Future getuserlist() async {
-//   try {
-//     await datafetch.get().then((value) {
-//       var a = value.docs;
-//       a.forEach((element) {
-//         print(element.get('itemName'));
-//       });
-//     });
-//   } catch (e) {
-//     print(e.toString());
-//     return null;
-//   }
-// }
+class _homeeState extends State<homee> {
+  var cat = [];
+  var getItem = [];
+  Future getItems(String doc) async {
+    var datafetch = await FirebaseFirestore.instance
+        .collection('Categories')
+        .doc(doc)
+        .collection('items')
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        getItem.add(element['itemName']);
+      });
+    });
+  }
 
-class Search extends StatefulWidget {
+  Future<void> getAllItems() async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('Categories')
+          .get()
+          .then((value) {
+        value.docs.forEach((element) {
+          cat.add(element.id);
+        });
+      });
+      cat.forEach((element) {
+        getItems(element);
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
-  State<StatefulWidget> createState() {
-    return new _Search();
+  void initState() {
+    getAllItems();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Searchable Text"),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: DataSearch(list: getItem),
+                );
+              })
+        ],
+      ),
+      drawer: Drawer(),
+    );
   }
 }
 
-class _Search extends State<Search> {
+class DataSearch extends SearchDelegate<String> {
+  List<dynamic> list;
+  DataSearch({this.list});
   @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: AppBar(
-        title: new Container(
-          child: new Column(
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+          icon: Icon(Icons.clear),
+          onPressed: () {
+            query = "";
+          })
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+        icon: AnimatedIcon(
+          icon: AnimatedIcons.menu_arrow,
+          progress: transitionAnimation,
+        ),
+        onPressed: () {
+          close(context, null);
+        });
+  }
+
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    assert(context != null);
+    final ThemeData theme = Theme.of(context);
+    assert(theme != null);
+    return theme.copyWith(
+      primaryColor: Colors.red,
+      primaryIconTheme: theme.primaryIconTheme.copyWith(color: Colors.grey),
+      primaryColorBrightness: Brightness.light,
+      primaryTextTheme: theme.textTheme,
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return Items();
+  }
+
+  @override
+  buildSuggestions(BuildContext context) {
+    var suggestionList = query.isEmpty
+        ? [...list]
+        : list.where((element) => element.startsWith(query)).toList();
+
+    return ListView.builder(
+      itemBuilder: (context, index) => ListTile(
+        onTap: () {
+          query = suggestionList[index];
+          showResults(context);
+        },
+        leading: Icon(Icons.location_city),
+        title: RichText(
+          text: TextSpan(
+            text: suggestionList[index].substring(0, query.length),
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
             children: [
-              Text(
-                "Matjar",
+              TextSpan(
+                text: suggestionList[index].substring(query.length),
                 style: TextStyle(
-                  fontSize: 30,
-                  fontFamily: "DancingScript",
+                  color: Colors.black,
+                  fontWeight: FontWeight.normal,
                 ),
               ),
-              new Container(
-                  margin: EdgeInsets.only(bottom: 10),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(30))),
-                  child: new TextField(
-                    controller: null,
-                    decoration: new InputDecoration(
-                      hintText: 'Search',
-                      contentPadding:
-                          new EdgeInsets.fromLTRB(20.0, 10.0, 100.0, 10.0),
-                    ),
-                  ))
             ],
           ),
         ),
-        backgroundColor: Color.fromRGBO(255, 0, 0, 1),
-        toolbarHeight: 80,
-        centerTitle: true,
       ),
-      body: new Container(
-        margin: new EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            new Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                new Column(
-                  children: [
-                    new Text(
-                      'Recent',
-                      style:
-                          TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
-                    ),
-                    new FutureBuilder<QuerySnapshot>(
-                        future: getDocuments(),
-                        builder: (context, snapshot) {
-                          snapshot.data.docs.map((document) {
-                            if (snapshot.hasData) {
-                              print(document['itemName']);
-                            }
-                          }).toList();
-                          return Text('hhhh');
-                        }),
-                    new FlatButton(
-                        onPressed: () {
-                          // print('aaaaaaa');
-                          // getuserlist();
-                          // print(itemsName);
-                          // print('aaaaaaa');
-                        },
-                        child: new Text('Larem imps',
-                            style: TextStyle(fontSize: 21))),
-                    new FlatButton(
-                        onPressed: null,
-                        child: new Text('Larem imps',
-                            style: TextStyle(fontSize: 21)))
-                  ],
-                ),
-                new Column(
-                  children: [
-                    new FlatButton(
-                        onPressed: null,
-                        child:
-                            new Text('Clear', style: TextStyle(fontSize: 21))),
-                    new FlatButton(
-                        onPressed: null, child: new Icon(Icons.arrow_upward)),
-                    new FlatButton(
-                        onPressed: null, child: new Icon(Icons.arrow_upward)),
-                    new FlatButton(
-                        onPressed: null, child: new Icon(Icons.arrow_upward))
-                  ],
-                )
-              ],
-            )
-          ],
-        ),
-      ),
+      itemCount: suggestionList.length,
     );
   }
 }
