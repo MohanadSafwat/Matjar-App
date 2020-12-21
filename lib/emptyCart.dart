@@ -6,12 +6,13 @@ import 'constants.dart';
 var white = Colors.white;
 int currentIndex = 3;
 
-class Cart extends StatefulWidget {
+class emptyCart extends StatefulWidget {
+  static String id='emptyCart';
   @override
   _CartState createState() => _CartState();
 }
 
-class _CartState extends State<Cart> {
+class _CartState extends State<emptyCart> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
