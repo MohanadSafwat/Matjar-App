@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:matjar_login_signup/constants.dart';
+import 'package:matjar_login_signup/payment.dart';
+import 'constants.dart';
 import 'matjar_icons.dart';
 import 'constants.dart';
+import 'package:matjar_login_signup/provider/cartItem.dart';
+import 'package:matjar_login_signup/modules/item.dart';
+import 'package:provider/provider.dart';
+
+
 
 class Cart extends StatelessWidget {
   static String id = 'Cart';
@@ -8,8 +16,13 @@ class Cart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
+List<Item> items= Provider.of<cartItem>(context).items;
+final double screenHeight=MediaQuery.of(context).size.height;
+final double screenwidth=MediaQuery.of(context).size.width;
+
     return Scaffold(
-      backgroundColor: Colors.white,
+backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
           "Matjar",
@@ -22,7 +35,7 @@ class Cart extends StatelessWidget {
         toolbarHeight: 80,
         centerTitle: true,
       ),
-      bottomNavigationBar: BottomNavigationBar(
+bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         iconSize: 30,
         currentIndex: currentIndex,
@@ -66,219 +79,153 @@ class Cart extends StatelessWidget {
             });
           }, */
       ),
-      body: new ListView(
-        children: [
-          new Container(
-            margin: EdgeInsets.all(30),
-            child: new Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                new Container(
-                  height: 120,
-                  decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 3,
-                      blurRadius: 7,
-                      offset: Offset(0, 3),
-                    )
-                  ]),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      new Container(
-                        child: new Icon(
-                          Icons.face,
-                          size: 100,
-                        ),
-                      ),
-                      new Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            new Row(
-                              children: [
-                                Padding(padding: EdgeInsets.only(right: 5)),
-                                new Text(
-                                  'product name',
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                              ],
-                            ),
-                            new Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                new Text(
-                                  'Total price  ',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                            new Row(
-                              children: [
-                                Padding(padding: EdgeInsets.only(left: 40)),
-                                new Container(
-                                  width: 20,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.5),
-                                          offset: Offset(0, 3),
-                                        )
-                                      ]),
-                                  child: new Text(
-                                    '1',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            new Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                new FlatButton(
-                                    onPressed: null,
-                                    child: new Text(
-                                      'Remove',
-                                      style: TextStyle(
-                                          fontSize: 16, color: Colors.red[600]),
-                                    ))
-                              ],
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                new Container(
-                  height: 120,
-                  decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 3,
-                      blurRadius: 7,
-                      offset: Offset(0, 3),
-                    )
-                  ]),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      new Container(
-                        child: new Icon(
-                          Icons.face,
-                          size: 100,
-                        ),
-                      ),
-                      new Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            new Row(
-                              children: [
-                                Padding(padding: EdgeInsets.only(right: 5)),
-                                new Text(
-                                  'product name',
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                              ],
-                            ),
-                            new Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                new Text(
-                                  'Total price  ',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                            new Row(
-                              children: [
-                                Padding(padding: EdgeInsets.only(left: 40)),
-                                new Container(
-                                  width: 20,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.5),
-                                          offset: Offset(0, 3),
-                                        )
-                                      ]),
-                                  child: new Text(
-                                    '1',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            new Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                new FlatButton(
-                                    onPressed: null,
-                                    child: new Text(
-                                      'Remove',
-                                      style: TextStyle(
-                                          fontSize: 16, color: Colors.red[600]),
-                                    ))
-                              ],
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                new Padding(padding: EdgeInsets.only(top: 30)),
-                new Container(
-                  child: new Column(
-                    children: [
-                      new Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          new Text('Total price',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.red[600])),
-                          new Text(
-                            'EGP 6,000',
-                            style: TextStyle(fontSize: 16),
-                          )
-                        ],
-                      ),
-                      new Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          new Container(
-                            padding: new EdgeInsets.all(31),
-                            child: new RaisedButton(
-                              onPressed: null,
-                              child: new Text('Purches now',
-                                  style: TextStyle(fontSize: 18)),
-                              color: Color.fromRGBO(255, 0, 0, 10),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
-      ),
+
+
+ body:LayoutBuilder(
+  builder:(context,constrains){
+    if(true
+    ///////////////items.isNotEmpty
+    )
+    {
+return
+ Column(
+children : <Widget>[
+
+
+
+  
+  
+   Expanded(
+child:ListView.builder(itemBuilder:
+(context,index)
+{
+
+return Padding(padding: const EdgeInsets.all(15),
+child: Container(
+
+height: screenHeight*0.15,
+child: Row(children:<Widget> [
+CircleAvatar(
+radius: screenHeight*0.15/2,
+backgroundColor: Colors.red,//////////backgroundImage: AssetImage(items[index].photosUrl[index]),
+
+),
+Expanded(
+
+child:Row(
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+children: <Widget>[
+Padding(padding: const EdgeInsets.all(3),
+child:Column(
+mainAxisAlignment: MainAxisAlignment.center,
+children: <Widget>[
+
+Text ('Item name'/////items[index].name
+ ,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+),
+
+Text ('Item Category'/////items[index].categoryName
+ ,style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
+),
+Padding(padding: const EdgeInsets.all(7),
+child: Text ('Item Price'/////  '\$ $(items[index].price)'
+ ,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+)
+),
+],
+
+)
+),
+Padding(padding:const EdgeInsets.only(right:15),
+child:Text ('Item quantity',
+/////////////items[index].itemQuantity.toString()
+style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
+)
+)
+],
+
+
+
+)
+)
+],
+
+
+),
+
+
+
+
+
+
+color: Colors.white,
+),
+
+);
+},
+
+itemCount: 15 ,//////items.length,
+),
+),
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ButtonTheme(
+  minWidth: screenwidth,
+child:RaisedButton(
+  shape: RoundedRectangleBorder(
+
+borderRadius: BorderRadius.only(
+topRight: Radius.circular(10),
+topLeft: Radius.circular(10),
+)
+),
+  
+  onPressed: ()
+{
+  Navigator.push(
+          context,
+         MaterialPageRoute(builder: (context) => Payment()));
+
+
+},
+child: Text('Buy Now '.toUpperCase(),style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
+
+color:Colors.red,
+
+),
+)
+
+],
+
+);
+  }
+  
+  else{
+return  Center(
+child: Text('Cart is Empty',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold)),
+
+);
+}
+    }
+    ),
+
     );
+    
   }
 }
