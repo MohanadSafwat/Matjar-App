@@ -4,7 +4,7 @@ import 'package:matjar_login_signup/payment.dart';
 import 'constants.dart';
 import 'matjar_icons.dart';
 import 'constants.dart';
-import 'package:matjar_login_signup/provider/cartItem.dart';
+import 'package:matjar_login_signup/cartItem.dart';
 import 'package:matjar_login_signup/modules/item.dart';
 import 'package:provider/provider.dart';
 
