@@ -3,7 +3,7 @@ import 'package:matjar_login_signup/Cart.dart';
 import 'package:matjar_login_signup/emptyCart.dart';
 import 'package:matjar_login_signup/items.dart';
 import 'package:matjar_login_signup/payment.dart';
-import 'package:matjar_login_signup/provider/cartItem.dart';
+import 'package:matjar_login_signup/cartItem.dart';
 import 'package:matjar_login_signup/selected_item.dart';
 import 'package:provider/provider.dart';
 import 'login.dart';
