@@ -1,14 +1,38 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:matjar_login_signup/ProfileLoginSeller.dart';
+import 'package:matjar_login_signup/login.dart';
+import 'package:matjar_login_signup/modules/user.dart';
+import 'package:matjar_login_signup/profile.dart';
+import 'package:matjar_login_signup/profileLoggedIn.dart';
+import 'package:provider/provider.dart';
+import 'firebase/userDatabase.dart';
 import 'signUp.dart';
 import 'home.dart';
+import 'auth/auth.dart';
 
 class LandingPage extends StatelessWidget {
-  final Future<FirebaseApp> _init = Firebase.initializeApp();
-
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<Userinit>(context);
+
+    if (user == null) {
+      return Login();
+    } else {
+      return StreamBuilder<UserData>(
+          stream: DatabaseService(uid: user.uid).userData,
+          builder: (context, snapshot) {
+            UserData userData = snapshot.data;
+            if (userData.isSeller == true) {
+              return ProfileLogInSeller();
+            } else {
+              return ProfileLoggedIn();
+            }
+          });
+    }
+
+    /* final user = Provider.of<User>(context);
     return FutureBuilder(
       future: _init,
       builder: (context, snapshot) {
@@ -35,7 +59,7 @@ class LandingPage extends StatelessWidget {
                 if (user == null) {
                   return SignUp();
                 } else {
-                  return MyHomePage();
+                  return HomePage();
                 }
               }
 
@@ -69,6 +93,6 @@ class LandingPage extends StatelessWidget {
           ),
         );
       },
-    );
+    ); */
   }
 }

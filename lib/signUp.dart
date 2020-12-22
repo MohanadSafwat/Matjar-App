@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:matjar_login_signup/firebase/userDatabase.dart';
+import 'package:provider/provider.dart';
+import 'auth/auth.dart';
 import 'matjar_icons.dart';
-//import 'package:firebase_auth/firebase_auth.dart';
-//import 'package:matjar_login_signup/Classes/auth.dart';
+import 'firebase/userDatabase.dart';
+import 'modules/user.dart';
 
 var mainColor = Colors.red[700];
 var white = Colors.white;
@@ -22,14 +25,16 @@ class SignUpState extends State<SignUp> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   int currentIndex = 3;
-
-  Future<void> _createUser() async {
-    print(_emailController.text);
+  String err = "";
+  /* Future<void> _createUser() async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: _emailController.text, password: _passwordController.text)
           .then((userCredential) {
+        //User updateUser = FirebaseAuth.instance.currentUser;
+        DatabaseService()
+            .userSetup(_firstNameController.text, _lastNameController.text);
         Navigator.of(context).pushNamed('/Login');
       });
     } on FirebaseAuthException catch (e) {
@@ -37,7 +42,7 @@ class SignUpState extends State<SignUp> {
     } catch (e) {
       print("Error: $e");
     }
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {
@@ -97,6 +102,9 @@ class SignUpState extends State<SignUp> {
           onTap: (index) {
             setState(() {
               currentIndex = index;
+              if (currentIndex == 3) {
+                Navigator.of(context).pushNamed('/Profile');
+              }
             });
           },
         ),
@@ -131,7 +139,17 @@ class SignUpState extends State<SignUp> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(5),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(bottom: 10),
+                      child: Text(
+                        "$err",
+                        style: TextStyle(
+                          color: mainColor,
+                          fontSize: 18,
+                        ),
+                      ),
                     ),
                     Container(
                       margin: EdgeInsets.fromLTRB(10, 0, 0, 5),
@@ -198,6 +216,7 @@ class SignUpState extends State<SignUp> {
                           fontSize: 20,
                           color: mainColor,
                         ),
+                        keyboardType: TextInputType.emailAddress,
                         controller: _emailController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
@@ -268,7 +287,22 @@ class SignUpState extends State<SignUp> {
                               fontSize: 25,
                             ),
                           ),
-                          onPressed: _createUser,
+                          onPressed: () async {
+                            if (_passwordController.text !=
+                                _confirmPasswordController.text) {
+                              setState(() {
+                                err = '*Unmatched passwords';
+                              });
+                            } else {
+                              dynamic result = await AuthService().signup(
+                                  _emailController.text,
+                                  _passwordController.text,
+                                  _firstNameController.text.trim(),
+                                  _lastNameController.text.trim());
+
+                              Navigator.of(context).pushNamed('/Login');
+                            }
+                          },
                           style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all<Color>(mainColor),

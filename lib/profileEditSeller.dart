@@ -108,7 +108,10 @@ class _ProfileEditSellerState extends State<ProfileEditSeller> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20.0),
               child: CustomButton(
-                  text: 'Save', vertical: 10, horizontal: 20, fnc: () {}),
+                text: 'Save',
+                vertical: 10,
+                horizontal: 20,
+              ),
             ),
           ],
         ),

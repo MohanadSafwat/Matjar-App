@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:matjar_login_signup/auth/auth.dart';
 import 'matjar_icons1.dart';
 import 'matjar_icons.dart';
 import 'constants.dart';
@@ -12,6 +13,10 @@ class SignUpSeller extends StatefulWidget {
 
 class _SignUpSeller extends State<SignUpSeller> {
   int currentIndex = 3;
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -67,11 +72,11 @@ class _SignUpSeller extends State<SignUpSeller> {
             label: "",
           ),
         ],
-        /* onTap: (index) {
-            setState(() {
-              currentIndex = index;
-            });
-          }, */
+        onTap: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
       ),
       body: new Container(
         margin: EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 20),
@@ -99,40 +104,64 @@ class _SignUpSeller extends State<SignUpSeller> {
                     )),
                 new Padding(padding: EdgeInsets.all(10)),
                 new TextField(
-                  controller: null,
+                  controller: _firstNameController,
                   decoration: new InputDecoration(
                       labelText: 'First Name', border: OutlineInputBorder()),
                 ),
                 new Padding(padding: EdgeInsets.all(10)),
                 new TextField(
-                  controller: null,
+                  controller: _lastNameController,
                   decoration: new InputDecoration(
                       labelText: 'Last Name', border: OutlineInputBorder()),
                 ),
                 new Padding(padding: EdgeInsets.all(10)),
                 new TextField(
-                  controller: null,
+                  controller: _emailController,
                   decoration: new InputDecoration(
                       labelText: 'Email', border: OutlineInputBorder()),
                 ),
                 new Padding(padding: EdgeInsets.all(10)),
                 new TextField(
-                  controller: null,
+                  obscureText: true,
+                  controller: _passwordController,
                   decoration: new InputDecoration(
                       labelText: 'Password', border: OutlineInputBorder()),
                 ),
-                new Container(
-                  padding: new EdgeInsets.all(31),
-                  width: 300,
-                  child: new RaisedButton(
-                    onPressed: () {
-                      print('hi');
-                    },
-                    child: new Text(
-                      'Sign Up',
-                      style: TextStyle(fontSize: 21),
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  width: 290.0,
+                  height: 50,
+                  child: ButtonTheme(
+                    child: ElevatedButton(
+                      child: Text(
+                        "Sign Up",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                        ),
+                      ),
+                      onPressed: () async {
+                        dynamic result = await AuthService()
+                            .signupSeller(
+                                _emailController.text,
+                                _passwordController.text,
+                                _firstNameController.text.trim(),
+                                _lastNameController.text.trim())
+                            .then((r) async {
+                          await AuthService().login(
+                            _emailController.text,
+                            _passwordController.text,
+                          );
+                        });
+
+                        Navigator.of(context)
+                            .pushReplacementNamed('/ProfileLoginSeller');
+                      },
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(mainColor),
+                      ),
                     ),
-                    color: Colors.red[600],
                   ),
                 ),
                 new Container(
@@ -141,12 +170,18 @@ class _SignUpSeller extends State<SignUpSeller> {
                     children: [
                       new Text(
                         'Already have an account?',
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
                       ),
                       new FlatButton(
-                        onPressed: null,
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushReplacementNamed('/LoginSeller');
+                        },
                         child: new Text(
                           'Log in',
+                          style: TextStyle(fontSize: 16, color: Colors.blue),
                         ),
                       )
                     ],

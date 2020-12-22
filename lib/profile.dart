@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:matjar_login_signup/modules/user.dart';
 import 'matjar_icons1.dart';
 import 'matjar_icons.dart';
 import 'constants.dart';
@@ -10,6 +11,13 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   int currentIndex = 3;
+  bool darkmodeVal = false;
+  void switchButton(v) {
+    setState(() {
+      darkmodeVal = v;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,11 +72,14 @@ class _ProfileState extends State<Profile> {
             label: "",
           ),
         ],
-        /* onTap: (index) {
-            setState(() {
-              currentIndex = index;
-            });
-          }, */
+        onTap: (index) {
+          setState(() {
+            currentIndex = index;
+            if (currentIndex == 3) {
+              Navigator.of(context).pushNamed('/Profile');
+            }
+          });
+        },
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -95,7 +106,9 @@ class _ProfileState extends State<Profile> {
                     ),
                     Container(
                       child: FlatButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/Login');
+                        },
                         child: Column(
                           children: [
                             SizedBox(
@@ -126,7 +139,9 @@ class _ProfileState extends State<Profile> {
                     ),
                     Container(
                       child: FlatButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/SignUp');
+                        },
                         child: Column(
                           children: [
                             Icon(
@@ -249,14 +264,18 @@ class _ProfileState extends State<Profile> {
                           fontFamily: 'Source Sans Pro', fontSize: 20),
                     ),
                     SizedBox(
-                      width: 90,
+                      width: 120,
                     ),
-                    FlatButton(
+                    /* FlatButton(
                       onPressed: () {},
                       child: Icon(
                         Matjar.toggle_off,
                         size: 20,
                       ),
+                    ), */
+                    Switch(
+                      value: darkmodeVal,
+                      onChanged: switchButton,
                     ),
                   ],
                 ),
@@ -341,7 +360,9 @@ class _ProfileState extends State<Profile> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 30),
                 child: FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed("/SignUpSeller");
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [

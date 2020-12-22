@@ -10,14 +10,14 @@ var white = Colors.white;
 
 final Future<FirebaseApp> _init = Firebase.initializeApp();
 
-class Login extends StatefulWidget {
+class LoginSeller extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return LoginState();
+    return LoginSellerState();
   }
 }
 
-class LoginState extends State<Login> {
+class LoginSellerState extends State<LoginSeller> {
   int currentIndex = 3;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -125,7 +125,7 @@ class LoginState extends State<Login> {
                     Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Welcome Back",
+                        "Login with seller account",
                         style: TextStyle(
                           fontSize: 25,
                           color: mainColor,
@@ -219,7 +219,7 @@ class LoginState extends State<Login> {
                                       _passwordController.text);
 
                                   Navigator.of(context)
-                                      .pushNamed('/ProfileLoggedIn');
+                                      .pushNamed('/ProfileLoginSeller');
                                 },
                                 style: ButtonStyle(
                                   backgroundColor:
@@ -235,7 +235,7 @@ class LoginState extends State<Login> {
                         Container(
                           margin: EdgeInsets.all(10),
                           child: Text(
-                            "Don't have an account?",
+                            "Don't have a seller account?",
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 15,
@@ -248,8 +248,8 @@ class LoginState extends State<Login> {
                               "Sign up",
                               style: TextStyle(color: Colors.blue),
                             ),
-                            onPressed: () =>
-                                Navigator.of(context).pushNamed('/SignUp'),
+                            onPressed: () => Navigator.of(context)
+                                .pushNamed('/SignUpSeller'),
                           ),
                         ),
                       ],
@@ -257,11 +257,11 @@ class LoginState extends State<Login> {
                     Container(
                       child: TextButton(
                         child: Text(
-                          "Login as seller?",
+                          "Login as user?",
                           style: TextStyle(color: Colors.blue),
                         ),
                         onPressed: () =>
-                            Navigator.of(context).pushNamed('/LoginSeller'),
+                            Navigator.of(context).pushNamed('/Login'),
                       ),
                     ),
                   ],
