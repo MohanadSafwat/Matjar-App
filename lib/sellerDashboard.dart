@@ -8,9 +8,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+
 //test
 var white = Colors.white;
-int currentIndex = 3;
+int currentIndex = 0;
 
 class SellerDashboard extends StatefulWidget {
   @override
@@ -91,11 +92,14 @@ class _SellerDashboardState extends State<SellerDashboard> {
               label: "",
             ),
           ],
-          /* onTap: (index) {
+          onTap: (index) {
             setState(() {
               currentIndex = index;
+              if (currentIndex == 0) {
+                Navigator.of(context).pushNamed('/Home');
+              }
             });
-          }, */
+          },
         ),
         body: ListView(
           children: [
@@ -237,7 +241,8 @@ class _SellerDashboardState extends State<SellerDashboard> {
                             ),
                             Expanded(
                               child: CustomTextField(
-                                  lable: 'Value', control: itemSpecsValue1Controller),
+                                  lable: 'Value',
+                                  control: itemSpecsValue1Controller),
                             )
                           ]),
                           SizedBox(
@@ -255,7 +260,8 @@ class _SellerDashboardState extends State<SellerDashboard> {
                             ),
                             Expanded(
                               child: CustomTextField(
-                                  lable: 'Value', control: itemSpecsValue2Controller),
+                                  lable: 'Value',
+                                  control: itemSpecsValue2Controller),
                             )
                           ]),
                           SizedBox(
@@ -273,7 +279,8 @@ class _SellerDashboardState extends State<SellerDashboard> {
                             ),
                             Expanded(
                               child: CustomTextField(
-                                  lable: 'Value', control: itemSpecsValue3Controller),
+                                  lable: 'Value',
+                                  control: itemSpecsValue3Controller),
                             )
                           ]),
                           SizedBox(
@@ -291,7 +298,8 @@ class _SellerDashboardState extends State<SellerDashboard> {
                             ),
                             Expanded(
                               child: CustomTextField(
-                                  lable: 'Value', control: itemSpecsValue4Controller),
+                                  lable: 'Value',
+                                  control: itemSpecsValue4Controller),
                             )
                           ])
                         ],
@@ -310,24 +318,30 @@ class _SellerDashboardState extends State<SellerDashboard> {
                           fnc: () {
                             counter();
                             int count = getCounter();
-                             getSellerId();
-                             String sellerId = sendID();
+                            getSellerId();
+                            String sellerId = sendID();
                             productAction = ProductAction();
-                            productAction.addProduct(Item(
-                              name: itemNameController.text,
-                              brand: itemBrandController.text,
-                              price: double.parse(itemPriceController.text),
-                              categoryName: itemCategoryController.text,
-                              sellerId: sellerId.toString(),
-                              numberInStock:
-                              int.parse(itemNoInStockController.text),
-                              specs: {
-                                itemSpecsType1Controller.text:itemSpecsValue1Controller.text,
-                                itemSpecsType2Controller.text:itemSpecsValue2Controller.text,
-                                itemSpecsType3Controller.text:itemSpecsValue3Controller.text,
-                                itemSpecsType4Controller.text:itemSpecsValue4Controller.text,
-                              },
-                            ),count.toString());
+                            productAction.addProduct(
+                                Item(
+                                  name: itemNameController.text,
+                                  brand: itemBrandController.text,
+                                  price: double.parse(itemPriceController.text),
+                                  categoryName: itemCategoryController.text,
+                                  sellerId: sellerId.toString(),
+                                  numberInStock:
+                                      int.parse(itemNoInStockController.text),
+                                  specs: {
+                                    itemSpecsType1Controller.text:
+                                        itemSpecsValue1Controller.text,
+                                    itemSpecsType2Controller.text:
+                                        itemSpecsValue2Controller.text,
+                                    itemSpecsType3Controller.text:
+                                        itemSpecsValue3Controller.text,
+                                    itemSpecsType4Controller.text:
+                                        itemSpecsValue4Controller.text,
+                                  },
+                                ),
+                                count.toString());
                             addCounter(count);
                           },
                         ),

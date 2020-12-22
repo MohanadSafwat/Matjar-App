@@ -78,6 +78,9 @@ class _ProfileState extends State<Profile> {
             if (currentIndex == 3) {
               Navigator.of(context).pushNamed('/Profile');
             }
+            if (currentIndex == 0) {
+              Navigator.of(context).pushNamed('/Home');
+            }
           });
         },
       ),

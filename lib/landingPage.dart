@@ -1,16 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:matjar_login_signup/ProfileLoginSeller.dart';
-import 'package:matjar_login_signup/login.dart';
-import 'package:matjar_login_signup/modules/user.dart';
-import 'package:matjar_login_signup/profile.dart';
-import 'package:matjar_login_signup/profileLoggedIn.dart';
+import 'ProfileLoginSeller.dart';
+import 'login.dart';
+import 'modules/user.dart';
+import 'profile.dart';
+import 'profileLoggedIn.dart';
 import 'package:provider/provider.dart';
 import 'firebase/userDatabase.dart';
 import 'signUp.dart';
 import 'home.dart';
 import 'auth/auth.dart';
+import 'cart.dart';
 
 class LandingPage extends StatelessWidget {
   @override

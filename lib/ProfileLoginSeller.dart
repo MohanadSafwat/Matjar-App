@@ -113,35 +113,44 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                       SizedBox(
                         height: 10,
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.16),
-                              offset: Offset(0, 3),
-                              spreadRadius: 3,
-                              blurRadius: 3,
-                            ),
-                          ],
-                        ),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Matjar.dashboard,
-                              size: 20,
-                            ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            Text(
-                              'DashBoard',
-                              style: TextStyle(
-                                  fontFamily: 'Source Sans Pro', fontSize: 20),
-                            )
-                          ],
+                      FlatButton(
+                        onPressed: () =>
+                            Navigator.of(context).pushNamed('/SellerDashboard'),
+                        padding: EdgeInsets.zero,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.16),
+                                offset: Offset(0, 3),
+                                spreadRadius: 3,
+                                blurRadius: 3,
+                              ),
+                            ],
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 15),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Matjar.dashboard,
+                                size: 20,
+                                color: Colors.black,
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Text(
+                                'Dashboard',
+                                style: TextStyle(
+                                  fontFamily: 'Source Sans Pro',
+                                  fontSize: 20,
+                                  color: Colors.black,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                       SizedBox(
