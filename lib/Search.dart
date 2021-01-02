@@ -111,14 +111,26 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Items();
+    if (query == 'Electronics' ||
+        query == 'electronics' ||
+        query == 'fashion' ||
+        query == 'mobiles')
+      return Items(
+        category: query,
+      );
+    else
+      return Items(
+        query: query,
+      );
   }
 
   @override
   buildSuggestions(BuildContext context) {
     var suggestionList = query.isEmpty
         ? [...list]
-        : list.where((element) => element.startsWith(query)).toList();
+        : list
+            .where((element) => element.startsWith(query.toLowerCase()))
+            .toList();
 
     return ListView.builder(
       itemBuilder: (context, index) => ListTile(

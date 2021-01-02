@@ -1,15 +1,12 @@
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
-class ProductService{
+class ProductService {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   // CollectionReference _productReference = FirebaseFirestore.instance.collection('Categories').doc('mobiles').collection('items');
-  CollectionReference _productReference = FirebaseFirestore.instance.collection('products');
+  CollectionReference _productReference =
+      FirebaseFirestore.instance.collection('products');
 
-
-
-  
   // Future <List> featuredItems() async{
   //   List<Map<String,String>> itemList = new List();
   //   Random rdn = new Random();
@@ -26,13 +23,17 @@ class ProductService{
   //   }
   //   return itemList;
   // }
-  Future <List> featuredItems() async{
-    List<Map<String,String>> itemList = new List();
+  Future<List> featuredItems() async {
+    List<Map<String, String>> itemList = new List();
     Random rdn = new Random();
     int randomNumber = 1 + rdn.nextInt(4);
-    QuerySnapshot itemsRef = await _productReference.orderBy('name').startAt([randomNumber]).limit(20).get();
-    for(DocumentSnapshot docRef in itemsRef.docs){
-      Map<String,String> items = new Map();
+    QuerySnapshot itemsRef = await _productReference
+        .orderBy('name')
+        .startAt([randomNumber])
+        .limit(20)
+        .get();
+    for (DocumentSnapshot docRef in itemsRef.docs) {
+      Map<String, String> items = new Map();
       items['img'] = docRef['img'];
       items['name'] = docRef['name'];
       items['price'] = docRef['price'].toString();
@@ -43,11 +44,11 @@ class ProductService{
     return itemList;
   }
 
-  Future <List> offeredItems() async{
-    List<Map<String,String>> itemList = new List();
+  Future<List> offeredItems() async {
+    List<Map<String, String>> itemList = new List();
     QuerySnapshot itemsRef = await _productReference.limit(10).get();
-    for(DocumentSnapshot docRef in itemsRef.docs){
-      Map<String,String> items = new Map();
+    for (DocumentSnapshot docRef in itemsRef.docs) {
+      Map<String, String> items = new Map();
       items['img'] = docRef['img'];
       items['name'] = docRef['name'];
       items['price'] = docRef['price'].toString();
@@ -58,8 +59,9 @@ class ProductService{
     return itemList;
   }
 
-  Future<Map> particularItem(String productId) async{
-    DocumentSnapshot prodRef = await _productReference.document(productId).get();
+  Future<Map> particularItem(String productId) async {
+    DocumentSnapshot prodRef =
+        await _productReference.document(productId).get();
     Map<String, dynamic> itemDetail = new Map();
     itemDetail['image'] = prodRef['image'][0];
     itemDetail['color'] = prodRef['color'];
@@ -68,5 +70,17 @@ class ProductService{
     itemDetail['name'] = prodRef['name'];
     itemDetail['productId'] = productId;
     return itemDetail;
+  }
+
+  Stream<QuerySnapshot> loadSearch() {
+    return _firestore.collection('products').snapshots();
+  }
+
+  Stream<QuerySnapshot> loadCat(String cat) {
+    return _firestore
+        .collection('Categories')
+        .doc(cat)
+        .collection('items')
+        .snapshots();
   }
 }

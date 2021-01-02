@@ -10,7 +10,7 @@ class Item {
   Map<String, String> specs = {};
   List<Review> reviews = [];
   List<String> photosUrl = [];
-
+  String url;
   Item(
       {this.id,
       this.itemQuantity,
@@ -26,7 +26,8 @@ class Item {
       this.rate,
       this.reviews,
       this.sellerId,
-      this.specs});
+      this.specs,
+      this.url});
 
   double newPrice() => price * (100 - offer) / 100;
 
