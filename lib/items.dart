@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:matjar_login_signup/modules/item.dart';
+import 'Search.dart';
 import 'actions/productService.dart';
 import 'matjar_icons.dart';
 import 'modules/item.dart';
@@ -12,85 +13,64 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Items extends StatefulWidget {
   static String id = 'Items';
   String query, category;
-  Items({this.query, this.category});
+  bool show;
+  Items({this.query, this.category, this.show});
   @override
-  _ItemsState createState() => _ItemsState(query: query, category: category);
+  _ItemsState createState() =>
+      _ItemsState(query: query, category: category, show: show);
 }
 
 class _ItemsState extends State<Items> {
   ProductService _productService = new ProductService();
   String query, category;
-  _ItemsState({this.query, this.category});
-  // List featuredItems = new List();
-  //
-  // void listFeaturedItems() async {
-  //   List<Map<String, String>> featuredItemList =
-  //       await _productService.featuredItems();
-  //   setState(() {
-  //     featuredItems = featuredItemList;
-  //   });
-  // }
+  bool show;
+  List<Item> products = [];
+  _ItemsState({this.query, this.category, this.show});
+  var cat = [];
+  var getItem = [];
+  Future getItems(String doc) async {
+    var datafetch = await FirebaseFirestore.instance
+        .collection('Categories')
+        .doc(doc)
+        .collection('items')
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        getItem.add(element['itemName']);
+      });
+    });
+  }
 
-  // var cat = [];
-  // Future getItems(String doc) async {
-  //   var datafetch = await FirebaseFirestore.instance
-  //       .collection('Categories')
-  //       .doc(doc)
-  //       .collection('items')
-  //       .get()
-  //       .then((value) {
-  //     value.docs.forEach((element) {
-  //       print(element['itemBrand']);
-  //       print(element['itemPrice']);
-  //       if (query != null) {
-  //         if (element['itemName'].startsWith(query)) {
-  //           itemViewed.add(Item(
-  //               brand: element['itemBrand'],
-  //               name: element['itemName'],
-  //               price: element['itemPrice'],
-  //               sellerId: element['itemSellerId'],
-  //               numberInStock: element['noOfItemsInStock'],
-  //               offer: element['offer'],
-  //               url: element['photoUrl']));
-  //         }
-  //       } else
-  //         itemViewed.add(Item(
-  //             brand: element['itemBrand'],
-  //             name: element['itemName'],
-  //             price: element['itemPrice'],
-  //             sellerId: element['itemSellerId'],
-  //             specs: element['itemSpecs'],
-  //             numberInStock: element['noOfItemsInStock'],
-  //             offer: element['offer'],
-  //             url: element['photoUrl']));
-  //     });
-  //   });
-  // }
-  //
-  // Future<void> getSearchItems() async {
-  //   try {
-  //     await FirebaseFirestore.instance
-  //         .collection('Categories')
-  //         .get()
-  //         .then((value) {
-  //       value.docs.forEach((element) {
-  //         cat.add(element.id);
-  //       });
-  //     });
-  //     cat.forEach((element) {
-  //       getItems(element);
-  //     });
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
+  Future<void> getAllItems() async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('Categories')
+          .get()
+          .then((value) {
+        value.docs.forEach((element) {
+          cat.add(element.id);
+        });
+      });
+      cat.forEach((element) {
+        getItems(element);
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState() {
+    getAllItems();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-        appBar: (query != null)
-            ? null
-            : AppBar(
+        appBar: show
+            ? AppBar(
                 backgroundColor: Color.fromRGBO(255, 0, 0, 1),
                 // toolbarHeight: 75,
                 leading: FlatButton(
@@ -112,14 +92,20 @@ class _ItemsState extends State<Items> {
                     width: 210,
                   ),
                   FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showSearch(
+                          context: context,
+                          delegate: DataSearch(list: getItem),
+                        );
+                      },
                       child: Icon(
                         Matjar.search_logo,
                         size: 35,
                         color: Colors.white,
                       )),
                 ],
-              ),
+              )
+            : null,
         body: Stack(children: <Widget>[
           Positioned.fill(
             child: ListView(
@@ -160,7 +146,6 @@ class _ItemsState extends State<Items> {
                               : _productService.loadCat(category),
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
-                              List<Item> products = [];
                               for (var doc in snapshot.data.docs) {
                                 var data = doc.data();
                                 if (query != null) {

@@ -3,11 +3,11 @@ import 'package:flutter/rendering.dart';
 import 'package:matjar_login_signup/profile.dart';
 import 'package:matjar_login_signup/sellerDashboard.dart';
 import 'actions/productService.dart';
+import 'items.dart';
 import 'matjar_icons.dart';
 import 'Categories.dart';
 import 'Search.dart';
-
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MyHomePage extends StatefulWidget {
   static String id = 'MyHomePage';
@@ -16,20 +16,17 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-
-
 class _MyHomePageState extends State<MyHomePage> {
-
-
   ProductService _productService = new ProductService();
 
-  _MyHomePageState(){
+  _MyHomePageState() {
     listFeaturedItems();
   }
-  List featuredItems  = new List();
+  List featuredItems = new List();
 
-  void listFeaturedItems() async{
-    List<Map<String,String>> featuredItemList = await _productService.featuredItems();
+  void listFeaturedItems() async {
+    List<Map<String, String>> featuredItemList =
+        await _productService.featuredItems();
     setState(() {
       featuredItems = featuredItemList;
     });
@@ -51,11 +48,61 @@ class _MyHomePageState extends State<MyHomePage> {
   // }
 
   var data = [
-    {'name': 'Electronics', 'color': Colors.red, 'icon': Icons.electrical_services_rounded},
-    {'name': 'Mobiles', 'color': Colors.red, 'icon': Icons.phone_android_rounded},
-    {'name': 'Fashion', 'color': Colors.red, 'icon': Icons.umbrella_rounded},
-    {'name': 'Food', 'color': Colors.red, 'icon': Icons.food_bank_rounded},
+    {
+      'name': 'Electronics',
+      'color': Colors.red,
+      'icon': Icons.electrical_services_rounded
+    },
+    {
+      'name': 'mobiles',
+      'color': Colors.red,
+      'icon': Icons.phone_android_rounded
+    },
+    {'name': 'fashion', 'color': Colors.red, 'icon': Icons.umbrella_rounded},
+    {
+      'name': 'electronics',
+      'color': Colors.red,
+      'icon': Icons.food_bank_rounded
+    },
   ];
+  var cat = [];
+  var getItem = [];
+  Future getItems(String doc) async {
+    var datafetch = await FirebaseFirestore.instance
+        .collection('Categories')
+        .doc(doc)
+        .collection('items')
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        getItem.add(element['itemName']);
+      });
+    });
+  }
+
+  Future<void> getAllItems() async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('Categories')
+          .get()
+          .then((value) {
+        value.docs.forEach((element) {
+          cat.add(element.id);
+        });
+      });
+      cat.forEach((element) {
+        getItems(element);
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState() {
+    getAllItems();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,10 +138,10 @@ class _MyHomePageState extends State<MyHomePage> {
                             padding: const EdgeInsets.all(20.0),
                             child: TextFormField(
                                 onTap: () {
-                                  // showSearch(
-                                  //   context: context,
-                                  //   delegate: DataSearch(),
-                                  // );
+                                  showSearch(
+                                    context: context,
+                                    delegate: DataSearch(list: getItem),
+                                  );
                                 },
                                 decoration: InputDecoration(
                                     filled: true,
@@ -112,11 +159,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                     enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(50),
                                         borderSide:
-                                        BorderSide(color: Colors.white)),
+                                            BorderSide(color: Colors.white)),
                                     focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(50),
                                         borderSide:
-                                        BorderSide(color: Colors.white)),
+                                            BorderSide(color: Colors.white)),
                                     hintText: "Search")),
                           )
                         ])),
@@ -140,7 +187,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) => Padding(
                         padding:
-                        EdgeInsets.symmetric(horizontal: 1, vertical: 1),
+                            EdgeInsets.symmetric(horizontal: 1, vertical: 1),
                         child: Card(
                           elevation: 0,
                           semanticContainer: true,
@@ -154,8 +201,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               Expanded(
                                 child: Material(
                                   child: InkWell(
-                                    onTap: () {
-                                    },
+                                    onTap: () {},
                                     child: GridTile(
                                       child: Image.network(
                                         featuredItems[index]['img'],
@@ -174,17 +220,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                       "\$${featuredItems[index]['price']}",
                                       style: TextStyle(
                                           fontSize: 18.0,
-                                          fontWeight: FontWeight.bold
-                                      ),
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     Text(
                                       featuredItems[index]['name'],
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
-                                          fontSize: 15.0,
-                                          color: Colors.grey
-                                      ),
+                                          fontSize: 15.0, color: Colors.grey),
                                     ),
                                   ],
                                 ),
@@ -265,28 +308,36 @@ class _MyHomePageState extends State<MyHomePage> {
                         runSpacing: 7.0, // gap between lines
                         children: data
                             .map((e) => Column(
-                          children: <Widget>[
-                            ClipOval(
-                              child: InkWell(
-                                onTap: (){
-                                  print(e["name"]);
-                                },
-                                child: Container(
-                                  color: e["color"],
-                                  child: SizedBox(
-                                      width: 130,
-                                      height: 130,
-                                      child: Icon(
-                                        e["icon"],
-                                        color: Colors.white,
-                                        size: 80,
-                                      )),
-                                ),
-                              ),
-                            ),
-                            Text(e["name"])
-                          ],
-                        ))
+                                  children: <Widget>[
+                                    ClipOval(
+                                      child: InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => Items(
+                                                category: e["name"],
+                                                show: true,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Container(
+                                          color: e["color"],
+                                          child: SizedBox(
+                                              width: 130,
+                                              height: 130,
+                                              child: Icon(
+                                                e["icon"],
+                                                color: Colors.white,
+                                                size: 80,
+                                              )),
+                                        ),
+                                      ),
+                                    ),
+                                    Text(e["name"])
+                                  ],
+                                ))
                             .toList())),
 
                 Container(
@@ -298,7 +349,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   margin: EdgeInsets.only(left: 25),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(25.0,25.0, 25.0, 40),
+                  padding: const EdgeInsets.fromLTRB(25.0, 25.0, 25.0, 40),
                   child: Container(
                     height: 200,
                     child: ListView.builder(
@@ -306,7 +357,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) => Padding(
                         padding:
-                        EdgeInsets.symmetric(horizontal: 1, vertical: 1),
+                            EdgeInsets.symmetric(horizontal: 1, vertical: 1),
                         child: Card(
                           elevation: 0,
                           semanticContainer: true,
@@ -320,8 +371,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               Expanded(
                                 child: Material(
                                   child: InkWell(
-                                    onTap: () {
-                                    },
+                                    onTap: () {},
                                     child: GridTile(
                                       child: Image.network(
                                         featuredItems[index]['img'],
@@ -355,9 +405,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
-                                          fontSize: 15.0,
-                                          color: Colors.grey
-                                      ),
+                                          fontSize: 15.0, color: Colors.grey),
                                     ),
                                   ],
                                 ),
@@ -420,7 +468,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ]));
   }
 }
-
 
 // Padding(
 //   padding: const EdgeInsets.all(20),

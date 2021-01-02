@@ -115,13 +115,9 @@ class DataSearch extends SearchDelegate<String> {
         query == 'electronics' ||
         query == 'fashion' ||
         query == 'mobiles')
-      return Items(
-        category: query,
-      );
+      return Items(category: query, show: false);
     else
-      return Items(
-        query: query,
-      );
+      return Items(query: query, show: false);
   }
 
   @override
