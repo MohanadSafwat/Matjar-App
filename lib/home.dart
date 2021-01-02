@@ -158,7 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     },
                                     child: GridTile(
                                       child: Image.network(
-                                        featuredItems[index]['photoUrl'],
+                                        featuredItems[index]['img'],
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -171,14 +171,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
-                                      "\$${featuredItems[index]['itemPrice']}",
+                                      "\$${featuredItems[index]['price']}",
                                       style: TextStyle(
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.bold
                                       ),
                                     ),
                                     Text(
-                                      featuredItems[index]['itemName'],
+                                      featuredItems[index]['name'],
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
@@ -324,7 +324,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     },
                                     child: GridTile(
                                       child: Image.network(
-                                        featuredItems[index]['photoUrl'],
+                                        featuredItems[index]['img'],
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -337,21 +337,21 @@ class _MyHomePageState extends State<MyHomePage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
-                                      "\$${featuredItems[index]['itemPrice']}",
+                                      "\$${featuredItems[index]['price']}",
                                       style: TextStyle(
                                         decoration: TextDecoration.lineThrough,
                                         fontSize: 12.0,
                                       ),
                                     ),
+                                    // Text(
+                                    //   "\$${featuredItems[index]['offer']}",
+                                    //   style: TextStyle(
+                                    //       fontSize: 18.0,
+                                    //       fontWeight: FontWeight.bold
+                                    //   ),
+                                    // ),
                                     Text(
-                                      "\$${featuredItems[index]['offer']}",
-                                      style: TextStyle(
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold
-                                      ),
-                                    ),
-                                    Text(
-                                      featuredItems[index]['itemName'],
+                                      featuredItems[index]['name'],
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
                                       style: TextStyle(

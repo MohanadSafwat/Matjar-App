@@ -4,23 +4,40 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProductService{
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  CollectionReference _productReference = FirebaseFirestore.instance.collection('Categories').doc('mobiles').collection('items');
+  // CollectionReference _productReference = FirebaseFirestore.instance.collection('Categories').doc('mobiles').collection('items');
+  CollectionReference _productReference = FirebaseFirestore.instance.collection('products');
 
 
 
   
+  // Future <List> featuredItems() async{
+  //   List<Map<String,String>> itemList = new List();
+  //   Random rdn = new Random();
+  //   int randomNumber = 1 + rdn.nextInt(4);
+  //   QuerySnapshot itemsRef = await _productReference.orderBy('itemName').startAt([randomNumber]).limit(20).get();
+  //   for(DocumentSnapshot docRef in itemsRef.docs){
+  //     Map<String,String> items = new Map();
+  //     items['photoUrl'] = docRef['photoUrl'];
+  //     items['itemName'] = docRef['itemName'];
+  //     items['itemPrice'] = docRef['itemPrice'].toString();
+  //     items['offer'] = (docRef['itemPrice'] *((100 - docRef['offer']) / 100)).toString();
+  //     items['productId'] = docRef.documentID;
+  //     itemList.add(items);
+  //   }
+  //   return itemList;
+  // }
   Future <List> featuredItems() async{
     List<Map<String,String>> itemList = new List();
     Random rdn = new Random();
     int randomNumber = 1 + rdn.nextInt(4);
-    QuerySnapshot itemsRef = await _productReference.orderBy('itemName').startAt([randomNumber]).limit(20).get();
+    QuerySnapshot itemsRef = await _productReference.orderBy('name').startAt([randomNumber]).limit(20).get();
     for(DocumentSnapshot docRef in itemsRef.docs){
       Map<String,String> items = new Map();
-      items['photoUrl'] = docRef['photoUrl'];
-      items['itemName'] = docRef['itemName'];
-      items['itemPrice'] = docRef['itemPrice'].toString();
-      items['offer'] = (docRef['itemPrice'] *((100 - docRef['offer']) / 100)).toString();
-      items['productId'] = docRef.documentID;
+      items['img'] = docRef['img'];
+      items['name'] = docRef['name'];
+      items['price'] = docRef['price'].toString();
+      // items['offer'] = (docRef['price'] *((100 - docRef['offer']) / 100)).toString();
+      // items['productId'] = docRef.documentID;
       itemList.add(items);
     }
     return itemList;
@@ -31,9 +48,9 @@ class ProductService{
     QuerySnapshot itemsRef = await _productReference.limit(10).get();
     for(DocumentSnapshot docRef in itemsRef.docs){
       Map<String,String> items = new Map();
-      items['photoUrl'] = docRef['photoUrl'];
-      items['itemName'] = docRef['itemName'];
-      items['itemPrice'] = docRef['itemPrice'].toString();
+      items['img'] = docRef['img'];
+      items['name'] = docRef['name'];
+      items['price'] = docRef['price'].toString();
 
       items['productId'] = docRef.documentID;
       itemList.add(items);
