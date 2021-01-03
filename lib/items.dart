@@ -158,7 +158,9 @@ class _ItemsState extends State<Items> {
                                     ));
                                 } else
                                   products.add(Item(
-                                    name: data['itemName'],
+                                    name: (data['itemName'] != null)
+                                        ? data['itemName']
+                                        : 'xx',
                                     url: data['photoUrl'],
                                     price: double.parse(
                                         data['itemPrice'].toString()),
