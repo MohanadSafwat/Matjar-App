@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,6 +22,13 @@ class LoginSellerState extends State<LoginSeller> {
   int currentIndex = 3;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  var x,y;
+  String uid,error="";
+  bool exist=false;
+  bool lastDoc = false ;
+   FirebaseAuth fAuth;
+  
+    FirebaseFirestore fStore;
 
   /* Future<void> _login() async {
     try {
@@ -136,6 +144,20 @@ class LoginSellerState extends State<LoginSeller> {
                     Padding(
                       padding: EdgeInsets.all(10),
                     ),
+
+
+                     Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        error,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: mainColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+
                     Container(
                       margin: EdgeInsets.fromLTRB(10, 0, 0, 10),
                       alignment: Alignment.centerLeft,
@@ -214,13 +236,65 @@ class LoginSellerState extends State<LoginSeller> {
                                   ),
                                 ),
                                 onPressed: () async {
-                                  dynamic result = await AuthService().login(
+                                  try{
+                                                                
+                                               final UserRef = await Firestore.instance
+                                                .collection('Users')
+                                                    // ignore: deprecated_member_use
+                                                .getDocuments()
+                                         .then((QuerySnapshot snapshot) {
+                                          // ignore: deprecated_member_use
+                                          snapshot.documents.forEach((DocumentSnapshot doc) { 
+                                            
+                                            x =  doc.data()['email'].toString();
+                                          
+                                              if ( x == _emailController.text) {
+                                                                     exist=true;
+                                             }  
+                                              if( doc.id =="zzzzzzzzzz"){
+                                               lastDoc = true;
+                                             }
+
+                                       });
+                                          
+                                 
+                               });
+                                           
+                                          } on FirebaseAuthException catch(e){}         
+                                                    
+                                
+
+                  
+                               
+
+//******************************************************************************************************* */
+                                
+                                if(lastDoc)
+                              {
+                                lastDoc = false;
+                               if (exist)           
+                                     {
+                                      exist=false;
+                                     dynamic result = await AuthService().login(
                                       _emailController.text,
                                       _passwordController.text);
 
                                   Navigator.of(context)
                                       .pushNamed('/ProfileLoginSeller');
+                                      }
+
+                                      else  {
+                                         setState(() {  error = " invalid email or password " ;});
+                                       
+                                      
+                                      }
+                              }
+                                                                 
+                                                       
+    
+
                                 },
+
                                 style: ButtonStyle(
                                   backgroundColor:
                                       MaterialStateProperty.all<Color>(

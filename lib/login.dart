@@ -1,9 +1,17 @@
+//import 'dart:html';
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'matjar_icons.dart';
 import 'constants.dart';
 import 'auth/auth.dart';
+import 'firebase/userDatabase.dart';
+
+//import 'modules/user.dart';
 //import 'package:matjar_login_signup/Classes/auth.dart';
 
 var white = Colors.white;
@@ -12,15 +20,28 @@ final Future<FirebaseApp> _init = Firebase.initializeApp();
 
 class Login extends StatefulWidget {
   @override
+  
   State<StatefulWidget> createState() {
     return LoginState();
   }
 }
 
 class LoginState extends State<Login> {
+  void initState(){ 
+    super.initState();
+  }
+  
   int currentIndex = 3;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  DatabaseService databaseService ;
+  var x,y;
+  String uid,error="";
+  bool exist=false;
+  bool lastDoc = false ;
+   FirebaseAuth fAuth;
+  
+    FirebaseFirestore fStore;
 
   /* Future<void> _login() async {
     try {
@@ -133,6 +154,25 @@ class LoginState extends State<Login> {
                         ),
                       ),
                     ),
+////////////////////////////////////////// validation text error
+                     
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        error,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: mainColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+
+
+                      
+                      
+                      
+
                     Padding(
                       padding: EdgeInsets.all(10),
                     ),
@@ -213,13 +253,91 @@ class LoginState extends State<Login> {
                                     fontSize: 25,
                                   ),
                                 ),
-                                onPressed: () async {
-                                  dynamic result = await AuthService().login(
+                                onPressed:   ()  async {
+
+                                 
+
+                                      //*************************************************************************************** */
+                                                                 
+              /* if(_passwordController.text.length < 6){
+                    print("Password Must be >= 6 Characters");
+                    return;
+                }
+                  StreamBuilder(
+              
+             // ignore: deprecated_member_use
+             stream :    Firestore.instance.collection('Users').snapshots()
+                  , builder:(context,snapshot)  {
+                    
+                       x =  snapshot.data['email'] ;
+
+                                     
+                                 
+
+                             
+                     
+                  },
+                        
+                  );*/      
+
+                                          
+                                          try{
+                                                                
+                                               final UserRef = await Firestore.instance
+                                                .collection('Users')
+                                                    // ignore: deprecated_member_use
+                                                .getDocuments()
+                                         .then((QuerySnapshot snapshot) {
+                                          // ignore: deprecated_member_use
+                                          snapshot.documents.forEach((DocumentSnapshot doc) { 
+                                            
+                                            x =  doc.data()['email'].toString();
+                                          
+                                              if ( x == _emailController.text) {
+                                                                     exist=true;
+                                             }  
+                                              if( doc.id =="zzzzzzzzzz"){
+                                               lastDoc = true;
+                                             }
+
+                                       });
+                                          
+                                 
+                               });
+                                           
+                                          } on FirebaseAuthException catch(e){}         
+                                                    
+                                
+
+                  
+                               
+
+//******************************************************************************************************* */
+                                
+                                if(lastDoc)
+                              {
+                                lastDoc = false;
+                               if (exist)           
+                                     {
+                                      exist=false;
+                                     dynamic result = await AuthService().login(
                                       _emailController.text,
                                       _passwordController.text);
 
                                   Navigator.of(context)
                                       .pushNamed('/ProfileLoggedIn');
+                                      }
+
+                                      else  {
+                                         setState(() {  error = " invalid email or password " ;});
+                                       
+                                      
+                                      }
+                              }
+                                                                 
+                                                       
+    
+
                                 },
                                 style: ButtonStyle(
                                   backgroundColor:
@@ -252,9 +370,12 @@ class LoginState extends State<Login> {
                                 Navigator.of(context).pushNamed('/SignUp'),
                           ),
                         ),
+                        
+
+                        
                       ],
                     ),
-                    Container(
+                       Container(
                       child: TextButton(
                         child: Text(
                           "Login as seller?",
