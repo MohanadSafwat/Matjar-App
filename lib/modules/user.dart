@@ -9,7 +9,7 @@ class Userinit {
   Userinit({this.uid});
 }
 
-class UserData {
+class Account {
   final String uid;
   final String firstName;
   final String lastName;
@@ -20,7 +20,7 @@ class UserData {
   final bool darkmode;
   final bool isSeller;
 
-  UserData({
+  Account({
     this.email,
     this.uid,
     this.firstName,
@@ -31,4 +31,17 @@ class UserData {
     this.darkmode,
     this.isSeller,
   });
+}
+
+class Seller extends Account {
+  final List dashboard;
+
+  Seller({this.dashboard});
+}
+
+class Buyer {
+  final int points;
+  final List<String> recentSearch;
+
+  Buyer({this.points, this.recentSearch});
 }
