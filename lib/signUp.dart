@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:matjar_login_signup/firebase/userDatabase.dart';
@@ -9,6 +10,11 @@ import 'modules/user.dart';
 
 var mainColor = Colors.red[700];
 var white = Colors.white;
+var x,y;
+  bool lastDoc = false;
+ String uid,error="",passError="";
+bool notexist=true;
+
 
 class SignUp extends StatefulWidget {
   @override
@@ -138,6 +144,37 @@ class SignUpState extends State<SignUp> {
                         ),
                       ),
                     ),
+
+///////////////////////////////////////////error
+
+                      Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                       error,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: mainColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                   
+
+                       Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                       passError  ,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: mainColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                          
+
+
+
                     Padding(
                       padding: EdgeInsets.all(5),
                     ),
@@ -293,15 +330,70 @@ class SignUpState extends State<SignUp> {
                               setState(() {
                                 err = '*Unmatched passwords';
                               });
-                            } else {
-                              dynamic result = await AuthService().signup(
-                                  _emailController.text,
+                            }
+
+
+                                                                               
+                    if(_passwordController.text.length < 6){
+                       setState(() {
+                    passError  =  "Password Must be >= 6 Characters";  });
+                    return;
+                      }
+                            
+                             
+                             
+                                 
+                              if( passError=="" )
+                        {
+                                  try{
+                                             final UserRef = await Firestore.instance
+                                                .collection('Users')
+                                                    // ignore: deprecated_member_use
+                                                   .getDocuments()
+                                         .then((QuerySnapshot snapshot) {
+                                          // ignore: deprecated_member_use
+                                          snapshot.documents.forEach((DocumentSnapshot doc) { 
+                                            x =  doc.data()['email'].toString();
+                                            
+                                            
+
+                                              if ( x == _emailController.text) {
+                                                                     notexist=false;
+                                             }  
+                                             if( doc.id =="zzzzzzzzzz"){
+                                               lastDoc = true;
+                                             }
+                                               
+                                      
+                                              });
+                                          
+                              
+                               });
+                                                    
+                                
+                          } on FirebaseAuthException catch(e){} 
+
+                         if(lastDoc)
+                              {
+                                lastDoc = false;
+                                 if (notexist  )           
+                                     {
+                               dynamic result = await AuthService().signup(
+                                     _emailController.text,
                                   _passwordController.text,
                                   _firstNameController.text.trim(),
                                   _lastNameController.text.trim());
+                               Navigator.of(context).pushNamed('/Login');
+                                      }
 
-                              Navigator.of(context).pushNamed('/Login');
-                            }
+                                      else  {
+                                          setState(() { error = "  The email address is already in use by another account " ;});
+                                       
+                                      }
+                                      notexist = true ;
+                                       }    
+
+                        }
                           },
                           style: ButtonStyle(
                             backgroundColor:
@@ -333,6 +425,8 @@ class SignUpState extends State<SignUp> {
                                 Navigator.of(context).pushNamed('/Login'),
                           ),
                         ),
+                     
+
                       ],
                     )
                   ],
