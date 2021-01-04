@@ -46,8 +46,8 @@ class DatabaseService {
     });
   }
 
-  UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
-    return UserData(
+  Account _userDataFromSnapshot(DocumentSnapshot snapshot) {
+    return Account(
       uid: uid,
       firstName: snapshot.data()['firstName'],
       lastName: snapshot.data()['lastName'],
@@ -61,7 +61,7 @@ class DatabaseService {
   }
 
   // get user doc stream
-  Stream<UserData> get userData {
+  Stream<Account> get userData {
     return users.doc(uid).snapshots().map(_userDataFromSnapshot);
   }
 }

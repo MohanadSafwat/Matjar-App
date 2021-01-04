@@ -11,7 +11,6 @@ import 'firebase/userDatabase.dart';
 import 'signUp.dart';
 import 'home.dart';
 import 'auth/auth.dart';
-import 'cart.dart';
 
 class LandingPage extends StatelessWidget {
   @override
@@ -21,14 +20,33 @@ class LandingPage extends StatelessWidget {
     if (user == null) {
       return Login();
     } else {
-      return StreamBuilder<UserData>(
+      return StreamBuilder<Account>(
           stream: DatabaseService(uid: user.uid).userData,
           builder: (context, snapshot) {
-            UserData userData = snapshot.data;
-            if (userData.isSeller == true) {
-              return ProfileLogInSeller();
+            if (snapshot.hasData) {
+              Account userData = snapshot.data;
+              if (userData.isSeller == null) {
+                return Scaffold(
+                  body: Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.red,
+                    ),
+                  ),
+                );
+              }
+              if (userData.isSeller == true) {
+                return ProfileLogInSeller();
+              } else {
+                return ProfileLoggedIn();
+              }
             } else {
-              return ProfileLoggedIn();
+              return Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.red,
+                  ),
+                ),
+              );
             }
           });
     }
