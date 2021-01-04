@@ -25,11 +25,11 @@ class _ProfileLoggedInState extends State<ProfileLoggedIn> {
   Widget build(BuildContext context) {
     final user = Provider.of<Userinit>(context);
 
-    return StreamBuilder<UserData>(
+    return StreamBuilder<Account>(
         stream: DatabaseService(uid: user.uid).userData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            UserData userData = snapshot.data;
+            Account userData = snapshot.data;
 
             return Scaffold(
               backgroundColor: Colors.white,
