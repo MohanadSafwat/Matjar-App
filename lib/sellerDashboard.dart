@@ -35,6 +35,24 @@ class _SellerDashboardState extends State<SellerDashboard> {
   TextEditingController itemSpecsValue4Controller = TextEditingController();
 
   var photoText = 'Photo';
+  List sellerProducts = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchproducts();
+  }
+
+  fetchproducts() async {
+    dynamic list = await getSellerProducts();
+    if (list == null)
+      print("products are empty");
+    else {
+      setState(() {
+        sellerProducts = list;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
