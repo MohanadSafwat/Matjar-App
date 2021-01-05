@@ -20,28 +20,27 @@ final Future<FirebaseApp> _init = Firebase.initializeApp();
 
 class Login extends StatefulWidget {
   @override
-  
   State<StatefulWidget> createState() {
     return LoginState();
   }
 }
 
 class LoginState extends State<Login> {
-  void initState(){ 
+  void initState() {
     super.initState();
   }
-  
+
   int currentIndex = 3;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  DatabaseService databaseService ;
-  var x,y;
-  String uid,error="";
-  bool exist=false;
-  bool lastDoc = false ;
-   FirebaseAuth fAuth;
-  
-    FirebaseFirestore fStore;
+  DatabaseService databaseService;
+  var x, y;
+  String uid, error = "";
+  bool exist = false;
+  bool lastDoc = false;
+  FirebaseAuth fAuth;
+
+  FirebaseFirestore fStore;
 
   /* Future<void> _login() async {
     try {
@@ -155,7 +154,7 @@ class LoginState extends State<Login> {
                       ),
                     ),
 ////////////////////////////////////////// validation text error
-                     
+
                     Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -167,11 +166,6 @@ class LoginState extends State<Login> {
                         ),
                       ),
                     ),
-
-
-                      
-                      
-                      
 
                     Padding(
                       padding: EdgeInsets.all(10),
@@ -253,91 +247,68 @@ class LoginState extends State<Login> {
                                     fontSize: 25,
                                   ),
                                 ),
-                                onPressed:   ()  async {
+                                onPressed: () async {
+                                  //*************************************************************************************** */
 
-                                 
-
-                                      //*************************************************************************************** */
-                                                                 
-              /* if(_passwordController.text.length < 6){
+                                  /* if(_passwordController.text.length < 6){
                     print("Password Must be >= 6 Characters");
                     return;
                 }
                   StreamBuilder(
-              
+
              // ignore: deprecated_member_use
              stream :    Firestore.instance.collection('Users').snapshots()
                   , builder:(context,snapshot)  {
-                    
+
                        x =  snapshot.data['email'] ;
 
-                                     
-                                 
 
-                             
-                     
+
+
+
+
                   },
-                        
-                  );*/      
 
-                                          
-                                          try{
-                                                                
-                                               final UserRef = await Firestore.instance
-                                                .collection('Users')
-                                                    // ignore: deprecated_member_use
-                                                .getDocuments()
-                                         .then((QuerySnapshot snapshot) {
-                                          // ignore: deprecated_member_use
-                                          snapshot.documents.forEach((DocumentSnapshot doc) { 
-                                            
-                                            x =  doc.data()['email'].toString();
-                                          
-                                              if ( x == _emailController.text) {
-                                                                     exist=true;
-                                             }  
-                                              if( doc.id =="zzzzzzzzzz"){
-                                               lastDoc = true;
-                                             }
+                  );*/
 
-                                       });
-                                          
-                                 
-                               });
-                                           
-                                          } on FirebaseAuthException catch(e){}         
-                                                    
-                                
+                                  try {
+                                    final UserRef = await Firestore.instance
+                                        .collection('Users')
+                                        // ignore: deprecated_member_use
+                                        .getDocuments()
+                                        .then((QuerySnapshot snapshot) {
+                                      // ignore: deprecated_member_use
+                                      snapshot.documents
+                                          .forEach((DocumentSnapshot doc) {
+                                        x = doc.data()['email'].toString();
 
-                  
-                               
+                                        if (x == _emailController.text) {
+                                          exist = true;
+                                        }
+                                        if (doc.id == "zzzzzzzzzz") {
+                                          lastDoc = true;
+                                        }
+                                      });
+                                    });
+                                  } on FirebaseAuthException catch (e) {}
 
 //******************************************************************************************************* */
-                                
-                                if(lastDoc)
-                              {
-                                lastDoc = false;
-                               if (exist)           
-                                     {
-                                      exist=false;
-                                     dynamic result = await AuthService().login(
-                                      _emailController.text,
-                                      _passwordController.text);
 
-                                  Navigator.of(context)
-                                      .pushNamed('/ProfileLoggedIn');
-                                      }
+                                  if (lastDoc) {
+                                    lastDoc = false;
+                                    if (exist) {
+                                      exist = false;
+                                      dynamic result = await AuthService()
+                                          .login(_emailController.text,
+                                              _passwordController.text);
 
-                                      else  {
-                                         setState(() {  error = " invalid email or password " ;});
-                                       
-                                      
-                                      }
-                              }
-                                                                 
-                                                       
-    
-
+                                      Navigator.of(context).pushNamed('/Home');
+                                    } else {
+                                      setState(() {
+                                        error = " invalid email or password ";
+                                      });
+                                    }
+                                  }
                                 },
                                 style: ButtonStyle(
                                   backgroundColor:
@@ -370,12 +341,9 @@ class LoginState extends State<Login> {
                                 Navigator.of(context).pushNamed('/SignUp'),
                           ),
                         ),
-                        
-
-                        
                       ],
                     ),
-                       Container(
+                    Container(
                       child: TextButton(
                         child: Text(
                           "Login as seller?",

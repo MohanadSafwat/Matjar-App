@@ -7,7 +7,7 @@ class Item {
   double price;
   double rate;
   bool inStock;
-  Map<String, String> specs = {};
+  Map<String, dynamic> specs = {};
   List<Review> reviews = [];
   List<String> photosUrl = [];
   String url;

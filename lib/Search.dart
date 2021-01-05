@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'firebase/userDatabase.dart';
 import 'items.dart';
 
 class homee extends StatefulWidget {
@@ -72,7 +73,9 @@ class _homeeState extends State<homee> {
 
 class DataSearch extends SearchDelegate<String> {
   List<dynamic> list;
-  DataSearch({this.list});
+  List<dynamic> recentSearch;
+  String uid;
+  DataSearch({this.list, this.recentSearch, this.uid});
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -111,6 +114,8 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
+    DatabaseService(uid: uid)
+        .searchUpdate(searchList: recentSearch, searchItem: query);
     if (query == 'Electronics' ||
         query == 'electronics' ||
         query == 'fashion' ||
@@ -123,7 +128,7 @@ class DataSearch extends SearchDelegate<String> {
   @override
   buildSuggestions(BuildContext context) {
     var suggestionList = query.isEmpty
-        ? [...list]
+        ? [...recentSearch]
         : list
             .where((element) => element.startsWith(query.toLowerCase()))
             .toList();

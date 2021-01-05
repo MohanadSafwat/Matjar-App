@@ -19,6 +19,8 @@ class Account {
   final String contact;
   final bool darkmode;
   final bool isSeller;
+  final int offer;
+  final recent;
 
   Account({
     this.email,
@@ -30,6 +32,8 @@ class Account {
     this.address,
     this.darkmode,
     this.isSeller,
+    this.offer,
+    this.recent,
   });
 }
 

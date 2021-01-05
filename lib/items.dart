@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:matjar_login_signup/modules/item.dart';
+import 'package:matjar_login_signup/selected_item.dart';
 import 'Search.dart';
 import 'actions/productService.dart';
 import 'matjar_icons.dart';
@@ -149,21 +150,27 @@ class _ItemsState extends State<Items> {
                               for (var doc in snapshot.data.docs) {
                                 var data = doc.data();
                                 if (query != null) {
-                                  if (data['name'].startsWith(query))
+                                  if (data['itemName'].startsWith(query))
                                     products.add(Item(
-                                      name: data['name'],
-                                      url: data['img'],
+                                      brand: data['itemBrand'],
+                                      name: data['itemName'],
                                       price: double.parse(
-                                          data['price'].toString()),
+                                          data['itemPrice'].toString()),
+                                      sellerId: data['itemSellerId'],
+                                      specs: data['itemSpecs'],
+                                      numberInStock: data['noOfItemsInStock'],
+                                      url: data['photoUrl'],
                                     ));
                                 } else
                                   products.add(Item(
-                                    name: (data['itemName'] != null)
-                                        ? data['itemName']
-                                        : 'xx',
-                                    url: data['photoUrl'],
+                                    brand: data['itemBrand'],
+                                    name: data['itemName'],
                                     price: double.parse(
                                         data['itemPrice'].toString()),
+                                    sellerId: data['itemSellerId'],
+                                    specs: data['itemSpecs'],
+                                    numberInStock: data['noOfItemsInStock'],
+                                    url: data['photoUrl'],
                                   ));
                               }
                               return GridView.builder(
@@ -189,7 +196,11 @@ class _ItemsState extends State<Items> {
                                         Expanded(
                                           child: Material(
                                             child: InkWell(
-                                              onTap: () {},
+                                              onTap: () {
+                                                Navigator.of(context).pushNamed(
+                                                    SelectedItem.id,
+                                                    arguments: products[index]);
+                                              },
                                               child: GridTile(
                                                 child: Image.network(
                                                   products[index].url,
