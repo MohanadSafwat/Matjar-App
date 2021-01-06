@@ -19,6 +19,14 @@ class DatabaseService {
       'address': address,
       'email': email,
       'contact': contact,
+      'offer': 1,
+      'recent': [],
+      'recommended': {
+        'Electronics': 0,
+        'mobiles': 0,
+        'electronics': 0,
+        'fashion': 0
+      }
     });
   }
 
@@ -57,11 +65,51 @@ class DatabaseService {
       contact: snapshot.data()['contact'],
       darkmode: snapshot.data()['darkmode'],
       isSeller: snapshot.data()['isSeller'],
+      offer: snapshot.data()['offer'],
+      recent: snapshot.data()['recent'],
+      recommended: snapshot.data()['recommended'],
     );
   }
 
   // get user doc stream
   Stream<Account> get userData {
     return users.doc(uid).snapshots().map(_userDataFromSnapshot);
+  }
+
+  Future offerUpdate({offer}) async {
+    return await users
+        .doc(uid)
+        .update({'offer': (offer == 10) ? offer : (offer + 1)});
+  }
+
+  Future searchUpdate({searchList, searchItem}) async {
+    if (searchList.length < 10) {
+      if (searchList.contains(searchItem)) {
+        searchList.remove(searchItem);
+        searchList = [searchItem, ...?searchList];
+      } else {
+        searchList = [searchItem, ...?searchList];
+      }
+    } else {
+      if (searchList.contains(searchItem)) {
+        searchList.remove(searchItem);
+        searchList = [searchItem, ...?searchList.sublist(0, 9)];
+      } else {
+        searchList = [searchItem, ...?searchList.sublist(0, 9)];
+      }
+    }
+    return await users.doc(uid).update({'recent': searchList});
+  }
+
+  Future recommendedUpdate({String cat, int count, rec}) async {
+    rec[cat] = count + 1;
+    return await users.doc(uid).update({'recommended': rec});
+  }
+
+  String getMaxCat({rec}) {
+    List x = rec.values.toList()..sort();
+    String maxName =
+        rec.keys.firstWhere((k) => rec[k] == x[3], orElse: () => null);
+    return maxName;
   }
 }

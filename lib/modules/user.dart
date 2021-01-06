@@ -21,6 +21,7 @@ class Account {
   final bool isSeller;
   final int offer;
   final recent;
+  final recommended;
 
   Account({
     this.email,
@@ -34,6 +35,7 @@ class Account {
     this.isSeller,
     this.offer,
     this.recent,
+    this.recommended,
   });
 }
 

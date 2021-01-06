@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:matjar_login_signup/modules/item.dart';
 
 class ProductService {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -24,24 +25,33 @@ class ProductService {
   //   return itemList;
   // }
   Future<List> featuredItems() async {
-    List<Map<String, String>> itemList = new List();
+    // List<Map<String, String>> itemList = new List();
+    List<Item> itemGet = [];
     Random rdn = new Random();
     int randomNumber = 1 + rdn.nextInt(4);
     QuerySnapshot itemsRef = await _productReference
-        .orderBy('name')
+        .orderBy('itemName')
         .startAt([randomNumber])
-        .limit(20)
+        .limit(5)
         .get();
     for (DocumentSnapshot docRef in itemsRef.docs) {
-      Map<String, String> items = new Map();
-      items['img'] = docRef['img'];
-      items['name'] = docRef['name'];
-      items['price'] = docRef['price'].toString();
+      // items['itemName'] = docRef['itemName'];
+      // items['name'] = docRef['name'];
+      // items['price'] = docRef['price'].toString();
       // items['offer'] = (docRef['price'] *((100 - docRef['offer']) / 100)).toString();
       // items['productId'] = docRef.documentID;
-      itemList.add(items);
+      itemGet.add(Item(
+        brand: docRef['itemBrand'],
+        name: docRef['itemName'],
+        price: double.parse(docRef['itemPrice'].toString()),
+        sellerId: docRef['itemSellerId'],
+        specs: docRef['itemSpecs'],
+        numberInStock: docRef['noOfItemsInStock'],
+        url: docRef['photoUrl'],
+        categoryName: docRef['itemCategoryName'],
+      ));
     }
-    return itemList;
+    return itemGet;
   }
 
   Future<List> offeredItems() async {
