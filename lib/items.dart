@@ -198,8 +198,7 @@ class _ItemsState extends State<Items> {
                                                   numberInStock:
                                                       data['noOfItemsInStock'],
                                                   url: data['photoUrl'],
-                                                  categoryName: data[
-                                                      'itemCategoryName']));
+                                                  categoryName: category));
                                           }
                                           return GridView.builder(
                                             gridDelegate:
