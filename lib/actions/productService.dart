@@ -48,6 +48,7 @@ class ProductService {
         specs: docRef['itemSpecs'],
         numberInStock: docRef['noOfItemsInStock'],
         url: docRef['photoUrl'],
+        // reviews: (docRef['itemReviews'] == null ) ? null : docRef['itemReviews'],
         categoryName: docRef['itemCategoryName'],
       ));
     }
