@@ -1,5 +1,5 @@
 class Review {
   String comment, firstName, lastName;
-  int numberOfStars;
+  double numberOfStars;
   Review({this.comment, this.firstName, this.lastName, this.numberOfStars});
 }
