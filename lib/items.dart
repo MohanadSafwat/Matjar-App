@@ -29,6 +29,10 @@ class _ItemsState extends State<Items> {
   List<Item> products = [];
   List<Item> temp = [];
   List<Item> ref = [];
+  List<Item> ref2 = [];
+  List<Item> ref3 = [];
+
+
   bool flagSort = false;
   bool flagFilter = false;
   bool flag = false;
@@ -39,6 +43,7 @@ class _ItemsState extends State<Items> {
   bool flagPriceSelected = false;
   bool validatePriceFrom = false;
   bool validatePriceTo = false;
+
 
   List<String> brands = [];
   TextEditingController priceFrom = TextEditingController();
@@ -311,6 +316,8 @@ class _ItemsState extends State<Items> {
                                                             flagPriceSelected)
                                                         ? [...temp]
                                                         : [...products];
+                                                    if (flagPriceSelected)
+                                                      ref = [...ref2];
                                                     // print('ref');
                                                     // print(ref);
                                                     List<String>
@@ -332,10 +339,13 @@ class _ItemsState extends State<Items> {
                                                         // print(brands[i]);
                                                       }
                                                     }
+
+
                                                     temp =
                                                         filterProductsByBrand(
                                                             ref,
                                                             brandsFiltered);
+                                                    ref3=[...temp];
                                                     print(
                                                         brandCheckBoxValues[0]);
                                                     print(brands[0]);
@@ -417,6 +427,9 @@ class _ItemsState extends State<Items> {
                                                           flagBrandSelected)
                                                       ? [...temp]
                                                       : [...products];
+                                                  if(flagBrandSelected){
+                                                    ref =[...ref3];
+                                                  }
                                                   flagPriceSelected = true;
 
                                                   temp = filterProductsByPrice(
@@ -425,6 +438,8 @@ class _ItemsState extends State<Items> {
                                                           priceFrom.text),
                                                       double.parse(
                                                           priceTo.text));
+                                                  ref2=[...temp];
+
                                                 });
                                               },
                                             ),
