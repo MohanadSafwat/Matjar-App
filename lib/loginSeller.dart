@@ -22,13 +22,13 @@ class LoginSellerState extends State<LoginSeller> {
   int currentIndex = 3;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  var x,y;
-  String uid,error="";
-  bool exist=false;
-  bool lastDoc = false ;
-   FirebaseAuth fAuth;
-  
-    FirebaseFirestore fStore;
+  var x, y;
+  String uid, error = "";
+  bool exist = false;
+  bool lastDoc = false;
+  FirebaseAuth fAuth;
+
+  FirebaseFirestore fStore;
 
   /* Future<void> _login() async {
     try {
@@ -144,9 +144,7 @@ class LoginSellerState extends State<LoginSeller> {
                     Padding(
                       padding: EdgeInsets.all(10),
                     ),
-
-
-                     Container(
+                    Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         error,
@@ -157,7 +155,6 @@ class LoginSellerState extends State<LoginSeller> {
                         ),
                       ),
                     ),
-
                     Container(
                       margin: EdgeInsets.fromLTRB(10, 0, 0, 10),
                       alignment: Alignment.centerLeft,
@@ -236,65 +233,62 @@ class LoginSellerState extends State<LoginSeller> {
                                   ),
                                 ),
                                 onPressed: () async {
-                                  try{
-                                                                
-                                               final UserRef = await Firestore.instance
-                                                .collection('Users')
-                                                    // ignore: deprecated_member_use
-                                                .getDocuments()
-                                         .then((QuerySnapshot snapshot) {
-                                          // ignore: deprecated_member_use
-                                          snapshot.documents.forEach((DocumentSnapshot doc) { 
-                                            
-                                            x =  doc.data()['email'].toString();
-                                          
-                                              if ( x == _emailController.text) {
-                                                                     exist=true;
-                                             }  
-                                              if( doc.id =="zzzzzzzzzz"){
-                                               lastDoc = true;
-                                             }
+                                  try {
+                                    final UserRef = await Firestore.instance
+                                        .collection('Users')
+                                        // ignore: deprecated_member_use
+                                        .getDocuments()
+                                        .then((QuerySnapshot snapshot) {
+                                      // ignore: deprecated_member_use
+                                      snapshot.documents
+                                          .forEach((DocumentSnapshot doc) {
+                                        x = doc.data()['email'].toString();
 
-                                       });
-                                          
-                                 
-                               });
-                                           
-                                          } on FirebaseAuthException catch(e){}         
-                                                    
-                                
-
-                  
-                               
+                                        if (x == _emailController.text) {
+                                          exist = true;
+                                        }
+                                        if (doc.id == "zzzzzzzzzz") {
+                                          lastDoc = true;
+                                        }
+                                      });
+                                    });
+                                  } on FirebaseAuthException catch (e) {}
 
 //******************************************************************************************************* */
-                                
-                                if(lastDoc)
-                              {
-                                lastDoc = false;
-                               if (exist)           
-                                     {
-                                      exist=false;
-                                     dynamic result = await AuthService().login(
-                                      _emailController.text,
-                                      _passwordController.text);
 
-                                  Navigator.of(context)
-                                      .pushNamed('/ProfileLoginSeller');
-                                      }
+                                  if (lastDoc) {
+                                    lastDoc = false;
+                                    if (exist) {
+                                      exist = false;
+                                      dynamic result = await AuthService()
+                                          .login(_emailController.text,
+                                              _passwordController.text);
 
-                                      else  {
-                                         setState(() {  error = " invalid email or password " ;});
-                                       
-                                      
-                                      }
-                              }
-                                                                 
-                                                       
-    
+                                      final checkUser = await FirebaseFirestore
+                                          .instance
+                                          .collection('Users')
+                                          .doc(result.uid)
+                                          .get()
+                                          .then((snapshot) {
+                                        var check = snapshot.data()['isSeller'];
 
+                                        if (check) {
+                                          Navigator.of(context)
+                                              .pushNamed('/ProfileLoginSeller');
+                                        } else {
+                                          setState(() {
+                                            error =
+                                                " *This is a buyer account please press: Login as user?";
+                                          });
+                                        }
+                                      });
+                                    } else {
+                                      setState(() {
+                                        error = " invalid email or password ";
+                                      });
+                                    }
+                                  }
                                 },
-
                                 style: ButtonStyle(
                                   backgroundColor:
                                       MaterialStateProperty.all<Color>(

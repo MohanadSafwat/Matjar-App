@@ -291,7 +291,7 @@ class _ProfileLoggedInState extends State<ProfileLoggedIn> {
                           FlatButton(
                             onPressed: () async {
                               await AuthService().signOut();
-                              Navigator.of(context).pushNamed('/Login');
+                              Navigator.of(context).pushNamed('/');
                             },
                             child: Text(
                               'Sign Out',

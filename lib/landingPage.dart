@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:matjar_login_signup/Cart.dart';
+import 'package:matjar_login_signup/sellerDashboard.dart';
 import 'ProfileLoginSeller.dart';
 import 'login.dart';
 import 'modules/user.dart';
@@ -18,7 +20,10 @@ class LandingPage extends StatelessWidget {
     final user = Provider.of<Userinit>(context);
 
     if (user == null) {
+      dynamic result = AuthService().login("guest@g.com", "123456");
       return Login();
+    } else if (user.uid == "ING2u4fnlgQBpkUqrCoitD619iD3") {
+      return MyHomePage();
     } else {
       return StreamBuilder<Account>(
           stream: DatabaseService(uid: user.uid).userData,
@@ -37,7 +42,7 @@ class LandingPage extends StatelessWidget {
               if (userData.isSeller == true) {
                 return ProfileLogInSeller();
               } else {
-                return MyHomePage();
+                return ProfileLoggedIn();
               }
             } else {
               return Scaffold(

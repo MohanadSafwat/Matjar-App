@@ -114,8 +114,8 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                         height: 10,
                       ),
                       FlatButton(
-                        onPressed: () => Navigator.of(context)
-                            .pushNamed('/SellerDashboard'),
+                        onPressed: () =>
+                            Navigator.of(context).pushNamed('/SellerDashboard'),
                         padding: EdgeInsets.zero,
                         child: Container(
                           decoration: BoxDecoration(
@@ -274,7 +274,7 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                           FlatButton(
                             onPressed: () async {
                               await AuthService().signOut();
-                              Navigator.of(context).pushNamed('/Login');
+                              Navigator.of(context).pushNamed('/');
                             },
                             child: Text(
                               'Sign Out',

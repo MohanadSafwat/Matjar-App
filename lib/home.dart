@@ -352,7 +352,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                               numberInStock:
                                                   data['noOfItemsInStock'],
                                               url: data['photoUrl'],
-                                              reviews: (data['itemReviews'] == null ) ? null : data['itemReviews'],
+                                              reviews:
+                                                  (data['itemReviews'] == null)
+                                                      ? null
+                                                      : data['itemReviews'],
                                               categoryName:
                                                   data['itemCategoryName']));
                                         }
@@ -725,8 +728,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) =>
-                                                SellerDashboard()));
+                                            builder: (context) => Profile()));
                                   },
                                   icon: Icon(
                                     Matjar.sign_in_and_sign_up_logo,

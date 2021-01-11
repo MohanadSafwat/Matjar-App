@@ -74,6 +74,7 @@ class AuthService {
             .userSetup(fn, ln, email, " ", " ", "EGP");
         DatabaseService(uid: auth.user.uid).darkmodeSetup(false);
         DatabaseService(uid: auth.user.uid).isSellerSetup(true);
+        DatabaseService(uid: auth.user.uid).sellerID();
       });
       User user = userCredential.user;
       return _userFromFirebaseUser(user);

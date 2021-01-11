@@ -8,6 +8,8 @@ class DatabaseService {
 
   final CollectionReference users =
       FirebaseFirestore.instance.collection('Users');
+  final CollectionReference sellersID =
+      FirebaseFirestore.instance.collection('sellers');
 
   Future userSetup(String firstName, String lastName, String email,
       String address, String contact, String currency) async {
@@ -51,6 +53,12 @@ class DatabaseService {
   Future darkmodeSetup(bool darkmode) async {
     return await users.doc(uid).update({
       'darkmode': darkmode,
+    });
+  }
+
+  Future sellerID() async {
+    return await sellersID.doc(uid).set({
+      'uid': uid,
     });
   }
 
@@ -113,3 +121,47 @@ class DatabaseService {
     return maxName;
   }
 }
+
+/* 
+
+
+
+ /* Seller */
+
+  Future sellerSetup(String firstName, String lastName, String email,
+      String address, String contact, String currency) async {
+    return await sellersAcc.doc(uid).set({
+      'firstName': firstName,
+      'lastName': lastName,
+      'uid': uid,
+      'currency': currency,
+      'address': address,
+      'email': email,
+      'contact': contact,
+    });
+  }
+
+  Future sellerEdit(String firstName, String lastName, String address,
+      String contact, String currency) async {
+    return await sellersAcc.doc(uid).update({
+      'firstName': firstName,
+      'lastName': lastName,
+      'uid': uid,
+      'currency': currency,
+      'address': address,
+      'contact': contact,
+    });
+  }
+
+  Future isSellerSellerSetup(bool isSeller) async {
+    return await sellersAcc.doc(uid).update({
+      'isSeller': isSeller,
+    });
+  }
+
+  Future darkmodeSellerSetup(bool darkmode) async {
+    return await sellersAcc.doc(uid).update({
+      'darkmode': darkmode,
+    });
+  }
+ */

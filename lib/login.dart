@@ -248,37 +248,13 @@ class LoginState extends State<Login> {
                                   ),
                                 ),
                                 onPressed: () async {
-                                  //*************************************************************************************** */
-
-                                  /* if(_passwordController.text.length < 6){
-                    print("Password Must be >= 6 Characters");
-                    return;
-                }
-                  StreamBuilder(
-
-             // ignore: deprecated_member_use
-             stream :    Firestore.instance.collection('Users').snapshots()
-                  , builder:(context,snapshot)  {
-
-                       x =  snapshot.data['email'] ;
-
-
-
-
-
-
-                  },
-
-                  );*/
-
                                   try {
-                                    final UserRef = await Firestore.instance
+                                    final UserRef = await FirebaseFirestore
+                                        .instance
                                         .collection('Users')
-                                        // ignore: deprecated_member_use
-                                        .getDocuments()
+                                        .get()
                                         .then((QuerySnapshot snapshot) {
-                                      // ignore: deprecated_member_use
-                                      snapshot.documents
+                                      snapshot.docs
                                           .forEach((DocumentSnapshot doc) {
                                         x = doc.data()['email'].toString();
 
@@ -292,8 +268,6 @@ class LoginState extends State<Login> {
                                     });
                                   } on FirebaseAuthException catch (e) {}
 
-//******************************************************************************************************* */
-
                                   if (lastDoc) {
                                     lastDoc = false;
                                     if (exist) {
@@ -301,8 +275,25 @@ class LoginState extends State<Login> {
                                       dynamic result = await AuthService()
                                           .login(_emailController.text,
                                               _passwordController.text);
+                                      final checkUser = await FirebaseFirestore
+                                          .instance
+                                          .collection('Users')
+                                          .doc(result.uid)
+                                          .get()
+                                          .then((snapshot) async {
+                                        var check = snapshot.data()['isSeller'];
 
-                                      Navigator.of(context).pushNamed('/Home');
+                                        if (check) {
+                                          setState(() {
+                                            error =
+                                                " *This is a seller account please press: Login as seller?";
+                                          });
+                                          await AuthService().signOut();
+                                        } else {
+                                          Navigator.of(context)
+                                              .pushNamed('/Home');
+                                        }
+                                      });
                                     } else {
                                       setState(() {
                                         error = " invalid email or password ";
