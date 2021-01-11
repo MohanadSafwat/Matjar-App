@@ -37,7 +37,7 @@ class LandingPage extends StatelessWidget {
               if (userData.isSeller == true) {
                 return ProfileLogInSeller();
               } else {
-                return ProfileLoggedIn();
+                return MyHomePage();
               }
             } else {
               return Scaffold(
