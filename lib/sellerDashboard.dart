@@ -20,6 +20,7 @@ class SellerDashboard extends StatefulWidget {
 
 class _SellerDashboardState extends State<SellerDashboard> {
   ProductAction productAction;
+  String url;
   TextEditingController itemNameController = TextEditingController();
   TextEditingController itemPriceController = TextEditingController();
   TextEditingController itemCategoryController = TextEditingController();
@@ -56,7 +57,10 @@ class _SellerDashboardState extends State<SellerDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
+    counter();
+    int count = getCounter();
+    getSellerId();
+    String sellerId = sendID();
     return Scaffold(
         resizeToAvoidBottomPadding: false,
         backgroundColor: white,
@@ -198,6 +202,7 @@ class _SellerDashboardState extends State<SellerDashboard> {
                             fnc: () {
                               uploadImage().whenComplete(() => setState(() {
                                     photoText = 'Photo Uploaded';
+                                    url = getUrl();
                                   }));
                             },
                           ),
@@ -334,12 +339,8 @@ class _SellerDashboardState extends State<SellerDashboard> {
                           vertical: 10,
                           horizontal: 12,
                           fnc: () {
-                            counter();
-                            int count = getCounter();
-                            getSellerId();
-                            String sellerId = sendID();
                             productAction = ProductAction();
-                            productAction.addProduct(
+                            productAction.addProductToCategories(
                                 Item(
                                   name: itemNameController.text,
                                   brand: itemBrandController.text,
@@ -361,6 +362,16 @@ class _SellerDashboardState extends State<SellerDashboard> {
                                 ),
                                 count.toString());
                             addCounter(count);
+                            setState(() {
+                              sellerProducts.add({
+                                'photoUrl': url,
+                                'itemPrice':
+                                    double.parse(itemPriceController.text),
+                                'itemName': itemNameController.text,
+                                'noOfItemsInStock':
+                                    int.parse(itemNoInStockController.text),
+                              });
+                            });
                           },
                         ),
                       ],
@@ -383,13 +394,62 @@ class _SellerDashboardState extends State<SellerDashboard> {
                 height: 200,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
+                  itemCount: sellerProducts.length,
                   itemBuilder: (context, index) => Padding(
                     padding: EdgeInsets.symmetric(horizontal: 1, vertical: 1),
                     child: Card(
-                      child: SizedBox(
-                        width: width * 0.3,
+                      elevation: 0,
+                      semanticContainer: true,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
-                      margin: EdgeInsets.only(right: 5),
+                      clipBehavior: Clip.antiAlias,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Expanded(
+                            child: Material(
+                              child: InkWell(
+                                onTap: () {},
+                                child: GridTile(
+                                  child: Image.network(
+                                    sellerProducts[index]['photoUrl'],
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "\$${sellerProducts[index]['itemPrice']}",
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  sellerProducts[index]['itemName'],
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      fontSize: 15.0, color: Colors.grey),
+                                ),
+                                Text(
+                                  "${sellerProducts[index]['noOfItemsInStock']}",
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      fontSize: 15.0, color: Colors.grey),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
