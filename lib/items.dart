@@ -37,8 +37,8 @@ class _ItemsState extends State<Items> {
   bool checkedValue;
   bool flagBrandSelected = false;
   bool flagPriceSelected = false;
-  bool validatePriceFrom =false;
-  bool validatePriceTo=false ;
+  bool validatePriceFrom = false;
+  bool validatePriceTo = false;
 
   List<String> brands = [];
   TextEditingController priceFrom = TextEditingController();
@@ -250,7 +250,8 @@ class _ItemsState extends State<Items> {
                                         FlatButton(
                                           onPressed: () {
                                             setState(() {
-                                              temp = (flagSort||flagPriceSelected)
+                                              temp = (flagSort ||
+                                                      flagPriceSelected)
                                                   ? temp
                                                   : [...products];
                                               brands = getBrandName(temp);
@@ -306,7 +307,8 @@ class _ItemsState extends State<Items> {
                                                 onChanged: (newValue) {
                                                   setState(() {
                                                     flag = true;
-                                                    ref = (flagSort||flagPriceSelected)
+                                                    ref = (flagSort ||
+                                                            flagPriceSelected)
                                                         ? [...temp]
                                                         : [...products];
                                                     // print('ref');
@@ -363,8 +365,10 @@ class _ItemsState extends State<Items> {
                                             child: TextField(
                                               controller: priceFrom,
                                               decoration: new InputDecoration(
-                                                  labelText: "From",
-                                                errorText: validatePriceFrom ? 'Value Can\'t Be Empty' : null,
+                                                labelText: "From",
+                                                errorText: validatePriceFrom
+                                                    ? 'Value Can\'t Be Empty'
+                                                    : null,
                                               ),
                                               keyboardType:
                                                   TextInputType.number,
@@ -376,11 +380,12 @@ class _ItemsState extends State<Items> {
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 16.0),
                                             child: TextField(
-
                                               controller: priceTo,
                                               decoration: InputDecoration(
-                                                  labelText: 'To',
-                                                  errorText: validatePriceTo ? 'Value Can\'t Be Empty' : null,
+                                                labelText: 'To',
+                                                errorText: validatePriceTo
+                                                    ? 'Value Can\'t Be Empty'
+                                                    : null,
                                               ),
                                               keyboardType:
                                                   TextInputType.number,
@@ -399,15 +404,20 @@ class _ItemsState extends State<Items> {
                                               ),
                                               onPressed: () {
                                                 setState(() {
-                                                  priceTo.text.isEmpty? validatePriceTo = true: validatePriceTo = false;
-                                                  priceFrom.text.isEmpty? validatePriceFrom = true: validatePriceFrom = false;
+                                                  priceTo.text.isEmpty
+                                                      ? validatePriceTo = true
+                                                      : validatePriceTo = false;
+                                                  priceFrom.text.isEmpty
+                                                      ? validatePriceFrom = true
+                                                      : validatePriceFrom =
+                                                          false;
 
                                                   flag = true;
                                                   ref = (flagSort ||
                                                           flagBrandSelected)
                                                       ? [...temp]
                                                       : [...products];
-                                                  flagPriceSelected=true;
+                                                  flagPriceSelected = true;
 
                                                   temp = filterProductsByPrice(
                                                       ref,
@@ -460,8 +470,10 @@ class _ItemsState extends State<Items> {
                                                             null)
                                                         ? null
                                                         : data['itemReviews'],
-                                                    rate: double.parse(
-                                                        data['rate'].toString()),
+                                                    rate: (data['rate'] == null)
+                                                        ? null
+                                                        : double.parse(
+                                                            data['rate'].toString()),
                                                     id: doc.id));
                                             } else {
                                               products.add(Item(
@@ -483,8 +495,11 @@ class _ItemsState extends State<Items> {
                                                               null)
                                                           ? null
                                                           : data['itemReviews'],
-                                                  rate: double.parse(
-                                                      data['rate'].toString()),
+                                                  rate: (data['rate'] == null)
+                                                      ? null
+                                                      : double.parse(
+                                                          data['rate']
+                                                              .toString()),
                                                   id: doc.id));
                                             }
                                           }

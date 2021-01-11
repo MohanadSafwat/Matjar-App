@@ -357,7 +357,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                                       ? null
                                                       : data['itemReviews'],
                                               categoryName:
-                                                  data['itemCategoryName']));
+                                                  data['itemCategoryName'],
+                                              rate: (data['rate'] == null)
+                                                  ? null
+                                                  : double.parse(
+                                                      data['rate'].toString()),
+                                              id: doc.id));
                                         }
                                         return ListView.builder(
                                           itemCount: (products.length > 5)
