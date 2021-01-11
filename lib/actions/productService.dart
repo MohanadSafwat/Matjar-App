@@ -35,39 +35,38 @@ class ProductService {
         .limit(5)
         .get();
     for (DocumentSnapshot docRef in itemsRef.docs) {
-      // items['itemName'] = docRef['itemName'];
-      // items['name'] = docRef['name'];
-      // items['price'] = docRef['price'].toString();
-      // items['offer'] = (docRef['price'] *((100 - docRef['offer']) / 100)).toString();
-      // items['productId'] = docRef.documentID;
+      print('xxxx');
+      print(docRef['itemReviews']);
+      print('yyyy');
       itemGet.add(Item(
-        brand: docRef['itemBrand'],
-        name: docRef['itemName'],
-        price: double.parse(docRef['itemPrice'].toString()),
-        sellerId: docRef['itemSellerId'],
-        specs: docRef['itemSpecs'],
-        numberInStock: docRef['noOfItemsInStock'],
-        url: docRef['photoUrl'],
-        // reviews: (docRef['itemReviews'] == null ) ? null : docRef['itemReviews'],
-        categoryName: docRef['itemCategoryName'],
-      ));
+          brand: docRef['itemBrand'],
+          name: docRef['itemName'],
+          price: double.parse(docRef['itemPrice'].toString()),
+          sellerId: docRef['itemSellerId'],
+          specs: docRef['itemSpecs'],
+          numberInStock: docRef['noOfItemsInStock'],
+          url: docRef['photoUrl'],
+          // reviews: (docRef['itemReviews'] == null ) ? null : docRef['itemReviews'],
+          categoryName: docRef['itemCategoryName'],
+          reviews:
+              (docRef['itemReviews'] == null) ? null : docRef['itemReviews'],
+          rate: (docRef['rate'] == null)
+              ? null
+              : double.parse(docRef['rate'].toString()),
+          id: docRef.id));
     }
     return itemGet;
   }
 
-  Future<List> offeredItems() async {
-    List<Map<String, String>> itemList = new List();
-    QuerySnapshot itemsRef = await _productReference.limit(10).get();
-    for (DocumentSnapshot docRef in itemsRef.docs) {
-      Map<String, String> items = new Map();
-      items['img'] = docRef['img'];
-      items['name'] = docRef['name'];
-      items['price'] = docRef['price'].toString();
-
-      items['productId'] = docRef.documentID;
-      itemList.add(items);
-    }
-    return itemList;
+  Stream<QuerySnapshot> offeredItems() {
+    Random rdn = new Random();
+    int randomNumber = 1 + rdn.nextInt(4);
+    return _firestore
+        .collection('products')
+        .orderBy('itemName')
+        .startAt([randomNumber])
+        .limit(5)
+        .snapshots();
   }
 
   Future<Map> particularItem(String productId) async {

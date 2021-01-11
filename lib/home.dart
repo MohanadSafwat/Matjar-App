@@ -609,87 +609,240 @@ class _MyHomePageState extends State<MyHomePage> {
                               margin: EdgeInsets.only(left: 25),
                             ),
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                  25.0, 25.0, 25.0, 40),
+                              padding: const EdgeInsets.all(25.0),
                               child: Container(
-                                height: 200,
-                                child: ListView.builder(
-                                  itemCount:
-                                      (featuredItems.length == 0) ? 0 : 5,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) => Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 1, vertical: 1),
-                                    child: Card(
-                                      elevation: 0,
-                                      semanticContainer: true,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      clipBehavior: Clip.antiAlias,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Expanded(
-                                            child: Material(
-                                              child: InkWell(
-                                                onTap: () {
-                                                  Navigator.of(context)
-                                                      .pushNamed(
-                                                          SelectedItem.id,
-                                                          arguments:
-                                                              featuredItems[
-                                                                  index]);
-                                                },
-                                                child: GridTile(
-                                                  child: Image.network(
-                                                    featuredItems[index].url,
-                                                    fit: BoxFit.cover,
-                                                  ),
+                                padding: EdgeInsets.only(bottom: 25),
+                                height: 250,
+                                child: StreamBuilder<QuerySnapshot>(
+                                    stream: _productService.offeredItems(),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        List<Item> products = [];
+                                        for (var doc in snapshot.data.docs) {
+                                          var data = doc.data();
+                                          products.add(Item(
+                                              brand: data['itemBrand'],
+                                              name: data['itemName'],
+                                              price: double.parse(
+                                                  data['itemPrice'].toString()),
+                                              sellerId: data['itemSellerId'],
+                                              specs: data['itemSpecs'],
+                                              numberInStock:
+                                                  data['noOfItemsInStock'],
+                                              url: data['photoUrl'],
+                                              reviews:
+                                                  (data['itemReviews'] == null)
+                                                      ? null
+                                                      : data['itemReviews'],
+                                              categoryName:
+                                                  data['itemCategoryName'],
+                                              rate: (data['rate'] == null)
+                                                  ? null
+                                                  : double.parse(
+                                                      data['rate'].toString()),
+                                              id: doc.id));
+                                        }
+                                        return Center(
+                                          child: ListView.builder(
+                                            itemCount: (products.length > 5)
+                                                ? 5
+                                                : products.length,
+                                            scrollDirection: Axis.horizontal,
+                                            itemBuilder: (context, index) =>
+                                                Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 1, vertical: 1),
+                                              child: Card(
+                                                elevation: 0,
+                                                semanticContainer: true,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                clipBehavior: Clip.antiAlias,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: <Widget>[
+                                                    Expanded(
+                                                      child: Center(
+                                                        child: Material(
+                                                          child: Center(
+                                                            child: InkWell(
+                                                              onTap: () {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pushNamed(
+                                                                        SelectedItem
+                                                                            .id,
+                                                                        arguments:
+                                                                            products[index]);
+                                                              },
+                                                              child: Center(
+                                                                child: GridTile(
+                                                                  child: Image
+                                                                      .network(
+                                                                    products[
+                                                                            index]
+                                                                        .url,
+                                                                    fit: BoxFit
+                                                                        .cover,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: <Widget>[
+                                                          Text(
+                                                            "\$${products[index].price}",
+                                                            style: TextStyle(
+                                                                fontSize: 18.0,
+                                                                decoration:
+                                                                    TextDecoration
+                                                                        .lineThrough,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .normal),
+                                                          ),
+                                                          Text(
+                                                            "\$${(products[index].price * (100 - userData.offer) / 100).toString()}",
+                                                            style: TextStyle(
+                                                                fontSize: 18.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                          Text(
+                                                            products[index]
+                                                                .name,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            textAlign:
+                                                                TextAlign.left,
+                                                            style: TextStyle(
+                                                                fontSize: 15.0,
+                                                                color: Colors
+                                                                    .grey),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Text(
-                                                  "\$${featuredItems[index].price}",
-                                                  style: TextStyle(
-                                                    decoration: TextDecoration
-                                                        .lineThrough,
-                                                    fontSize: 12.0,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  "\$${(featuredItems[index].price * (100 - userData.offer) / 100).toString()}",
-                                                  style: TextStyle(
-                                                      fontSize: 18.0,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Text(
-                                                  featuredItems[index].name,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  textAlign: TextAlign.left,
-                                                  style: TextStyle(
-                                                      fontSize: 15.0,
-                                                      color: Colors.grey),
-                                                ),
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                                        );
+
+                                        //   GridView.builder(
+                                        //   gridDelegate:
+                                        //       SliverGridDelegateWithFixedCrossAxisCount(
+                                        //           crossAxisCount: 2),
+                                        //   itemCount: products.length,
+                                        //   scrollDirection: Axis.vertical,
+                                        //   itemBuilder: (context, index) =>
+                                        //       Padding(
+                                        //     padding: EdgeInsets.symmetric(
+                                        //         horizontal: 1, vertical: 1),
+                                        //     child: Card(
+                                        //       elevation: 0,
+                                        //       semanticContainer: true,
+                                        //       shape: RoundedRectangleBorder(
+                                        //         borderRadius:
+                                        //             BorderRadius.circular(10.0),
+                                        //       ),
+                                        //       clipBehavior: Clip.antiAlias,
+                                        //       child: Column(
+                                        //         crossAxisAlignment:
+                                        //             CrossAxisAlignment.start,
+                                        //         children: <Widget>[
+                                        //           Expanded(
+                                        //             child: Material(
+                                        //               child: InkWell(
+                                        //                 onTap: () async {
+                                        //                   await DatabaseService(
+                                        //                           uid: user.uid)
+                                        //                       .recommendedUpdate(
+                                        //                           cat: products[
+                                        //                                   index]
+                                        //                               .categoryName,
+                                        //                           count: userData
+                                        //                               .recommended[products[
+                                        //                                   index]
+                                        //                               .categoryName],
+                                        //                           rec: userData
+                                        //                               .recommended);
+                                        //                   Navigator.of(context)
+                                        //                       .pushNamed(
+                                        //                           SelectedItem
+                                        //                               .id,
+                                        //                           arguments:
+                                        //                               products[
+                                        //                                   index]);
+                                        //                 },
+                                        //                 child: GridTile(
+                                        //                   child: Image.network(
+                                        //                     products[index].url,
+                                        //                     fit: BoxFit.cover,
+                                        //                   ),
+                                        //                 ),
+                                        //               ),
+                                        //             ),
+                                        //           ),
+                                        //           Padding(
+                                        //             padding:
+                                        //                 const EdgeInsets.all(
+                                        //                     8.0),
+                                        //             child: Column(
+                                        //               crossAxisAlignment:
+                                        //                   CrossAxisAlignment
+                                        //                       .start,
+                                        //               children: <Widget>[
+                                        //                 Text(
+                                        //                   "\$${products[index].price}",
+                                        //                   style: TextStyle(
+                                        //                       fontSize: 18.0,
+                                        //                       fontWeight:
+                                        //                           FontWeight
+                                        //                               .bold),
+                                        //                 ),
+                                        //                 Text(
+                                        //                   products[index].name,
+                                        //                   overflow: TextOverflow
+                                        //                       .ellipsis,
+                                        //                   textAlign:
+                                        //                       TextAlign.left,
+                                        //                   style: TextStyle(
+                                        //                       fontSize: 15.0,
+                                        //                       color:
+                                        //                           Colors.grey),
+                                        //                 ),
+                                        //               ],
+                                        //             ),
+                                        //           )
+                                        //         ],
+                                        //       ),
+                                        //     ),
+                                        //   ),
+                                        // );
+                                      }
+                                      return Center(
+                                        child: Text('Loading...'),
+                                      );
+                                    }),
                               ),
                             ),
                           ]),
@@ -761,3 +914,28 @@ class _MyHomePageState extends State<MyHomePage> {
 // offer:
 // userData.offer);
 // },
+
+// Text(
+// "\$${featuredItems[index].price}",
+// style: TextStyle(
+// decoration: TextDecoration
+//     .lineThrough,
+// fontSize: 12.0,
+// ),
+// ),
+// Text(
+// "\$${(featuredItems[index].price * (100 - userData.offer) / 100).toString()}",
+// style: TextStyle(
+// fontSize: 18.0,
+// fontWeight:
+// FontWeight.bold),
+// ),
+// Text(
+// featuredItems[index].name,
+// overflow:
+// TextOverflow.ellipsis,
+// textAlign: TextAlign.left,
+// style: TextStyle(
+// fontSize: 15.0,
+// color: Colors.grey),
+// ),
