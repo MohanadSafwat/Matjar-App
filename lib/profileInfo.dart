@@ -77,8 +77,11 @@ class _ProfileInfoState extends State<ProfileInfo> {
                   setState(() {
                     currentIndex = index;
                     if (currentIndex == 3) {
-                      Navigator.of(context).pushNamed('/Profile');
-                    }
+                      Navigator.of(context).pushNamed('/Profile');}
+                      if (currentIndex == 0) {
+                        Navigator.of(context).pushNamed('/HomePage');
+                      }
+
                   });
                 },
               ),
