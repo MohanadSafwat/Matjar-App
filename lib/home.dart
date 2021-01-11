@@ -352,6 +352,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                               numberInStock:
                                                   data['noOfItemsInStock'],
                                               url: data['photoUrl'],
+                                              reviews: (data['itemReviews'] == null ) ? null : data['itemReviews'],
                                               categoryName:
                                                   data['itemCategoryName']));
                                         }
