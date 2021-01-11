@@ -182,14 +182,11 @@ class _SignUpSeller extends State<SignUpSeller> {
 
                         if (passError == "") {
                           try {
-                            final UserRef = await Firestore.instance
+                            final UserRef = await FirebaseFirestore.instance
                                 .collection('Users')
-                                // ignore: deprecated_member_use
-                                .getDocuments()
+                                .get()
                                 .then((QuerySnapshot snapshot) {
-                              // ignore: deprecated_member_use
-                              snapshot.documents
-                                  .forEach((DocumentSnapshot doc) {
+                              snapshot.docs.forEach((DocumentSnapshot doc) {
                                 x = doc.data()['email'].toString();
 
                                 if (x == _emailController.text) {
