@@ -8,7 +8,7 @@ class Item {
   double rate;
   bool inStock;
   Map<String, dynamic> specs = {};
-  List<Review> reviews = [];
+  List <dynamic>reviews = [];
   List<String> photosUrl = [];
   String url;
   Item(
@@ -31,13 +31,13 @@ class Item {
 
   double newPrice() => price * (100 - offer) / 100;
 
-  double starClac() {
-    double sum = 0;
-    for (var n in reviews) {
-      sum += n.numberOfStars;
-    }
-    return sum / reviews.length;
-  }
+  // double starClac() {
+  //   double sum = 0;
+  //   for (var n in reviews) {
+  //     sum += n.numberOfStars;
+  //   }
+  //   return sum / reviews.length;
+  // }
 
   bool isInStock() {
     return numberInStock > 0;
