@@ -176,7 +176,7 @@ class _SelectedItem extends State<SelectedItem> {
                                       child: Builder(
                                         builder: (context) => RaisedButton(
                                           onPressed: () {
-                                            if(user.uid == null){
+                                            if(user.uid == 'ING2u4fnlgQBpkUqrCoitD619iD3'){
                                               Navigator.of(context).pushNamed('/Login' );
                                             }
                                             else{
@@ -417,8 +417,8 @@ class _SelectedItem extends State<SelectedItem> {
                                 )),
                             Visibility(
                               visible: ((() {
-                                if (snapshot.data.data()['itemReviews'] ==
-                                    null) {
+                                if (snapshot.data.data()['itemReviews'].length ==
+                                    0) {
                                   return false;
                                 } else {
                                   print(snapshot.data
@@ -616,7 +616,7 @@ class _SelectedItem extends State<SelectedItem> {
                                               FlatButton(
                                                 onPressed: () async {
                                                   double newRate = updateRate(
-                                                      snapshot.data.data()['itemReviews'].length,snapshot.data.data()['rate'], reviewRate);
+                                                      snapshot.data.data()['itemReviews'].length,double.parse(snapshot.data.data()['rate'].toString()), reviewRate);
                                                   print(newRate);
                                                   await addReviewToCategories({
                                                     'firstName':
@@ -650,7 +650,7 @@ class _SelectedItem extends State<SelectedItem> {
                                 ),
                               ),
                               visible: ((() {
-                                if (id == null) {
+                                if (id == 'ING2u4fnlgQBpkUqrCoitD619iD3') {
                                   return false;
                                 } else
                                   return true;
