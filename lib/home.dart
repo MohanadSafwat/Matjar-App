@@ -499,6 +499,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             scrollDirection: Axis.horizontal,
                                             itemBuilder: (context, index) =>
                                                 Padding(
+
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: 1, vertical: 1),
                                               child: Card(
@@ -641,6 +642,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     }),
                               ),
                             ),
+                            SizedBox(height: 20,),
                           ]),
                     ]),
                   ),
