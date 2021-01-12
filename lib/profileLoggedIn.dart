@@ -41,9 +41,7 @@ class _ProfileLoggedInState extends State<ProfileLoggedIn> {
                 ? Colors.black
                 : Colors.white ;
 
-            return StreamBuilder<Account>(
-              stream: DatabaseService(uid: user.uid).userData,
-              builder: (context, snapshot) {
+            
 
                 return Scaffold(
                   backgroundColor:
@@ -493,8 +491,7 @@ class _ProfileLoggedInState extends State<ProfileLoggedIn> {
                     ),
                   ),
                 );
-              }
-            );
+
           } else {
             return Scaffold(
               body: Center(
