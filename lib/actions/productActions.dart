@@ -78,6 +78,16 @@ Future<void> addProductToCart(Item item, String userId) {
     //
   }).then((value) => print('add product to cart'));
 }
+Future<void> darkModeToggle(String userId, bool toggle) {
+  CollectionReference user =FirebaseFirestore.instance.collection('Users');
+
+
+  return user.doc(userId).update({
+    'darkmode': toggle,
+    // :FieldValue.arrayUnion(itemCategoryName),
+    //
+  }).then((value) => print('darkModeToggled'));
+}
 
 
 // List<Map<String,String>>SellerItems=[];
