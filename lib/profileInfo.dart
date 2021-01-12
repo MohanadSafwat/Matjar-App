@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'Cart.dart';
+import 'categories.dart';
 import 'constants.dart';
 import 'firebase/userDatabase.dart';
 import 'matjar_icons.dart';
@@ -20,26 +22,40 @@ class _ProfileInfoState extends State<ProfileInfo> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             Account userData = snapshot.data;
-
+            Color textColor = (!userData.darkmode)
+                ? Colors.black
+                : Colors.white ;
+            Color boxShadowColor = (!userData.darkmode) ?  Colors.grey.withOpacity(0.16)
+                :  Colors.white.withOpacity(0.16);
+            Color boxDecorationColor = (!userData.darkmode) ?   Colors.white
+                : Color.fromRGBO(27, 27, 27, 1);
+            Color buttonColor = Color.fromRGBO(255, 0, 0, 1);
             return Scaffold(
-              backgroundColor: Colors.white,
+              backgroundColor:
+              (!userData.darkmode) ? Colors.white : Colors.black,
               appBar: AppBar(
-                title: Text(
-                  "Matjar",
-                  style: TextStyle(
-                    fontSize: 40,
-                    fontFamily: "DancingScript",
-                  ),
+                toolbarHeight: 75,
+                titleSpacing: 0,
+                backgroundColor: (!userData.darkmode)
+                    ? Color.fromRGBO(255, 0, 0, 1)
+                    : Color.fromRGBO(27, 27, 27, 0.4),
+                // toolbarHeight: 75,
+
+                title: Icon(
+                  Matjar.matjar_logo,
+                  size: 70,
                 ),
-                backgroundColor: mainColor,
-                toolbarHeight: 80,
-                centerTitle: true,
+                actions: [
+                  SizedBox(
+                    width: 210,
+                  ),
+                ],
               ),
               bottomNavigationBar: BottomNavigationBar(
                 type: BottomNavigationBarType.fixed,
                 iconSize: 30,
                 currentIndex: currentIndex,
-                backgroundColor: Colors.white,
+                backgroundColor:  (!userData.darkmode) ? Colors.white : Colors.black,
                 selectedFontSize: 13,
                 showSelectedLabels: false,
                 showUnselectedLabels: false,
@@ -47,28 +63,36 @@ class _ProfileInfoState extends State<ProfileInfo> {
                   BottomNavigationBarItem(
                     icon: Icon(
                       Matjar.home,
-                      color: Color.fromRGBO(255, 0, 0, 1),
+                      color: (!userData.darkmode)
+                          ? Colors.red
+                          : Colors.white,
                     ),
                     label: "",
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(
                       Matjar.categories,
-                      color: Color.fromRGBO(255, 0, 0, 1),
+                      color: (!userData.darkmode)
+                          ? Colors.red
+                          : Colors.white,
                     ),
                     label: "",
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(
                       Matjar.cart,
-                      color: Color.fromRGBO(255, 0, 0, 1),
+                      color: (!userData.darkmode)
+                          ? Colors.red
+                          : Colors.white,
                     ),
                     label: "",
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(
                       Matjar.sign_in_and_sign_up_logo,
-                      color: Color.fromRGBO(255, 0, 0, 1),
+                      color:(!userData.darkmode)
+                          ? Colors.red
+                          : Colors.white,
                     ),
                     label: "",
                   ),
@@ -76,12 +100,22 @@ class _ProfileInfoState extends State<ProfileInfo> {
                 onTap: (index) {
                   setState(() {
                     currentIndex = index;
-                    if (currentIndex == 3) {
-                      Navigator.of(context).pushNamed('/Profile');}
-                      if (currentIndex == 0) {
-                        Navigator.of(context).pushNamed('/HomePage');
-                      }
-
+                    if (currentIndex == 0) {
+                      Navigator.of(context).pushNamed('/Home');
+                    }
+                    if (currentIndex == 1) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  Categories()));
+                    }
+                    if (currentIndex == 2) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Cart()));
+                    }
                   });
                 },
               ),
@@ -94,6 +128,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         Icon(
                           Matjar.sign_in_and_sign_up_logo,
                           size: 28,
+                          color: textColor,
                         ),
                         SizedBox(
                           width: 10,
@@ -108,6 +143,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                               style: TextStyle(
                                 fontFamily: 'Source Sans Pro',
                                 fontSize: 25,
+                                color: textColor
                               ),
                             ),
                           ],
@@ -120,7 +156,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         child: Text(
                           'First Name',
                           style: TextStyle(
-                              fontSize: 17, fontFamily: 'Source Sans Pro'),
+                              fontSize: 17, fontFamily: 'Source Sans Pro',color: textColor),
                         ),
                       ),
                     ]),
@@ -135,10 +171,10 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         color: Colors.white,
                         boxShadow: [
                           BoxShadow(
-                              blurRadius: 3,
-                              spreadRadius: 3,
-                              offset: Offset(0, 3),
-                              color: Colors.grey.withOpacity(0.16)),
+                              offset: Offset(0, 2),
+                              spreadRadius: 1,
+                              blurRadius: 5,
+                              color: boxShadowColor,)
                         ],
                       ),
                     ),
@@ -148,10 +184,12 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         child: Text(
                           'Last Name',
                           style: TextStyle(
-                              fontSize: 17, fontFamily: 'Source Sans Pro'),
+                              fontSize: 17, fontFamily: 'Source Sans Pro',color: textColor),
                         ),
                       ),
+
                     ]),
+                    SizedBox(height: 5,),
                     Container(
                       child: Text(userData.lastName.capitalize()),
                       margin: EdgeInsets.symmetric(
@@ -163,10 +201,10 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         color: Colors.white,
                         boxShadow: [
                           BoxShadow(
-                              blurRadius: 3,
-                              spreadRadius: 3,
-                              offset: Offset(0, 3),
-                              color: Colors.grey.withOpacity(0.16)),
+                              offset: Offset(0, 2),
+                              spreadRadius: 1,
+                              blurRadius: 5,
+                              color: boxShadowColor,)
                         ],
                       ),
                     ),
@@ -176,7 +214,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         child: Text(
                           'Email',
                           style: TextStyle(
-                              fontSize: 17, fontFamily: 'Source Sans Pro'),
+                              fontSize: 17, fontFamily: 'Source Sans Pro',color: textColor),
                         ),
                       ),
                     ]),
@@ -191,10 +229,10 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         color: Colors.white,
                         boxShadow: [
                           BoxShadow(
-                              blurRadius: 3,
-                              spreadRadius: 3,
-                              offset: Offset(0, 3),
-                              color: Colors.grey.withOpacity(0.16)),
+                              offset: Offset(0, 2),
+                              spreadRadius: 1,
+                              blurRadius: 5,
+                              color: boxShadowColor),
                         ],
                       ),
                     ),
@@ -204,7 +242,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         child: Text(
                           'Address',
                           style: TextStyle(
-                              fontSize: 17, fontFamily: 'Source Sans Pro'),
+                              fontSize: 17, fontFamily: 'Source Sans Pro',color: textColor),
                         ),
                       ),
                     ]),
@@ -219,10 +257,10 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         color: Colors.white,
                         boxShadow: [
                           BoxShadow(
-                              blurRadius: 3,
-                              spreadRadius: 3,
-                              offset: Offset(0, 3),
-                              color: Colors.grey.withOpacity(0.16)),
+                              offset: Offset(0, 2),
+                              spreadRadius: 1,
+                              blurRadius: 5,
+                              color: boxShadowColor),
                         ],
                       ),
                     ),
@@ -232,7 +270,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         child: Text(
                           'Contact',
                           style: TextStyle(
-                              fontSize: 17, fontFamily: 'Source Sans Pro'),
+                              fontSize: 17, fontFamily: 'Source Sans Pro',color: textColor),
                         ),
                       ),
                     ]),
@@ -247,10 +285,10 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         color: Colors.white,
                         boxShadow: [
                           BoxShadow(
-                              blurRadius: 3,
-                              spreadRadius: 3,
-                              offset: Offset(0, 3),
-                              color: Colors.grey.withOpacity(0.16)),
+                              offset: Offset(0, 2),
+                              spreadRadius: 1,
+                              blurRadius: 5,
+                              color: boxShadowColor),
                         ],
                       ),
                     ),
@@ -274,7 +312,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                               color: Colors.white,
                             ),
                           ),
-                          color: Color.fromRGBO(244, 52, 52, 1),
+                          color: buttonColor,
                         ),
                         SizedBox(
                           width: 50,
@@ -289,7 +327,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                               color: Colors.white,
                             ),
                           ),
-                          color: Color.fromRGBO(244, 52, 52, 1),
+                          color: buttonColor,
                         ),
                       ],
                     )
