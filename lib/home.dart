@@ -121,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   titleSpacing: 0,
                   backgroundColor: (!userData.darkmode)
                       ? Color.fromRGBO(255, 0, 0, 1)
-                      : Color.fromRGBO(27, 27, 27, 1),
+                      : Color.fromRGBO(27, 27, 27, 0.4),
                   toolbarHeight: 75,
 
                   title: Icon(
@@ -226,7 +226,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 height: 100,
                                 color: (!userData.darkmode)
                                     ? Color.fromRGBO(255, 0, 0, 1)
-                                    : Color.fromRGBO(27, 27, 27, 1),
+                                    : Color.fromRGBO(27, 27, 27, 0.4),
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
