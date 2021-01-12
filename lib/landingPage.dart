@@ -21,7 +21,11 @@ class LandingPage extends StatelessWidget {
 
     if (user == null) {
       dynamic result = AuthService().login("guest@g.com", "123456");
-      return Login();
+      return Center(
+        child: CircularProgressIndicator(
+          backgroundColor: mainColor,
+        ),
+      );
     } else if (user.uid == "ING2u4fnlgQBpkUqrCoitD619iD3") {
       return MyHomePage();
     } else {
