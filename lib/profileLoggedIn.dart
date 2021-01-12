@@ -53,7 +53,7 @@ class _ProfileLoggedInState extends State<ProfileLoggedIn> {
                     titleSpacing: 0,
                     backgroundColor: (!userData.darkmode)
                         ? Color.fromRGBO(255, 0, 0, 1)
-                        : Color.fromRGBO(27, 27, 27, 1),
+                        : Color.fromRGBO(27, 27, 27, 0.4),
                     // toolbarHeight: 75,
 
                     title: Icon(
@@ -183,9 +183,9 @@ class _ProfileLoggedInState extends State<ProfileLoggedIn> {
                                   BoxShadow(
                                     color: (!userData.darkmode) ?  Colors.grey.withOpacity(0.16)
                                         :  Colors.white.withOpacity(0.16),
-                                    offset: Offset(0, 3),
-                                    spreadRadius: 2,
-                                    blurRadius: 3,
+                                    offset: Offset(0, 2),
+                                    spreadRadius: 1,
+                                    blurRadius: 5,
                                   ),
                                 ],
                               ),
@@ -228,9 +228,9 @@ class _ProfileLoggedInState extends State<ProfileLoggedIn> {
                                 BoxShadow(
                                   color: (!userData.darkmode) ?  Colors.grey.withOpacity(0.16)
                                       :  Colors.white.withOpacity(0.16),
-                                  offset: Offset(0, 3),
-                                  spreadRadius: 2,
-                                  blurRadius: 3,
+                                  offset: Offset(0, 2),
+                                  spreadRadius: 1,
+                                  blurRadius: 5,
                                 ),
                               ],
                             ),
@@ -270,9 +270,9 @@ class _ProfileLoggedInState extends State<ProfileLoggedIn> {
                                 BoxShadow(
                                   color: (!userData.darkmode) ?  Colors.grey.withOpacity(0.16)
                                       :  Colors.white.withOpacity(0.16),
-                                  offset: Offset(0, 3),
-                                  spreadRadius: 2,
-                                  blurRadius: 3,
+                                  offset: Offset(0, 2),
+                                  spreadRadius: 1,
+                                  blurRadius: 5,
                                 ),
                               ],
                             ),
@@ -312,9 +312,9 @@ class _ProfileLoggedInState extends State<ProfileLoggedIn> {
                                 BoxShadow(
                                   color: (!userData.darkmode) ?  Colors.grey.withOpacity(0.16)
                                       :  Colors.white.withOpacity(0.16),
-                                  offset: Offset(0, 3),
-                                  spreadRadius: 2,
-                                  blurRadius: 3,
+                                  offset: Offset(0, 2),
+                                  spreadRadius: 1,
+                                  blurRadius: 5,
                                 ),
                               ],
                             ),
