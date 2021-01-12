@@ -44,8 +44,7 @@ class _ProfileState extends State<Profile> {
             titleSpacing: 0,
             backgroundColor: (!userData.darkmode)
                 ? Color.fromRGBO(255, 0, 0, 1)
-                : Color.fromRGBO(27, 27, 27, 1),
-            // toolbarHeight: 75,
+                : Color.fromRGBO(27, 27, 27, 0.4),
 
             title: Icon(
               Matjar.matjar_logo,
@@ -142,9 +141,9 @@ class _ProfileState extends State<Profile> {
                               :  Colors.white.withOpacity(0.16),
 
 
-                          offset: Offset(0, 3),
-                          spreadRadius: 2,
-                          blurRadius: 3, // changes position of shadow
+                          offset: Offset(0, 2),
+                          spreadRadius: 1,
+                          blurRadius: 5, // changes position of shadow
                         ),
                       ],
                     ),
@@ -235,9 +234,9 @@ class _ProfileState extends State<Profile> {
                         BoxShadow(
                           color: (!userData.darkmode) ?  Colors.grey.withOpacity(0.16)
                               :  Colors.white.withOpacity(0.16),
-                          offset: Offset(0, 3),
-                          spreadRadius: 2,
-                          blurRadius: 3,
+                          offset: Offset(0, 2),
+                          spreadRadius: 1,
+                          blurRadius: 5,
                         ),
                       ],
                     ),
@@ -277,9 +276,9 @@ class _ProfileState extends State<Profile> {
                         BoxShadow(
                           color: (!userData.darkmode) ?  Colors.grey.withOpacity(0.16)
                               :  Colors.white.withOpacity(0.16),
-                          offset: Offset(0, 3),
-                          spreadRadius: 2,
-                          blurRadius: 3,
+                          offset: Offset(0, 2),
+                          spreadRadius: 1,
+                          blurRadius: 5,
                         ),
                       ],
                     ),
@@ -317,9 +316,9 @@ class _ProfileState extends State<Profile> {
                         BoxShadow(
                           color: (!userData.darkmode) ?  Colors.grey.withOpacity(0.16)
                               :  Colors.white.withOpacity(0.16),
-                          offset: Offset(0, 3),
-                          spreadRadius: 2,
-                          blurRadius: 3,
+                          offset: Offset(0, 2),
+                          spreadRadius: 1,
+                          blurRadius: 5,
                         ),
                       ],
                     ),
