@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:matjar_login_signup/Cart.dart';
 import 'package:matjar_login_signup/profile.dart';
+import 'package:matjar_login_signup/profileLoggedIn.dart';
 import 'package:matjar_login_signup/selected_item.dart';
 import 'package:matjar_login_signup/sellerDashboard.dart';
 import 'package:provider/provider.dart';
@@ -52,24 +54,6 @@ class _MyHomePageState extends State<MyHomePage> {
   //   );
   // }
 
-  var data = [
-    {
-      'name': 'Electronics',
-      'color': Colors.red,
-      'icon': Icons.electrical_services_rounded
-    },
-    {
-      'name': 'mobiles',
-      'color': Colors.red,
-      'icon': Icons.phone_android_rounded
-    },
-    {'name': 'fashion', 'color': Colors.red, 'icon': Icons.umbrella_rounded},
-    {
-      'name': 'electronics',
-      'color': Colors.red,
-      'icon': Icons.food_bank_rounded
-    },
-  ];
   var cat = [];
   var getItem = [];
   Future getItems(String doc) async {
@@ -114,16 +98,43 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final user = Provider.of<Userinit>(context);
     double width = MediaQuery.of(context).size.width;
+
     return StreamBuilder<Account>(
         stream: DatabaseService(uid: user.uid).userData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             Account userData = snapshot.data;
+            var data = [
+              {
+                'name': 'Electronics',
+                'color': (!userData.darkmode) ? Colors.red : Colors.white,
+                'icon': Icons.electrical_services_outlined
+              },
+              {
+                'name': 'mobiles',
+                'color': (!userData.darkmode) ? Colors.red : Colors.white,
+                'icon': Icons.phone_android_rounded
+              },
+              {
+                'name': 'fashion',
+                'color': (!userData.darkmode) ? Colors.red : Colors.white,
+                'icon': Icons.umbrella_rounded
+              },
+              {
+                'name': 'electronics',
+                'color': (!userData.darkmode) ? Colors.red : Colors.white,
+                'icon': Icons.food_bank_rounded
+              },
+            ];
             maxCat = DatabaseService(uid: user.uid)
                 .getMaxCat(rec: userData.recommended);
             return Scaffold(
+                backgroundColor:
+                    (!userData.darkmode) ? Colors.white : Colors.black,
                 appBar: AppBar(
-                  backgroundColor: Color.fromRGBO(255, 0, 0, 1),
+                  backgroundColor: (!userData.darkmode)
+                      ? Color.fromRGBO(255, 0, 0, 1)
+                      : Color.fromRGBO(27, 27, 27, 1),
                   // toolbarHeight: 75,
 
                   title: Icon(
@@ -145,7 +156,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             //........................................................................................
                             Container(
                                 height: 100,
-                                color: Color.fromRGBO(255, 0, 0, 1),
+                                color: (!userData.darkmode)
+                                    ? Color.fromRGBO(255, 0, 0, 1)
+                                    : Color.fromRGBO(27, 27, 27, 1),
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
@@ -206,131 +219,13 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: Text("Recommended",
                                   style: TextStyle(
                                     fontSize: 20,
+                                    color: (!userData.darkmode)
+                                        ? Colors.black
+                                        : Colors.white,
                                   )),
-                              margin: EdgeInsets.only(left: 25),
+                              margin: EdgeInsets.only(left: 25, top: 20),
                             ),
 
-                            // Padding(
-                            //   padding: const EdgeInsets.all(25.0),
-                            //   child: Container(
-                            //     height: 200,
-                            //     child: ListView.builder(
-                            //       itemCount: 5,
-                            //       scrollDirection: Axis.horizontal,
-                            //       itemBuilder: (context, index) => Padding(
-                            //         padding: EdgeInsets.symmetric(
-                            //             horizontal: 1, vertical: 1),
-                            //         child: Card(
-                            //           elevation: 0,
-                            //           semanticContainer: true,
-                            //           shape: RoundedRectangleBorder(
-                            //             borderRadius:
-                            //                 BorderRadius.circular(10.0),
-                            //           ),
-                            //           clipBehavior: Clip.antiAlias,
-                            //           child: Column(
-                            //             crossAxisAlignment:
-                            //                 CrossAxisAlignment.start,
-                            //             children: <Widget>[
-                            //               Expanded(
-                            //                 child: Material(
-                            //                   child: InkWell(
-                            //                     onTap: () {},
-                            //                     child: GridTile(
-                            //                       child: Image.network(
-                            //                         featuredItems[index].url,
-                            //                         fit: BoxFit.cover,
-                            //                       ),
-                            //                     ),
-                            //                   ),
-                            //                 ),
-                            //               ),
-                            //               Padding(
-                            //                 padding: const EdgeInsets.all(8.0),
-                            //                 child: Column(
-                            //                   crossAxisAlignment:
-                            //                       CrossAxisAlignment.start,
-                            //                   children: <Widget>[
-                            //                     Text(
-                            //                       "\$${featuredItems[index].price}",
-                            //                       style: TextStyle(
-                            //                           fontSize: 18.0,
-                            //                           fontWeight:
-                            //                               FontWeight.bold),
-                            //                     ),
-                            //                     Text(
-                            //                       featuredItems[index].name,
-                            //                       overflow:
-                            //                           TextOverflow.ellipsis,
-                            //                       textAlign: TextAlign.left,
-                            //                       style: TextStyle(
-                            //                           fontSize: 15.0,
-                            //                           color: Colors.grey),
-                            //                     ),
-                            //                   ],
-                            //                 ),
-                            //               )
-                            //             ],
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
-
-                            // PageView.builder(
-                            //   itemCount: newArrivals.length,
-                            //   controller: PageController(
-                            //       viewportFraction: 0.7
-                            //   ),
-                            //   onPageChanged: (int index) => setState(()=> _index = index),
-                            //   itemBuilder: (context,index){
-                            //     var item = newArrivals[index];
-                            //     return Transform.scale(
-                            //       scale: index == _index ? 1 : 0.8,
-                            //       child: Column(
-                            //         children: <Widget>[
-                            //           Container(
-                            //             child: Expanded(
-                            //               child: GestureDetector(
-                            //                 onTap: () {
-                            //                   // showParticularItem(item);
-                            //                 },
-                            //                 child: Card(
-                            //                   semanticContainer: true,
-                            //                   clipBehavior: Clip.antiAlias,
-                            //                   elevation: 6,
-                            //                   shape: RoundedRectangleBorder(
-                            //                       borderRadius: BorderRadius.circular(20)
-                            //                   ),
-                            //                   child: Container(
-                            //                     decoration: BoxDecoration(
-                            //                       borderRadius:  BorderRadius.all(Radius.circular(8.0)),
-                            //                       image: DecorationImage(
-                            //                           image: NetworkImage(item['image']),
-                            //                           fit: BoxFit.cover
-                            //                       ),
-                            //                     ),
-                            //                   ),
-                            //                 ),
-                            //               ),
-                            //             ),
-                            //           ),
-                            //           Padding(
-                            //             padding: EdgeInsets.only(top: 20.0,left: 20.0, right: 20.0),
-                            //             child: index == _index ? Text(
-                            //               item['name'],
-                            //               textAlign: TextAlign.center,
-                            //               style: TextStyle(
-                            //                   fontSize: 20.0
-                            //               ),
-                            //             ): Text(''),
-                            //           )
-                            //         ],
-                            //       ),
-                            //     );
-                            //   },
-                            // ),
                             Padding(
                               padding: const EdgeInsets.all(25.0),
                               child: Container(
@@ -398,9 +293,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                           index]);
                                                         },
                                                         child: GridTile(
-                                                          child: Image.network(
-                                                            products[index].url,
-                                                            fit: BoxFit.cover,
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child:
+                                                                Image.network(
+                                                              products[index]
+                                                                  .url,
+                                                              fit: BoxFit.cover,
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
@@ -408,21 +310,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
+                                                        const EdgeInsets.only(
+                                                            left: 8.0,
+                                                            bottom: 12),
                                                     child: Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: <Widget>[
-                                                        Text(
-                                                          "\$${products[index].price}",
-                                                          style: TextStyle(
-                                                              fontSize: 18.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
                                                         Text(
                                                           products[index].name,
                                                           overflow: TextOverflow
@@ -430,9 +325,28 @@ class _MyHomePageState extends State<MyHomePage> {
                                                           textAlign:
                                                               TextAlign.left,
                                                           style: TextStyle(
-                                                              fontSize: 15.0,
-                                                              color:
-                                                                  Colors.grey),
+                                                              fontSize: 12.0,
+                                                              color: Colors
+                                                                  .black87),
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            Text("Egp ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize:
+                                                                      10.0,
+                                                                )),
+                                                            Text(
+                                                              "${products[index].price}",
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      12.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                          ],
                                                         ),
                                                       ],
                                                     ),
@@ -442,111 +356,26 @@ class _MyHomePageState extends State<MyHomePage> {
                                             ),
                                           ),
                                         );
-
-                                        //   GridView.builder(
-                                        //   gridDelegate:
-                                        //       SliverGridDelegateWithFixedCrossAxisCount(
-                                        //           crossAxisCount: 2),
-                                        //   itemCount: products.length,
-                                        //   scrollDirection: Axis.vertical,
-                                        //   itemBuilder: (context, index) =>
-                                        //       Padding(
-                                        //     padding: EdgeInsets.symmetric(
-                                        //         horizontal: 1, vertical: 1),
-                                        //     child: Card(
-                                        //       elevation: 0,
-                                        //       semanticContainer: true,
-                                        //       shape: RoundedRectangleBorder(
-                                        //         borderRadius:
-                                        //             BorderRadius.circular(10.0),
-                                        //       ),
-                                        //       clipBehavior: Clip.antiAlias,
-                                        //       child: Column(
-                                        //         crossAxisAlignment:
-                                        //             CrossAxisAlignment.start,
-                                        //         children: <Widget>[
-                                        //           Expanded(
-                                        //             child: Material(
-                                        //               child: InkWell(
-                                        //                 onTap: () async {
-                                        //                   await DatabaseService(
-                                        //                           uid: user.uid)
-                                        //                       .recommendedUpdate(
-                                        //                           cat: products[
-                                        //                                   index]
-                                        //                               .categoryName,
-                                        //                           count: userData
-                                        //                               .recommended[products[
-                                        //                                   index]
-                                        //                               .categoryName],
-                                        //                           rec: userData
-                                        //                               .recommended);
-                                        //                   Navigator.of(context)
-                                        //                       .pushNamed(
-                                        //                           SelectedItem
-                                        //                               .id,
-                                        //                           arguments:
-                                        //                               products[
-                                        //                                   index]);
-                                        //                 },
-                                        //                 child: GridTile(
-                                        //                   child: Image.network(
-                                        //                     products[index].url,
-                                        //                     fit: BoxFit.cover,
-                                        //                   ),
-                                        //                 ),
-                                        //               ),
-                                        //             ),
-                                        //           ),
-                                        //           Padding(
-                                        //             padding:
-                                        //                 const EdgeInsets.all(
-                                        //                     8.0),
-                                        //             child: Column(
-                                        //               crossAxisAlignment:
-                                        //                   CrossAxisAlignment
-                                        //                       .start,
-                                        //               children: <Widget>[
-                                        //                 Text(
-                                        //                   "\$${products[index].price}",
-                                        //                   style: TextStyle(
-                                        //                       fontSize: 18.0,
-                                        //                       fontWeight:
-                                        //                           FontWeight
-                                        //                               .bold),
-                                        //                 ),
-                                        //                 Text(
-                                        //                   products[index].name,
-                                        //                   overflow: TextOverflow
-                                        //                       .ellipsis,
-                                        //                   textAlign:
-                                        //                       TextAlign.left,
-                                        //                   style: TextStyle(
-                                        //                       fontSize: 15.0,
-                                        //                       color:
-                                        //                           Colors.grey),
-                                        //                 ),
-                                        //               ],
-                                        //             ),
-                                        //           )
-                                        //         ],
-                                        //       ),
-                                        //     ),
-                                        //   ),
-                                        // );
                                       }
                                       return Center(
-                                        child: Text('Loading...'),
+                                        child: Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
                                       );
                                     }),
                               ),
                             ),
                             Container(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text("Categories",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                  )),
+                              child: Padding(
+                                padding: const EdgeInsets.all(19.0),
+                                child: Text("Categories",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: (!userData.darkmode)
+                                          ? Colors.black
+                                          : Colors.white,
+                                    )),
+                              ),
                               margin: EdgeInsets.only(left: 25),
                             ),
 
@@ -589,13 +418,30 @@ class _MyHomePageState extends State<MyHomePage> {
                                                           height: 130,
                                                           child: Icon(
                                                             e["icon"],
-                                                            color: Colors.white,
+                                                            color: (!userData
+                                                                    .darkmode)
+                                                                ? Colors.white
+                                                                : Colors.red,
                                                             size: 80,
                                                           )),
                                                     ),
                                                   ),
                                                 ),
-                                                Text(e["name"])
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    e["name"]
+                                                        .toString()
+                                                        .capitalize(),
+                                                    style: TextStyle(
+                                                      color:
+                                                          (!userData.darkmode)
+                                                              ? Colors.black
+                                                              : Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
                                               ],
                                             ))
                                         .toList())),
@@ -605,11 +451,14 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: Text("Offers",
                                   style: TextStyle(
                                     fontSize: 20,
+                                    color: (!userData.darkmode)
+                                        ? Colors.black
+                                        : Colors.white,
                                   )),
                               margin: EdgeInsets.only(left: 25),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(25.0),
+                              padding: const EdgeInsets.all(15.0),
                               child: Container(
                                 padding: EdgeInsets.only(bottom: 25),
                                 height: 250,
@@ -681,13 +530,19 @@ class _MyHomePageState extends State<MyHomePage> {
                                                               },
                                                               child: Center(
                                                                 child: GridTile(
-                                                                  child: Image
-                                                                      .network(
-                                                                    products[
-                                                                            index]
-                                                                        .url,
-                                                                    fit: BoxFit
-                                                                        .cover,
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            8.0),
+                                                                    child: Image
+                                                                        .network(
+                                                                      products[
+                                                                              index]
+                                                                          .url,
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),
@@ -698,32 +553,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
+                                                          const EdgeInsets.only(
+                                                              left: 8.0,
+                                                              bottom: 12),
                                                       child: Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: <Widget>[
-                                                          Text(
-                                                            "\$${products[index].price}",
-                                                            style: TextStyle(
-                                                                fontSize: 18.0,
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .lineThrough,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .normal),
-                                                          ),
-                                                          Text(
-                                                            "\$${(products[index].price * (100 - userData.offer) / 100).toString()}",
-                                                            style: TextStyle(
-                                                                fontSize: 18.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          ),
                                                           Text(
                                                             products[index]
                                                                 .name,
@@ -733,10 +570,59 @@ class _MyHomePageState extends State<MyHomePage> {
                                                             textAlign:
                                                                 TextAlign.left,
                                                             style: TextStyle(
-                                                                fontSize: 15.0,
+                                                                fontSize: 12.0,
                                                                 color: Colors
-                                                                    .grey),
-                                                          )
+                                                                    .black87),
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                "Egp ",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        10.0,
+                                                                    decoration:
+                                                                        TextDecoration
+                                                                            .lineThrough,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .normal),
+                                                              ),
+                                                              Text(
+                                                                "${products[index].price}",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        12.0,
+                                                                    decoration:
+                                                                        TextDecoration
+                                                                            .lineThrough,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .normal),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                "Egp ",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        10.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                              Text(
+                                                                "${(products[index].price * (100 - userData.offer) / 100).toString()}",
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize:
+                                                                      14.0,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ],
                                                       ),
                                                     )
@@ -746,101 +632,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                             ),
                                           ),
                                         );
-
-                                        //   GridView.builder(
-                                        //   gridDelegate:
-                                        //       SliverGridDelegateWithFixedCrossAxisCount(
-                                        //           crossAxisCount: 2),
-                                        //   itemCount: products.length,
-                                        //   scrollDirection: Axis.vertical,
-                                        //   itemBuilder: (context, index) =>
-                                        //       Padding(
-                                        //     padding: EdgeInsets.symmetric(
-                                        //         horizontal: 1, vertical: 1),
-                                        //     child: Card(
-                                        //       elevation: 0,
-                                        //       semanticContainer: true,
-                                        //       shape: RoundedRectangleBorder(
-                                        //         borderRadius:
-                                        //             BorderRadius.circular(10.0),
-                                        //       ),
-                                        //       clipBehavior: Clip.antiAlias,
-                                        //       child: Column(
-                                        //         crossAxisAlignment:
-                                        //             CrossAxisAlignment.start,
-                                        //         children: <Widget>[
-                                        //           Expanded(
-                                        //             child: Material(
-                                        //               child: InkWell(
-                                        //                 onTap: () async {
-                                        //                   await DatabaseService(
-                                        //                           uid: user.uid)
-                                        //                       .recommendedUpdate(
-                                        //                           cat: products[
-                                        //                                   index]
-                                        //                               .categoryName,
-                                        //                           count: userData
-                                        //                               .recommended[products[
-                                        //                                   index]
-                                        //                               .categoryName],
-                                        //                           rec: userData
-                                        //                               .recommended);
-                                        //                   Navigator.of(context)
-                                        //                       .pushNamed(
-                                        //                           SelectedItem
-                                        //                               .id,
-                                        //                           arguments:
-                                        //                               products[
-                                        //                                   index]);
-                                        //                 },
-                                        //                 child: GridTile(
-                                        //                   child: Image.network(
-                                        //                     products[index].url,
-                                        //                     fit: BoxFit.cover,
-                                        //                   ),
-                                        //                 ),
-                                        //               ),
-                                        //             ),
-                                        //           ),
-                                        //           Padding(
-                                        //             padding:
-                                        //                 const EdgeInsets.all(
-                                        //                     8.0),
-                                        //             child: Column(
-                                        //               crossAxisAlignment:
-                                        //                   CrossAxisAlignment
-                                        //                       .start,
-                                        //               children: <Widget>[
-                                        //                 Text(
-                                        //                   "\$${products[index].price}",
-                                        //                   style: TextStyle(
-                                        //                       fontSize: 18.0,
-                                        //                       fontWeight:
-                                        //                           FontWeight
-                                        //                               .bold),
-                                        //                 ),
-                                        //                 Text(
-                                        //                   products[index].name,
-                                        //                   overflow: TextOverflow
-                                        //                       .ellipsis,
-                                        //                   textAlign:
-                                        //                       TextAlign.left,
-                                        //                   style: TextStyle(
-                                        //                       fontSize: 15.0,
-                                        //                       color:
-                                        //                           Colors.grey),
-                                        //                 ),
-                                        //               ],
-                                        //             ),
-                                        //           )
-                                        //         ],
-                                        //       ),
-                                        //     ),
-                                        //   ),
-                                        // );
                                       }
                                       return Center(
-                                        child: Text('Loading...'),
+                                        child: Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
                                       );
                                     }),
                               ),
@@ -853,7 +649,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       width: width,
                       bottom: 0,
                       child: Container(
-                        color: Colors.white,
+                        color:
+                            (!userData.darkmode) ? Colors.white : Colors.black,
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
@@ -861,7 +658,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                   onPressed: () {},
                                   icon: Icon(
                                     Matjar.home,
-                                    color: Colors.red,
+                                    color: (!userData.darkmode)
+                                        ? Colors.red
+                                        : Colors.white,
                                   )),
                               IconButton(
                                   onPressed: () {
@@ -873,24 +672,45 @@ class _MyHomePageState extends State<MyHomePage> {
                                   },
                                   icon: Icon(
                                     Matjar.categories,
-                                    color: Colors.red,
-                                  )),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Matjar.cart,
-                                    color: Colors.red,
+                                    color: (!userData.darkmode)
+                                        ? Colors.red
+                                        : Colors.white,
                                   )),
                               IconButton(
                                   onPressed: () {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => Profile()));
+                                            builder: (context) => Cart()));
+                                  },
+                                  icon: Icon(
+                                    Matjar.cart,
+                                    color: (!userData.darkmode)
+                                        ? Colors.red
+                                        : Colors.white,
+                                  )),
+                              IconButton(
+                                  onPressed: () {
+                                    if (user.uid ==
+                                            'ING2u4fnlgQBpkUqrCoitD619iD3' ||
+                                        user == null) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Profile()));
+                                    } else {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ProfileLoggedIn()));
+                                    }
                                   },
                                   icon: Icon(
                                     Matjar.sign_in_and_sign_up_logo,
-                                    color: Colors.red,
+                                    color: (!userData.darkmode)
+                                        ? Colors.red
+                                        : Colors.white,
                                   )),
                             ]),
                       ))
@@ -898,7 +718,9 @@ class _MyHomePageState extends State<MyHomePage> {
           } else {
             return Scaffold(
               body: Center(
-                child: Text('ccxc'),
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
               ),
             );
           }
