@@ -39,20 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  // void showParticularItem(Map item) async{
-  //   String productId = item['productId'];
-  //   Map itemDetails = await _productService.particularItem(productId);
-  //   Navigator.push(
-  //       context,
-  //       CustomTransition(
-  //           type: CustomTransitionType.downToUp,
-  //           child: ParticularItem(
-  //             itemDetails: itemDetails,
-  //             edit: false,
-  //           )
-  //       )
-  //   );
-  // }
 
   var cat = [];
   var getItem = [];
@@ -132,10 +118,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 backgroundColor:
                     (!userData.darkmode) ? Colors.white : Colors.black,
                 appBar: AppBar(
+                  titleSpacing: 0,
                   backgroundColor: (!userData.darkmode)
                       ? Color.fromRGBO(255, 0, 0, 1)
                       : Color.fromRGBO(27, 27, 27, 1),
-                  // toolbarHeight: 75,
+                  toolbarHeight: 75,
 
                   title: Icon(
                     Matjar.matjar_logo,
@@ -146,6 +133,87 @@ class _MyHomePageState extends State<MyHomePage> {
                       width: 210,
                     ),
                   ],
+                ),
+                bottomNavigationBar: BottomNavigationBar(
+                  type: BottomNavigationBarType.fixed,
+                  iconSize: 30,
+                  currentIndex: currentIndex,
+                  backgroundColor:  (!userData.darkmode) ? Colors.white : Colors.black,
+                  selectedFontSize: 13,
+                  showSelectedLabels: false,
+                  showUnselectedLabels: false,
+                  items: [
+                    BottomNavigationBarItem(
+                      icon: Icon(
+                        Matjar.home,
+                        color: (!userData.darkmode)
+                            ? Colors.red
+                            : Colors.white,
+                      ),
+                      label: "",
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(
+                        Matjar.categories,
+                        color: (!userData.darkmode)
+                            ? Colors.red
+                            : Colors.white,
+                      ),
+                      label: "",
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(
+                        Matjar.cart,
+                        color: (!userData.darkmode)
+                            ? Colors.red
+                            : Colors.white,
+                      ),
+                      label: "",
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(
+                        Matjar.sign_in_and_sign_up_logo,
+                        color:(!userData.darkmode)
+                            ? Colors.red
+                            : Colors.white,
+                      ),
+                      label: "",
+                    ),
+                  ],
+                  onTap: (index) {
+                    setState(() {
+                      currentIndex = index;
+                      if (currentIndex == 1) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    Categories()));
+                      }
+                      if (currentIndex == 2) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Cart()));
+                      }
+                      if (currentIndex == 3) {
+                        if (user.uid ==
+                            'ING2u4fnlgQBpkUqrCoitD619iD3' ||
+                            user == null) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Profile()));
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ProfileLoggedIn()));
+                        }
+                      }
+                    });
+                  },
                 ),
                 body: Stack(children: <Widget>[
                   Positioned.fill(
@@ -647,75 +715,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     ]),
                   ),
                   //..................................................................................................................
-                  Positioned(
-                      width: width,
-                      bottom: 0,
-                      child: Container(
-                        color:
-                            (!userData.darkmode) ? Colors.white : Colors.black,
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Matjar.home,
-                                    color: (!userData.darkmode)
-                                        ? Colors.red
-                                        : Colors.white,
-                                  )),
-                              IconButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                Categories()));
-                                  },
-                                  icon: Icon(
-                                    Matjar.categories,
-                                    color: (!userData.darkmode)
-                                        ? Colors.red
-                                        : Colors.white,
-                                  )),
-                              IconButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Cart()));
-                                  },
-                                  icon: Icon(
-                                    Matjar.cart,
-                                    color: (!userData.darkmode)
-                                        ? Colors.red
-                                        : Colors.white,
-                                  )),
-                              IconButton(
-                                  onPressed: () {
-                                    if (user.uid ==
-                                            'ING2u4fnlgQBpkUqrCoitD619iD3' ||
-                                        user == null) {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => Profile()));
-                                    } else {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ProfileLoggedIn()));
-                                    }
-                                  },
-                                  icon: Icon(
-                                    Matjar.sign_in_and_sign_up_logo,
-                                    color: (!userData.darkmode)
-                                        ? Colors.red
-                                        : Colors.white,
-                                  )),
-                            ]),
-                      ))
                 ]));
           } else {
             return Scaffold(
