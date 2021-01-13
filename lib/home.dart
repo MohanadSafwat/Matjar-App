@@ -10,6 +10,7 @@ import 'actions/productService.dart';
 import 'constants.dart';
 import 'firebase/userDatabase.dart';
 import 'items.dart';
+import 'login.dart';
 import 'matjar_icons.dart';
 import 'Categories.dart';
 import 'Search.dart';
@@ -112,6 +113,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 'icon': Icons.food_bank_rounded
               },
             ];
+            Color textColor = (!userData.darkmode)
+                ? Colors.black
+                : Colors.white ;
+            Color boxShadowColor = (!userData.darkmode) ?  Colors.grey.withOpacity(0.16)
+                :  Colors.white.withOpacity(0.05);
+            Color boxDecorationColor = (!userData.darkmode) ?   Colors.white
+                : Color.fromRGBO(27, 27, 27, 1);
+            Color buttonColor = Color.fromRGBO(255, 0, 0, 1);
+
             maxCat = DatabaseService(uid: user.uid)
                 .getMaxCat(rec: userData.recommended);
             return Scaffold(
@@ -191,10 +201,20 @@ class _MyHomePageState extends State<MyHomePage> {
                                     Categories()));
                       }
                       if (currentIndex == 2) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Cart()));
+                        if (user.uid ==
+                            'ING2u4fnlgQBpkUqrCoitD619iD3' ||
+                            user == null) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Login()));
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      Cart()));
+                        }
                       }
                       if (currentIndex == 3) {
                         if (user.uid ==
@@ -335,9 +355,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                           itemBuilder: (context, index) =>
                                               Padding(
                                             padding: EdgeInsets.symmetric(
-                                                horizontal: 1, vertical: 1),
+                                                horizontal: 1),
                                             child: Card(
                                               elevation: 0,
+                                              color: boxDecorationColor,
                                               semanticContainer: true,
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
@@ -379,6 +400,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                   Padding(
                                                     padding:
                                                         const EdgeInsets.only(
+                                                          top: 10,
                                                             left: 8.0,
                                                             bottom: 12),
                                                     child: Column(
@@ -394,8 +416,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                               TextAlign.left,
                                                           style: TextStyle(
                                                               fontSize: 12.0,
-                                                              color: Colors
-                                                                  .black87),
+                                                              color: textColor),
                                                         ),
                                                         Row(
                                                           children: [
@@ -404,12 +425,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                     TextStyle(
                                                                   fontSize:
                                                                       10.0,
+                                                                      color: textColor,
                                                                 )),
                                                             Text(
                                                               "${products[index].price}",
                                                               style: TextStyle(
                                                                   fontSize:
                                                                       12.0,
+                                                                  color: textColor,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold),
