@@ -30,22 +30,22 @@ class _CategoriesState extends State<Categories> {
             var data = [
               {
                 'name': 'Electronics',
-                'color': (!userData.darkmode) ? Colors.red : Colors.white,
+                'color': Colors.white,
                 'icon': Icons.electrical_services_outlined
               },
               {
                 'name': 'mobiles',
-                'color': (!userData.darkmode) ? Colors.red : Colors.white,
+                'color': Colors.white,
                 'icon': Icons.phone_android_rounded
               },
               {
                 'name': 'fashion',
-                'color': (!userData.darkmode) ? Colors.red : Colors.white,
+                'color': Colors.white,
                 'icon': Icons.umbrella_rounded
               },
               {
                 'name': 'Kitchen Tools',
-                'color': (!userData.darkmode) ? Colors.red : Colors.white,
+                'color':Colors.white,
                 'icon': Icons.food_bank_rounded
               },
             ];
