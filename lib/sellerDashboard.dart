@@ -86,7 +86,7 @@ class _SellerDashboardState extends State<SellerDashboard> {
                     (!userData.darkmode) ? Colors.white : Colors.black,
                 appBar: AppBar(
                   toolbarHeight: 75,
-                  titleSpacing: 0,
+                  titleSpacing: 0, centerTitle: true,
                   backgroundColor: (!userData.darkmode)
                       ? Color.fromRGBO(255, 0, 0, 1)
                       : Color.fromRGBO(27, 27, 27, 0.4),
@@ -156,7 +156,8 @@ class _SellerDashboardState extends State<SellerDashboard> {
                               ],
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal:8.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
                               child: CustomTextField(
                                 lable: 'Product Name',
                                 control: itemNameController,
@@ -230,7 +231,8 @@ class _SellerDashboardState extends State<SellerDashboard> {
                               ],
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal:8.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
                               child: CustomTextField(
                                 textColor: textColor,
                                 lable: 'Category',
@@ -257,7 +259,8 @@ class _SellerDashboardState extends State<SellerDashboard> {
                               ],
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal:8.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
                               child: CustomTextField(
                                 lable: 'Price',
                                 control: itemPriceController,
@@ -284,7 +287,8 @@ class _SellerDashboardState extends State<SellerDashboard> {
                               ],
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal:8.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
                               child: CustomTextField(
                                 textColor: textColor,
                                 lable: 'Number of items',
@@ -311,7 +315,8 @@ class _SellerDashboardState extends State<SellerDashboard> {
                               ],
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal:8.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
                               child: CustomTextField(
                                 textColor: textColor,
                                 lable: 'Brand',
@@ -506,14 +511,11 @@ class _SellerDashboardState extends State<SellerDashboard> {
                     Container(
                       padding: const EdgeInsets.all(10.0),
                       child: Text('Items In Stock',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: textColor
-                          )),
+                          style: TextStyle(fontSize: 20, color: textColor)),
                       margin: EdgeInsets.only(left: 25),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left:35.0),
+                      padding: const EdgeInsets.only(left: 35.0),
                       child: Container(
                         height: 200,
                         child: ListView.builder(
@@ -524,7 +526,6 @@ class _SellerDashboardState extends State<SellerDashboard> {
                                 horizontal: 1, vertical: 1),
                             child: Card(
                               elevation: 0,
-
                               color: boxDecorationColor,
                               semanticContainer: true,
                               shape: RoundedRectangleBorder(
@@ -557,17 +558,11 @@ class _SellerDashboardState extends State<SellerDashboard> {
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
-                                         "${sellerProducts[index]['itemName']}",
-                                          textAlign:
-                                          TextAlign.left,
-                                          overflow: TextOverflow
-                                              .fade,
-
-
-
-                                        style: TextStyle(
-                                        fontSize: 10.0,
-                                        color: textColor),
+                                          "${sellerProducts[index]['itemName']}",
+                                          textAlign: TextAlign.left,
+                                          overflow: TextOverflow.fade,
+                                          style: TextStyle(
+                                              fontSize: 10.0, color: textColor),
                                         ),
                                         Row(
                                           children: [
@@ -576,22 +571,15 @@ class _SellerDashboardState extends State<SellerDashboard> {
                                                   fontSize: 10.0,
                                                   color: textColor,
                                                 )),
-
                                             Text(
                                               '${sellerProducts[index]['itemPrice']}',
                                               softWrap: true,
                                               style: TextStyle(
-
-                                                  fontSize:
-                                                  12.0,
-                                                  color:
-                                                  textColor,
-                                                  fontWeight:
-                                                  FontWeight
-                                                      .bold),
+                                                  fontSize: 12.0,
+                                                  color: textColor,
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                           ],
-
                                         ),
                                         Row(
                                           children: [
@@ -600,30 +588,21 @@ class _SellerDashboardState extends State<SellerDashboard> {
                                                   fontSize: 10.0,
                                                   color: textColor,
                                                 )),
-
                                             Text(
                                               "${sellerProducts[index]['noOfItemsInStock']}",
                                               style: TextStyle(
-                                                  fontSize:
-                                                  12.0,
-                                                  color:
-                                                  textColor,
-                                                  fontWeight:
-                                                  FontWeight
-                                                      .bold),
+                                                  fontSize: 12.0,
+                                                  color: textColor,
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                           ],
-
                                         ),
-
                                       ],
                                     ),
                                   )
                                 ],
                               ),
                             ),
-
-
                           ),
                         ),
                       ),

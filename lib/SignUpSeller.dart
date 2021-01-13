@@ -59,6 +59,7 @@ class _SignUpSeller extends State<SignUpSeller> {
                   (!userData.darkmode) ? Colors.white : Colors.black,
               appBar: AppBar(
                 titleSpacing: 0,
+                centerTitle: true,
                 backgroundColor: (!userData.darkmode)
                     ? Color.fromRGBO(255, 0, 0, 1)
                     : Color.fromRGBO(27, 27, 27, 0.4),
@@ -192,15 +193,12 @@ class _SignUpSeller extends State<SignUpSeller> {
                         ),
                         new Padding(padding: EdgeInsets.all(10)),
                         new TextField(
-
                           style: TextStyle(fontSize: 20, color: textColor),
                           controller: _lastNameController,
                           decoration: new InputDecoration(
                               labelStyle: TextStyle(color: textColor),
                               labelText: 'Last Name',
-                              border: InputBorder.none
-
-                          ),
+                              border: InputBorder.none),
                         ),
                         new Padding(padding: EdgeInsets.all(10)),
                         new TextField(

@@ -82,6 +82,7 @@ class SignUpState extends State<SignUp> {
                 backgroundColor:
                     (!userData.darkmode) ? Colors.white : Colors.black,
                 appBar: AppBar(
+                  centerTitle: true,
                   titleSpacing: 0,
                   backgroundColor: (!userData.darkmode)
                       ? Color.fromRGBO(255, 0, 0, 1)

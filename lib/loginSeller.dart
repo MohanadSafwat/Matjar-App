@@ -65,6 +65,7 @@ class LoginSellerState extends State<LoginSeller> {
                 backgroundColor:
                     (!userData.darkmode) ? Colors.white : Colors.black,
                 appBar: AppBar(
+                  centerTitle: true,
                   titleSpacing: 0,
                   backgroundColor: (!userData.darkmode)
                       ? Color.fromRGBO(255, 0, 0, 1)
@@ -269,7 +270,7 @@ class LoginSellerState extends State<LoginSeller> {
                                   "Forget Password?",
                                   style: TextStyle(color: linkColor),
                                 ),
-                                onPressed: () => print("forget"),
+                                onPressed: () {},
                               ),
                             ),
                             Container(
@@ -336,7 +337,8 @@ class LoginSellerState extends State<LoginSeller> {
 
                                                 if (check) {
                                                   Navigator.of(context)
-                                                      .pushNamed('/ProfileLoginSeller');
+                                                      .pushNamed(
+                                                          '/ProfileLoginSeller');
                                                 } else {
                                                   setState(() {
                                                     error =

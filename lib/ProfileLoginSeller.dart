@@ -38,6 +38,7 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
               backgroundColor:
                   (!userData.darkmode) ? Colors.white : Colors.black,
               appBar: AppBar(
+                centerTitle: true,
                 automaticallyImplyLeading: false,
                 toolbarHeight: 75,
                 titleSpacing: 0,
@@ -335,7 +336,6 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                               value: darkmodeVal,
                               onChanged: switchButton,
                               activeColor: Colors.white,
-
                             )
                           ],
                         ),
@@ -378,22 +378,21 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                             Icon(
                               Matjar.facebook,
                               size: 30,
-                              color:  (!userData.darkmode)
+                              color: (!userData.darkmode)
                                   ? Colors.black
                                   : Color.fromRGBO(255, 0, 0, 1),
                             ),
                             Icon(
                               Matjar.twitter,
                               size: 40,
-                              color:  (!userData.darkmode)
+                              color: (!userData.darkmode)
                                   ? Colors.black
                                   : Color.fromRGBO(255, 0, 0, 1),
                             ),
-
                             Icon(
                               Matjar.instagram,
                               size: 33,
-                              color:  (!userData.darkmode)
+                              color: (!userData.darkmode)
                                   ? Colors.black
                                   : Color.fromRGBO(255, 0, 0, 1),
                             ),
@@ -409,29 +408,23 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                             Text(
                               'Terms Of Use',
                               style: TextStyle(
-                                fontFamily: 'Source Sans Pro',
-                                fontSize: 13,
-                                  color: textColor
-
-                              ),
+                                  fontFamily: 'Source Sans Pro',
+                                  fontSize: 13,
+                                  color: textColor),
                             ),
                             Text(
                               'Terms Of Sale',
                               style: TextStyle(
-                                fontFamily: 'Source Sans Pro',
-                                fontSize: 13,
-                                  color: textColor
-
-                              ),
+                                  fontFamily: 'Source Sans Pro',
+                                  fontSize: 13,
+                                  color: textColor),
                             ),
                             Text(
                               'Privacy Policy',
                               style: TextStyle(
-                                fontFamily: 'Source Sans Pro',
-                                fontSize: 13,
-                                  color: textColor
-
-                              ),
+                                  fontFamily: 'Source Sans Pro',
+                                  fontSize: 13,
+                                  color: textColor),
                             ),
                           ],
                         ),
@@ -445,19 +438,16 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                             Text(
                               'Warranty Policy',
                               style: TextStyle(
-                                fontFamily: 'Source Sans Pro',
-                                fontSize: 13,
-                                color: textColor
-                              ),
+                                  fontFamily: 'Source Sans Pro',
+                                  fontSize: 13,
+                                  color: textColor),
                             ),
                             Text(
                               'Return Policy',
                               style: TextStyle(
-                                fontFamily: 'Source Sans Pro',
-                                fontSize: 13,
-                                  color: textColor
-
-                              ),
+                                  fontFamily: 'Source Sans Pro',
+                                  fontSize: 13,
+                                  color: textColor),
                             ),
                           ],
                         ),

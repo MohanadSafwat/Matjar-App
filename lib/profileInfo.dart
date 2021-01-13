@@ -37,6 +37,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
               backgroundColor:
                   (!userData.darkmode) ? Colors.white : Colors.black,
               appBar: AppBar(
+                centerTitle: true,
                 toolbarHeight: 75,
                 titleSpacing: 0,
                 backgroundColor: (!userData.darkmode)

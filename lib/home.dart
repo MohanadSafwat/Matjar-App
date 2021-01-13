@@ -81,22 +81,22 @@ class _MyHomePageState extends State<MyHomePage> {
             var data = [
               {
                 'name': 'Electronics',
-                'color':  Colors.white,
+                'color': Colors.white,
                 'icon': Icons.electrical_services_outlined
               },
               {
                 'name': 'mobiles',
-                'color':  Colors.white,
+                'color': Colors.white,
                 'icon': Icons.phone_android_rounded
               },
               {
                 'name': 'fashion',
-                'color':  Colors.white,
+                'color': Colors.white,
                 'icon': Icons.umbrella_rounded
               },
               {
                 'name': 'Kitchen Tools',
-                'color':  Colors.white,
+                'color': Colors.white,
                 'icon': Icons.food_bank_rounded
               },
             ];
@@ -119,6 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     (!userData.darkmode) ? Colors.white : Colors.black,
                 appBar: AppBar(
                   automaticallyImplyLeading: false,
+                  centerTitle: true,
                   titleSpacing: 0,
                   backgroundColor: (!userData.darkmode)
                       ? Color.fromRGBO(255, 0, 0, 1)

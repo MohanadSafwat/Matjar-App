@@ -1,7 +1,3 @@
-//import 'dart:html';
-
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -43,6 +39,7 @@ class LoginState extends State<Login> {
   DatabaseService databaseService;
   var x, y;
   String uid, error = "";
+
   bool exist = false;
   bool lastDoc = false;
   FirebaseAuth fAuth;
@@ -58,6 +55,7 @@ class LoginState extends State<Login> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             Account userData = snapshot.data;
+
             Color linkColor = (!userData.darkmode)
                 ? Color.fromRGBO(83, 169, 252, 1)
                 : Color.fromRGBO(83, 169, 252, 1);
@@ -76,6 +74,7 @@ class LoginState extends State<Login> {
                     (!userData.darkmode) ? Colors.white : Colors.black,
                 appBar: AppBar(
                   titleSpacing: 0,
+                  centerTitle: true,
                   backgroundColor: (!userData.darkmode)
                       ? Color.fromRGBO(255, 0, 0, 1)
                       : Color.fromRGBO(27, 27, 27, 0.4),
@@ -237,9 +236,9 @@ class LoginState extends State<Login> {
                                       TextStyle(fontSize: 20, color: textColor),
                                   controller: _emailController,
                                   decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      labelText: "Email",
-                                      labelStyle: TextStyle(color: textColor),
+                                    border: InputBorder.none,
+                                    labelText: "Email",
+                                    labelStyle: TextStyle(color: textColor),
                                   ),
                                 ),
                               ),
@@ -258,9 +257,9 @@ class LoginState extends State<Login> {
                                       TextStyle(fontSize: 20, color: textColor),
                                   controller: _passwordController,
                                   decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      labelText: "Password",
-                                      labelStyle: TextStyle(color: textColor),
+                                    border: InputBorder.none,
+                                    labelText: "Password",
+                                    labelStyle: TextStyle(color: textColor),
                                   ),
                                   obscureText: true,
                                 ),
@@ -273,7 +272,7 @@ class LoginState extends State<Login> {
                                   "Forget Password?",
                                   style: TextStyle(color: linkColor),
                                 ),
-                                onPressed: () => print("forget"),
+                                onPressed: () {},
                               ),
                             ),
                             Container(
@@ -348,7 +347,7 @@ class LoginState extends State<Login> {
                                             } else {
                                               setState(() {
                                                 error =
-                                                    " invalid email or password ";
+                                                    " *invalid email or password ";
                                               });
                                             }
                                           }

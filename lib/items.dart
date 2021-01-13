@@ -32,7 +32,6 @@ class _ItemsState extends State<Items> {
   List<Item> ref2 = [];
   List<Item> ref3 = [];
 
-
   bool flagSort = false;
   bool flagFilter = false;
   bool flag = false;
@@ -43,7 +42,6 @@ class _ItemsState extends State<Items> {
   bool flagPriceSelected = false;
   bool validatePriceFrom = false;
   bool validatePriceTo = false;
-
 
   List<String> brands = [];
   TextEditingController priceFrom = TextEditingController();
@@ -105,7 +103,8 @@ class _ItemsState extends State<Items> {
                 appBar: show
                     ? AppBar(
                         backgroundColor: Color.fromRGBO(255, 0, 0, 1),
-                        // toolbarHeight: 75,
+                        toolbarHeight: 75,
+                        centerTitle: true,
                         leading: FlatButton(
                           onPressed: () {
                             Navigator.of(context).pushNamed('/Home');
@@ -116,15 +115,13 @@ class _ItemsState extends State<Items> {
                             color: Colors.white,
                           ),
                         ),
-
                         title: Icon(
                           Matjar.matjar_logo,
                           size: 70,
                         ),
-
                         actions: [
                           SizedBox(
-                            width: 210,
+                            width: 110,
                           ),
                           FlatButton(
                               onPressed: () {
@@ -340,17 +337,16 @@ class _ItemsState extends State<Items> {
                                                       }
                                                     }
 
-
                                                     temp =
                                                         filterProductsByBrand(
                                                             ref,
                                                             brandsFiltered);
-                                                    ref3=[...temp];
-                                                    print(
+                                                    ref3 = [...temp];
+                                                    /* print(
                                                         brandCheckBoxValues[0]);
                                                     print(brands[0]);
                                                     print(flagBrandSelected);
-                                                    print('in check $temp');
+                                                    print('in check $temp'); */
                                                   });
                                                 },
                                               ),
@@ -427,8 +423,8 @@ class _ItemsState extends State<Items> {
                                                           flagBrandSelected)
                                                       ? [...temp]
                                                       : [...products];
-                                                  if(flagBrandSelected){
-                                                    ref =[...ref3];
+                                                  if (flagBrandSelected) {
+                                                    ref = [...ref3];
                                                   }
                                                   flagPriceSelected = true;
 
@@ -438,8 +434,7 @@ class _ItemsState extends State<Items> {
                                                           priceFrom.text),
                                                       double.parse(
                                                           priceTo.text));
-                                                  ref2=[...temp];
-
+                                                  ref2 = [...temp];
                                                 });
                                               },
                                             ),

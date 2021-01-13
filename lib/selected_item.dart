@@ -41,7 +41,7 @@ class _SelectedItem extends State<SelectedItem> {
     print(id);
     double reviewRate;
     TextEditingController reviewComment = TextEditingController();
-    print(item.categoryName);
+    //print(item.categoryName);
     final user = Provider.of<Userinit>(context);
 
     return StreamBuilder<Account>(
@@ -437,9 +437,9 @@ class _SelectedItem extends State<SelectedItem> {
                                       0) {
                                     return false;
                                   } else {
-                                    print(snapshot.data
+                                    /* print(snapshot.data
                                         .data()['itemReviews']
-                                        .length);
+                                        .length); */
                                     return true;
                                   }
                                 })()),
@@ -623,7 +623,7 @@ class _SelectedItem extends State<SelectedItem> {
                                                   ),
                                                   onRatingUpdate: (rating) {
                                                     reviewRate = rating;
-                                                    print(rating);
+                                                    //print(rating);
                                                   },
                                                 ),
                                               ],
@@ -645,7 +645,7 @@ class _SelectedItem extends State<SelectedItem> {
                                                             .data()['rate']
                                                             .toString()),
                                                         reviewRate);
-                                                    print(newRate);
+                                                    //print(newRate);
                                                     await addReviewToCategories(
                                                         {
                                                           'firstName': userData

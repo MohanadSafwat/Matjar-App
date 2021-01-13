@@ -57,6 +57,7 @@ class _ProfileEditState extends State<ProfileEdit> {
               backgroundColor:
                   (!userData.darkmode) ? Colors.white : Colors.black,
               appBar: AppBar(
+                centerTitle: true,
                 titleSpacing: 0,
                 backgroundColor: (!userData.darkmode)
                     ? Color.fromRGBO(255, 0, 0, 1)
@@ -248,8 +249,8 @@ class _ProfileEditState extends State<ProfileEdit> {
                               padding: const EdgeInsets.all(8.0),
                               child: new TextFormField(
                                   //initialValue: userData.address,
-                                  style: TextStyle(
-                                      fontSize: 20, color: textColor),
+                                  style:
+                                      TextStyle(fontSize: 20, color: textColor),
                                   controller: addressController,
                                   decoration: new InputDecoration(
                                       labelStyle: TextStyle(color: textColor),

@@ -35,9 +35,6 @@ class ProductService {
         .limit(5)
         .get();
     for (DocumentSnapshot docRef in itemsRef.docs) {
-      print('xxxx');
-      print(docRef['itemReviews']);
-      print('yyyy');
       itemGet.add(Item(
           brand: docRef['itemBrand'],
           name: docRef['itemName'],

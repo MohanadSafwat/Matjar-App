@@ -58,18 +58,23 @@ class ProductAction {
           'itemCategoryName': item.categoryName,
           'rate': 0,
           'itemReviews': FieldValue.arrayUnion([]),
-
-    })
+        })
         .then((value) => print("Product Added to products"))
         .catchError((error) => print("Failed to add product: $error"));
   }
 }
-var cartItems =<Map>[];
+
+var cartItems = <Map>[];
 Future<void> addProductToCart(Item item, String userId) {
-  CollectionReference user =FirebaseFirestore.instance.collection('Users');
+  CollectionReference user = FirebaseFirestore.instance.collection('Users');
   var map = {};
-  map = {'itemCategoryName': item.categoryName, 'itemId': item.id, 'itemPrice':item.price,
-    'itemUrl':item.url, 'itemName':item.name,'noInStock':item.numberInStock
+  map = {
+    'itemCategoryName': item.categoryName,
+    'itemId': item.id,
+    'itemPrice': item.price,
+    'itemUrl': item.url,
+    'itemName': item.name,
+    'noInStock': item.numberInStock
   };
   cartItems.add(map);
   return user.doc(userId).update({
@@ -78,9 +83,9 @@ Future<void> addProductToCart(Item item, String userId) {
     //
   }).then((value) => print('add product to cart'));
 }
-Future<void> darkModeToggle(String userId, bool toggle) {
-  CollectionReference user =FirebaseFirestore.instance.collection('Users');
 
+Future<void> darkModeToggle(String userId, bool toggle) {
+  CollectionReference user = FirebaseFirestore.instance.collection('Users');
 
   return user.doc(userId).update({
     'darkmode': toggle,
@@ -88,7 +93,6 @@ Future<void> darkModeToggle(String userId, bool toggle) {
     //
   }).then((value) => print('darkModeToggled'));
 }
-
 
 // List<Map<String,String>>SellerItems=[];
 var sellerItem = <Map>[];
@@ -140,7 +144,6 @@ getUrl() {
 
 int count;
 counter() async {
-
   await FirebaseFirestore.instance
       .collection('variable')
       .doc('itemIdCounter')
@@ -206,9 +209,9 @@ Stream<DocumentSnapshot> Product(String id) {
       FirebaseFirestore.instance.collection('products');
   return firebase.doc(id).snapshots();
 }
+
 Stream<DocumentSnapshot> CartItems(String id) {
-  CollectionReference firebase =
-  FirebaseFirestore.instance.collection('Users');
+  CollectionReference firebase = FirebaseFirestore.instance.collection('Users');
   return firebase.doc(id).snapshots();
 }
 
@@ -264,7 +267,7 @@ addReviewToCategories(Map<String, dynamic> info, String itemId, String comment,
 upateRateOnProducts(double rate, String itemId) {
   CollectionReference firestore4 =
       FirebaseFirestore.instance.collection("products");
-  print('done 1');
+  //print('done 1');
 
   return firestore4.doc(itemId).update({
     'rate': rate,
@@ -275,7 +278,7 @@ upateRateOnProducts(double rate, String itemId) {
 
 upateRateOnCategories(double rate, String itemId, String categoryName) {
   upateRateOnProducts(rate, itemId);
-  print('done 2');
+  //print('done 2');
   CollectionReference firestore3 = FirebaseFirestore.instance
       .collection("Categories")
       .doc(categoryName)

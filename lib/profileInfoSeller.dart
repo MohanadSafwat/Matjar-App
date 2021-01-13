@@ -34,6 +34,7 @@ class _ProfileInfoSellerState extends State<ProfileInfoSeller> {
               backgroundColor:
                   (!userData.darkmode) ? Colors.white : Colors.black,
               appBar: AppBar(
+                centerTitle: true,
                 toolbarHeight: 75,
                 titleSpacing: 0,
                 backgroundColor: (!userData.darkmode)
@@ -313,8 +314,7 @@ class _ProfileInfoSellerState extends State<ProfileInfoSeller> {
           } else {
             return Scaffold(
               body: Center(
-                child: CircularProgressIndicator(
-                ),
+                child: CircularProgressIndicator(),
               ),
             );
           }

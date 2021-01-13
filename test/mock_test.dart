@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:matjar_login_signup/actions/productActions.dart';
+import 'init.dart';
+
 class MockFirestore extends Mock implements FirebaseFirestore {}
 
 class MockCollectionReference extends Mock implements CollectionReference {}
@@ -12,31 +14,36 @@ class MockDocumentReference extends Mock implements DocumentReference {}
 
 class MockDocumentSnapshot extends Mock implements DocumentSnapshot {}
 
-void main() async{
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+void main() async {
+  setupFirebaseAuthMocks();
+  setUpAll(() async {
+    await Firebase.initializeApp();
+  });
   MockFirestore instance;
   MockDocumentSnapshot mockDocumentSnapshot;
   MockCollectionReference mockCollectionReference;
   MockDocumentReference mockDocumentReference;
-  Map<String,dynamic> map;
+  Map<String, dynamic> map;
   setUp(() {
     instance = MockFirestore();
     mockCollectionReference = MockCollectionReference();
     mockDocumentReference = MockDocumentReference();
     mockDocumentSnapshot = MockDocumentSnapshot();
-    map=Map();
+    map = Map();
   });
 
   //Get data from firestore doc
-  test('should return data when the call to remote source is successful.', () async {
+  test('should return data when the call to remote source is successful.',
+      () async {
     when(instance.collection(any)).thenReturn(mockCollectionReference);
     when(mockCollectionReference.doc(any)).thenReturn(mockDocumentReference);
-    when(mockDocumentReference.get()).thenAnswer((_) async => mockDocumentSnapshot);
+    when(mockDocumentReference.get())
+        .thenAnswer((_) async => mockDocumentSnapshot);
     when(mockDocumentSnapshot.data()).thenReturn(map);
     //act
     final result = await counter();
     //assert
-    expect(result, map); //userModel is a object that is defined. Replace with you own model class object.
+    expect(result,
+        map); //userModel is a object that is defined. Replace with you own model class object.
   });
-  }
+}
