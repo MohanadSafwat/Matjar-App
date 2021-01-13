@@ -158,6 +158,7 @@ class _ProfileState extends State<Profile> {
                               Navigator.of(context).pushNamed('/Login');
                             },
                             child: Column(
+
                               children: [
                                 SizedBox(
                                   height: 10,
