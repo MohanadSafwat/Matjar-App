@@ -23,18 +23,19 @@ class _ProfileInfoState extends State<ProfileInfo> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             Account userData = snapshot.data;
-            Color textColor = (!userData.darkmode)
-                ? Colors.black
-                : Colors.white ;
-            Color boxShadowColor = (!userData.darkmode) ?  Colors.grey.withOpacity(0.16)
-                :  Colors.white.withOpacity(0.05);
-            Color boxDecorationColor = (!userData.darkmode) ?   Colors.white
+            Color textColor =
+                (!userData.darkmode) ? Colors.black : Colors.white;
+            Color boxShadowColor = (!userData.darkmode)
+                ? Colors.grey.withOpacity(0.16)
+                : Colors.white.withOpacity(0.05);
+            Color boxDecorationColor = (!userData.darkmode)
+                ? Colors.white
                 : Color.fromRGBO(27, 27, 27, 1);
             Color buttonColor = Color.fromRGBO(255, 0, 0, 1);
 
             return Scaffold(
               backgroundColor:
-              (!userData.darkmode) ? Colors.white : Colors.black,
+                  (!userData.darkmode) ? Colors.white : Colors.black,
               appBar: AppBar(
                 toolbarHeight: 75,
                 titleSpacing: 0,
@@ -57,7 +58,8 @@ class _ProfileInfoState extends State<ProfileInfo> {
                 type: BottomNavigationBarType.fixed,
                 iconSize: 30,
                 currentIndex: currentIndex,
-                backgroundColor:  (!userData.darkmode) ? Colors.white : Colors.black,
+                backgroundColor:
+                    (!userData.darkmode) ? Colors.white : Colors.black,
                 selectedFontSize: 13,
                 showSelectedLabels: false,
                 showUnselectedLabels: false,
@@ -65,36 +67,28 @@ class _ProfileInfoState extends State<ProfileInfo> {
                   BottomNavigationBarItem(
                     icon: Icon(
                       Matjar.home,
-                      color: (!userData.darkmode)
-                          ? Colors.red
-                          : Colors.white,
+                      color: (!userData.darkmode) ? Colors.red : Colors.white,
                     ),
                     label: "",
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(
                       Matjar.categories,
-                      color: (!userData.darkmode)
-                          ? Colors.red
-                          : Colors.white,
+                      color: (!userData.darkmode) ? Colors.red : Colors.white,
                     ),
                     label: "",
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(
                       Matjar.cart,
-                      color: (!userData.darkmode)
-                          ? Colors.red
-                          : Colors.white,
+                      color: (!userData.darkmode) ? Colors.red : Colors.white,
                     ),
                     label: "",
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(
                       Matjar.sign_in_and_sign_up_logo,
-                      color:(!userData.darkmode)
-                          ? Colors.red
-                          : Colors.white,
+                      color: (!userData.darkmode) ? Colors.red : Colors.white,
                     ),
                     label: "",
                   ),
@@ -109,23 +103,16 @@ class _ProfileInfoState extends State<ProfileInfo> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  Categories()));
+                              builder: (context) => Categories()));
                     }
                     if (currentIndex == 2) {
-                      if (user.uid ==
-                          'ING2u4fnlgQBpkUqrCoitD619iD3' ||
+                      if (user.uid == 'ING2u4fnlgQBpkUqrCoitD619iD3' ||
                           user == null) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Login()));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Login()));
                       } else {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    Cart()));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Cart()));
                       }
                     }
                   });
@@ -153,10 +140,9 @@ class _ProfileInfoState extends State<ProfileInfo> {
                             Text(
                               'Profile',
                               style: TextStyle(
-                                fontFamily: 'Source Sans Pro',
-                                fontSize: 25,
-                                color: textColor
-                              ),
+                                  fontFamily: 'Source Sans Pro',
+                                  fontSize: 25,
+                                  color: textColor),
                             ),
                           ],
                         ),
@@ -168,15 +154,19 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         child: Text(
                           'First Name',
                           style: TextStyle(
-                              fontSize: 17, fontFamily: 'Source Sans Pro',color: textColor),
+                              fontSize: 17,
+                              fontFamily: 'Source Sans Pro',
+                              color: textColor),
                         ),
                       ),
                     ]),
                     Container(
-                      child: Text(userData.firstName.capitalize(),
+                      child: Text(
+                        userData.firstName.capitalize(),
                         style: TextStyle(
-                        color: textColor,
-                      ),),
+                          color: textColor,
+                        ),
+                      ),
                       margin: EdgeInsets.symmetric(
                         horizontal: 10,
                       ),
@@ -186,10 +176,11 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         color: boxDecorationColor,
                         boxShadow: [
                           BoxShadow(
-                              offset: Offset(0, 2),
-                              spreadRadius: 1,
-                              blurRadius: 5,
-                              color: boxShadowColor,)
+                            offset: Offset(0, 2),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            color: boxShadowColor,
+                          )
                         ],
                       ),
                     ),
@@ -199,17 +190,22 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         child: Text(
                           'Last Name',
                           style: TextStyle(
-                              fontSize: 17, fontFamily: 'Source Sans Pro',color: textColor),
+                              fontSize: 17,
+                              fontFamily: 'Source Sans Pro',
+                              color: textColor),
                         ),
                       ),
-
                     ]),
-                    SizedBox(height: 5,),
+                    SizedBox(
+                      height: 5,
+                    ),
                     Container(
-                      child: Text(userData.lastName.capitalize(),
-                      style: TextStyle(
-                        color: textColor,
-                      ),),
+                      child: Text(
+                        userData.lastName.capitalize(),
+                        style: TextStyle(
+                          color: textColor,
+                        ),
+                      ),
                       margin: EdgeInsets.symmetric(
                         horizontal: 10,
                       ),
@@ -219,10 +215,11 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         color: boxDecorationColor,
                         boxShadow: [
                           BoxShadow(
-                              offset: Offset(0, 2),
-                              spreadRadius: 1,
-                              blurRadius: 5,
-                              color: boxShadowColor,)
+                            offset: Offset(0, 2),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            color: boxShadowColor,
+                          )
                         ],
                       ),
                     ),
@@ -232,15 +229,19 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         child: Text(
                           'Email',
                           style: TextStyle(
-                              fontSize: 17, fontFamily: 'Source Sans Pro',color: textColor),
+                              fontSize: 17,
+                              fontFamily: 'Source Sans Pro',
+                              color: textColor),
                         ),
                       ),
                     ]),
                     Container(
-                      child: Text(userData.email,
+                      child: Text(
+                        userData.email,
                         style: TextStyle(
                           color: textColor,
-                        ),),
+                        ),
+                      ),
                       margin: EdgeInsets.symmetric(
                         horizontal: 10,
                       ),
@@ -263,15 +264,19 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         child: Text(
                           'Address',
                           style: TextStyle(
-                              fontSize: 17, fontFamily: 'Source Sans Pro',color: textColor),
+                              fontSize: 17,
+                              fontFamily: 'Source Sans Pro',
+                              color: textColor),
                         ),
                       ),
                     ]),
                     Container(
-                      child: Text(userData.address.capitalize(),
+                      child: Text(
+                        userData.address.capitalize(),
                         style: TextStyle(
                           color: textColor,
-                        ),),
+                        ),
+                      ),
                       margin: EdgeInsets.symmetric(
                         horizontal: 10,
                       ),
@@ -294,14 +299,19 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         child: Text(
                           'Contact',
                           style: TextStyle(
-                              fontSize: 17, fontFamily: 'Source Sans Pro',color: textColor),
+                              fontSize: 17,
+                              fontFamily: 'Source Sans Pro',
+                              color: textColor),
                         ),
                       ),
                     ]),
                     Container(
-                      child: Text(userData.contact.capitalize(),style: TextStyle(
-                        color: textColor,
-                      ),),
+                      child: Text(
+                        userData.contact.capitalize(),
+                        style: TextStyle(
+                          color: textColor,
+                        ),
+                      ),
                       margin: EdgeInsets.symmetric(
                         horizontal: 10,
                       ),
