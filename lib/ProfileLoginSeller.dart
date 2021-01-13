@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:matjar_login_signup/firebase/userDatabase.dart';
 import 'package:matjar_login_signup/modules/user.dart';
 import 'package:provider/provider.dart';
+import 'actions/productActions.dart';
 import 'auth/auth.dart';
 import 'matjar_icons1.dart';
 import 'matjar_icons.dart';
@@ -13,7 +14,7 @@ class ProfileLogInSeller extends StatefulWidget {
 }
 
 class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
-  int currentIndex = 3;
+  bool darkmodeVal = false;
 
   @override
   Widget build(BuildContext context) {
@@ -23,19 +24,37 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             Account userData = snapshot.data;
+            bool darkmodeVal = userData.darkmode;
+            void switchButton(v) {
+              setState(() {
+                darkmodeVal = v;
+                darkModeToggle(userData.uid, darkmodeVal);
+              });
+            }
+
+            Color textColor =
+                (!userData.darkmode) ? Colors.black : Colors.white;
             return Scaffold(
-              backgroundColor: Colors.white,
+              backgroundColor:
+                  (!userData.darkmode) ? Colors.white : Colors.black,
               appBar: AppBar(
-                title: Text(
-                  "Matjar",
-                  style: TextStyle(
-                    fontSize: 40,
-                    fontFamily: "DancingScript",
-                  ),
+                automaticallyImplyLeading: false,
+                toolbarHeight: 75,
+                titleSpacing: 0,
+                backgroundColor: (!userData.darkmode)
+                    ? Color.fromRGBO(255, 0, 0, 1)
+                    : Color.fromRGBO(27, 27, 27, 0.4),
+                // toolbarHeight: 75,
+
+                title: Icon(
+                  Matjar.matjar_logo,
+                  size: 70,
                 ),
-                backgroundColor: mainColor,
-                toolbarHeight: 80,
-                centerTitle: true,
+                actions: [
+                  SizedBox(
+                    width: 210,
+                  ),
+                ],
               ),
               body: SingleChildScrollView(
                 child: Container(
@@ -52,7 +71,12 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                           Text(
                             'Welcome',
                             style: TextStyle(
-                                fontFamily: 'Source Sans Pro', fontSize: 23),
+                              fontFamily: 'Source Sans Pro',
+                              fontSize: 23,
+                              color: (!userData.darkmode)
+                                  ? Colors.black
+                                  : Colors.white,
+                            ),
                           ),
                           SizedBox(
                             width: 7,
@@ -62,13 +86,13 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                             style: TextStyle(
                               fontFamily: 'Source Sans Pro',
                               fontSize: 25,
-                              color: Color.fromRGBO(244, 52, 52, 1),
+                              color: Color.fromRGBO(255, 0, 0, 1),
                             ),
                           )
                         ],
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 30,
                       ),
                       FlatButton(
                         onPressed: () => Navigator.of(context)
@@ -76,13 +100,17 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                         padding: EdgeInsets.zero,
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: (!userData.darkmode)
+                                ? Colors.white
+                                : Color.fromRGBO(27, 27, 27, 1),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.grey.withOpacity(0.16),
-                                offset: Offset(0, 3),
-                                spreadRadius: 3,
-                                blurRadius: 3,
+                                color: (!userData.darkmode)
+                                    ? Colors.grey.withOpacity(0.16)
+                                    : Colors.white.withOpacity(0.16),
+                                offset: Offset(0, 2),
+                                spreadRadius: 1,
+                                blurRadius: 5,
                               ),
                             ],
                           ),
@@ -93,7 +121,9 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                               Icon(
                                 Matjar.sign_in_and_sign_up_logo,
                                 size: 20,
-                                color: Colors.black,
+                                color: (!userData.darkmode)
+                                    ? Colors.black
+                                    : Colors.white,
                               ),
                               SizedBox(
                                 width: 20,
@@ -103,7 +133,9 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                                 style: TextStyle(
                                   fontFamily: 'Source Sans Pro',
                                   fontSize: 20,
-                                  color: Colors.black,
+                                  color: (!userData.darkmode)
+                                      ? Colors.black
+                                      : Colors.white,
                                 ),
                               )
                             ],
@@ -111,7 +143,7 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                         ),
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       FlatButton(
                         onPressed: () =>
@@ -119,13 +151,17 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                         padding: EdgeInsets.zero,
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: (!userData.darkmode)
+                                ? Colors.white
+                                : Color.fromRGBO(27, 27, 27, 1),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.grey.withOpacity(0.16),
-                                offset: Offset(0, 3),
-                                spreadRadius: 3,
-                                blurRadius: 3,
+                                color: (!userData.darkmode)
+                                    ? Colors.grey.withOpacity(0.16)
+                                    : Colors.white.withOpacity(0.16),
+                                offset: Offset(0, 2),
+                                spreadRadius: 1,
+                                blurRadius: 5,
                               ),
                             ],
                           ),
@@ -136,7 +172,9 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                               Icon(
                                 Icons.dashboard,
                                 size: 20,
-                                color: Colors.black,
+                                color: (!userData.darkmode)
+                                    ? Colors.black
+                                    : Colors.white,
                               ),
                               SizedBox(
                                 width: 20,
@@ -146,7 +184,9 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                                 style: TextStyle(
                                   fontFamily: 'Source Sans Pro',
                                   fontSize: 20,
-                                  color: Colors.black,
+                                  color: (!userData.darkmode)
+                                      ? Colors.black
+                                      : Colors.white,
                                 ),
                               )
                             ],
@@ -154,17 +194,21 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                         ),
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 30,
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: (!userData.darkmode)
+                              ? Colors.white
+                              : Color.fromRGBO(27, 27, 27, 1),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(0.16),
-                              offset: Offset(0, 3),
-                              spreadRadius: 3,
-                              blurRadius: 3,
+                              color: (!userData.darkmode)
+                                  ? Colors.grey.withOpacity(0.16)
+                                  : Colors.white.withOpacity(0.16),
+                              offset: Offset(0, 2),
+                              spreadRadius: 1,
+                              blurRadius: 5,
                             ),
                           ],
                         ),
@@ -175,6 +219,9 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                             Icon(
                               Matjar.help_outline,
                               size: 20,
+                              color: (!userData.darkmode)
+                                  ? Colors.black
+                                  : Colors.white,
                             ),
                             SizedBox(
                               width: 20,
@@ -182,7 +229,12 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                             Text(
                               'Help',
                               style: TextStyle(
-                                  fontFamily: 'Source Sans Pro', fontSize: 20),
+                                fontFamily: 'Source Sans Pro',
+                                fontSize: 20,
+                                color: (!userData.darkmode)
+                                    ? Colors.black
+                                    : Colors.white,
+                              ),
                             )
                           ],
                         ),
@@ -192,13 +244,17 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: (!userData.darkmode)
+                              ? Colors.white
+                              : Color.fromRGBO(27, 27, 27, 1),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(0.16),
-                              offset: Offset(0, 3),
-                              spreadRadius: 3,
-                              blurRadius: 3,
+                              color: (!userData.darkmode)
+                                  ? Colors.grey.withOpacity(0.16)
+                                  : Colors.white.withOpacity(0.16),
+                              offset: Offset(0, 2),
+                              spreadRadius: 1,
+                              blurRadius: 5,
                             ),
                           ],
                         ),
@@ -209,6 +265,9 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                             Icon(
                               Matjar.contact_us,
                               size: 20,
+                              color: (!userData.darkmode)
+                                  ? Colors.black
+                                  : Colors.white,
                             ),
                             SizedBox(
                               width: 20,
@@ -216,7 +275,12 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                             Text(
                               'Contact Us',
                               style: TextStyle(
-                                  fontFamily: 'Source Sans Pro', fontSize: 20),
+                                fontFamily: 'Source Sans Pro',
+                                fontSize: 20,
+                                color: (!userData.darkmode)
+                                    ? Colors.black
+                                    : Colors.white,
+                              ),
                             )
                           ],
                         ),
@@ -226,13 +290,17 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: (!userData.darkmode)
+                              ? Colors.white
+                              : Color.fromRGBO(27, 27, 27, 1),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(0.16),
-                              offset: Offset(0, 3),
-                              spreadRadius: 3,
-                              blurRadius: 3,
+                              color: (!userData.darkmode)
+                                  ? Colors.grey.withOpacity(0.16)
+                                  : Colors.white.withOpacity(0.16),
+                              offset: Offset(0, 2),
+                              spreadRadius: 1,
+                              blurRadius: 5,
                             ),
                           ],
                         ),
@@ -243,6 +311,9 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                             Icon(
                               Matjar.dark_mode,
                               size: 20,
+                              color: (!userData.darkmode)
+                                  ? Colors.black
+                                  : Colors.white,
                             ),
                             SizedBox(
                               width: 20,
@@ -250,18 +321,22 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                             Text(
                               'Dark Mode',
                               style: TextStyle(
-                                  fontFamily: 'Source Sans Pro', fontSize: 20),
-                            ),
-                            SizedBox(
-                              width: 90,
-                            ),
-                            FlatButton(
-                              onPressed: () {},
-                              child: Icon(
-                                Matjar.toggle_off,
-                                size: 20,
+                                fontFamily: 'Source Sans Pro',
+                                fontSize: 20,
+                                color: (!userData.darkmode)
+                                    ? Colors.black
+                                    : Colors.white,
                               ),
                             ),
+                            SizedBox(
+                              width: 120,
+                            ),
+                            Switch(
+                              value: darkmodeVal,
+                              onChanged: switchButton,
+                              activeColor: Colors.white,
+
+                            )
                           ],
                         ),
                       ),
@@ -284,7 +359,7 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                                 color: Colors.white,
                               ),
                             ),
-                            color: Color.fromRGBO(244, 52, 52, 1),
+                            color: Color.fromRGBO(255, 0, 0, 1),
                           ),
                           SizedBox(
                             width: 40,
@@ -303,14 +378,24 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                             Icon(
                               Matjar.facebook,
                               size: 30,
+                              color:  (!userData.darkmode)
+                                  ? Colors.black
+                                  : Color.fromRGBO(255, 0, 0, 1),
                             ),
                             Icon(
                               Matjar.twitter,
                               size: 40,
+                              color:  (!userData.darkmode)
+                                  ? Colors.black
+                                  : Color.fromRGBO(255, 0, 0, 1),
                             ),
+
                             Icon(
                               Matjar.instagram,
                               size: 33,
+                              color:  (!userData.darkmode)
+                                  ? Colors.black
+                                  : Color.fromRGBO(255, 0, 0, 1),
                             ),
                           ],
                         ),
@@ -326,6 +411,8 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                               style: TextStyle(
                                 fontFamily: 'Source Sans Pro',
                                 fontSize: 13,
+                                  color: textColor
+
                               ),
                             ),
                             Text(
@@ -333,6 +420,8 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                               style: TextStyle(
                                 fontFamily: 'Source Sans Pro',
                                 fontSize: 13,
+                                  color: textColor
+
                               ),
                             ),
                             Text(
@@ -340,6 +429,8 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                               style: TextStyle(
                                 fontFamily: 'Source Sans Pro',
                                 fontSize: 13,
+                                  color: textColor
+
                               ),
                             ),
                           ],
@@ -356,6 +447,7 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                               style: TextStyle(
                                 fontFamily: 'Source Sans Pro',
                                 fontSize: 13,
+                                color: textColor
                               ),
                             ),
                             Text(
@@ -363,6 +455,8 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                               style: TextStyle(
                                 fontFamily: 'Source Sans Pro',
                                 fontSize: 13,
+                                  color: textColor
+
                               ),
                             ),
                           ],
