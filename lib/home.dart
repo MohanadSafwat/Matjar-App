@@ -455,7 +455,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                     children: data
                                         .map((e) => Column(
                                               children: <Widget>[
-                                                ClipOval(
+                                                Card(
+                                                  elevation: 0,
+                                                  semanticContainer: true,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                                  ),
+                                                  clipBehavior: Clip.antiAlias,
                                                   child: InkWell(
                                                     onTap: () async {
                                                       await DatabaseService(
