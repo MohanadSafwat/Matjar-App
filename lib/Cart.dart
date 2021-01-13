@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:matjar_login_signup/constants.dart';
 import 'package:matjar_login_signup/payment.dart';
+import 'package:matjar_login_signup/selected_item.dart';
 import 'constants.dart';
 import 'matjar_icons.dart';
 import 'constants.dart';
 import 'package:matjar_login_signup/cartItem.dart';
 import 'package:matjar_login_signup/modules/item.dart';
 import 'package:provider/provider.dart';
-
+import 'package:matjar_login_signup/custom_menu.dart';
 
 
 class Cart extends StatelessWidget {
@@ -81,90 +82,149 @@ bottomNavigationBar: BottomNavigationBar(
       ),
 
 
+
+
  body:LayoutBuilder(
   builder:(context,constrains){
-    if(true
-    ///////////////items.isNotEmpty
-    )
+    if(items.isNotEmpty)
     {
-return
- Column(
+return Column(
 children : <Widget>[
 
-
-
-  
-  
-   Expanded(
+ Expanded(
 child:ListView.builder(itemBuilder:
 (context,index)
 {
 
-return Padding(padding: const EdgeInsets.all(15),
-child: Container(
+return Padding(
+  padding: const EdgeInsets.all(15),
+child: GestureDetector(
+onTapUp: (details){
+showCustomMenu(details,context,items[index]);
 
-height: screenHeight*0.15,
-child: Row(children:<Widget> [
-CircleAvatar(
-radius: screenHeight*0.15/2,
-backgroundColor: Colors.red,//////////backgroundImage: AssetImage(items[index].photosUrl[index]),
+},
 
-),
-Expanded(
-
-child:Row(
-  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-children: <Widget>[
-Padding(padding: const EdgeInsets.all(3),
-child:Column(
-mainAxisAlignment: MainAxisAlignment.center,
-children: <Widget>[
-
-Text ('Item name'/////items[index].name
- ,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
-),
-
-Text ('Item Category'/////items[index].categoryName
- ,style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
-),
-Padding(padding: const EdgeInsets.all(7),
-child: Text ('Item Price'/////  '\$ $(items[index].price)'
- ,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
-)
-),
-],
-
-)
-),
-Padding(padding:const EdgeInsets.only(right:15),
-child:Text ('Item quantity',
-/////////////items[index].itemQuantity.toString()
-style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
-)
-)
-],
-
-
-
-)
-)
-],
-
-
-),
-
-
-
-
-
-
-color: Colors.white,
+  child:   Container(
+  
+  
+  
+  height: screenHeight*0.15,
+  
+  child: Row(children:<Widget> [
+  
+  CircleAvatar(
+  
+  radius: screenHeight*0.15/2,
+  
+  backgroundImage: AssetImage(items[index].photosUrl[index]),
+  
+  
+  
+  ),
+  
+  Expanded(
+  
+  
+  
+  child:Row(
+  
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  
+  children: <Widget>[
+  
+  Padding(padding: const EdgeInsets.all(3),
+  
+  child:Column(
+  
+  mainAxisAlignment: MainAxisAlignment.center,
+  
+  children: <Widget>[
+  
+  
+  
+  Text (items[index].name
+  
+   ,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+  
+  ),
+  
+  
+  
+  Text (items[index].categoryName
+  
+   ,style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
+  
+  ),
+  
+  Padding(padding: const EdgeInsets.all(7),
+  
+  child: Text ( '\$ ${items[index].price}'
+  
+   ,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+  
+  )
+  
+  ),
+  
+  ],
+  
+  
+  
+  )
+  
+  ),
+  
+  Padding(padding:const EdgeInsets.only(right:15),
+  
+  child:Text (items[index].itemQuantity.toString(),
+  
+  style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
+  
+  )
+  
+  )
+  
+  ],
+  
+  
+  
+  
+  
+  
+  
+  )
+  
+  )
+  
+  ],
+  
+  
+  
+  
+  
+  ),
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  color: Colors.white,
+  
+  ),
 ),
 
 );
 },
 
-itemCount: 15 ,//////items.length,
+itemCount: items.length,
 ),
 ),
   
@@ -204,7 +264,7 @@ topLeft: Radius.circular(10),
 
 
 },
-child: Text('Buy Now '.toUpperCase(),style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
+child: Text('Order Now '.toUpperCase(),style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
 
 color:Colors.red,
 
@@ -218,7 +278,7 @@ color:Colors.red,
   
   else{
 return  Center(
-child: Text('Cart is Empty',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold)),
+child: Text('Your Cart is Empty',style: TextStyle(fontSize: 30,color:Colors.red,fontWeight: FontWeight.bold)),
 
 );
 }
@@ -228,4 +288,42 @@ child: Text('Cart is Empty',style: TextStyle(fontSize: 30,fontWeight: FontWeight
     );
     
   }
+
+  void showCustomMenu(details,context,item) async {
+double dx = details.globalPosition.dx;
+double dy = details.globalPosition.dy;
+double dx2= MediaQuery.of(context).size.width-dx;
+double dy2= MediaQuery.of(context).size.width-dy;
+
+await showMenu(
+
+context: context,
+position: RelativeRect.fromLTRB(dx, dy, dx2, dy2),
+items: [
+MyPopupMenuItem(
+onClick:(){
+Navigator.pop(context);
+Provider.of<cartItem>(context,listen: false).deleteItem(item);
+Navigator.pushNamed(context, SelectedItem.id,arguments: item);
+},
+child: Text('Edit'),
+),
+
+MyPopupMenuItem(
+onClick:(){
+Navigator.pop(context);
+Provider.of<cartItem>(context,listen: false).deleteItem(item);
+},
+
+child: Text('Delete'),
+),
+]
+);}
+
+
+
+
+
+
+
 }
