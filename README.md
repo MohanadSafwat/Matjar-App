@@ -1,16 +1,43 @@
-# matjar
 
-A new Flutter application.
+<p align="center">
+  
+  <a href="https://flutter.io/">
+    <img src="https://i.ibb.co/THcLkDP/logo.png" alt="Logo">
+  </a>
+  <h2 align="center">MATJAR</h2>
+  <p align="center">
+Matjar is a cross platform E-Commerce app with high quality, low cost and short time span.</br>
+The main and the most important capabilities of the product is to help the customer to search, check and buy the items they need and the seller to sell their product easily.
+  </p>
+</p>
+
+
+
+
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project is mainly created using Flutter and Firebase.
+To run the code you need first to download Flutter environment:
+- First you must download Flutter SDK.
+- Next you have to add Flutter to the PATH environment variable.
+- Then you have to download Android Studio to install the latest Android SDK.
+- Afterward you have to set up the Android device or emulator.
+- Finally you have to install the Flutter and Dart plugins in Android Studio.
 
-A few resources to get you started if this is your first Flutter project:
+You can follow the official getting started [here](https://flutter.dev/docs/get-started/install).
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+After downloading Flutter and Andriod Studio:
+ - Open Andriod Studio and open the project.
+ - Go to the terminal and execute the following commands in console to get the required dependencies:
+```
+  flutter pub get 
+  flutter pub upgrade 
+```
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+ - Choose your device or emulator from device list.
+ - Run the code.
+
+
+
+
