@@ -4,10 +4,17 @@
   <a href="https://flutter.io/">
     <img src="https://i.ibb.co/THcLkDP/logo.png" alt="Logo">
   </a>
-  <p> # MATJAR </p>
-</p>
+  <h3 align="center">MATJAR</h3>
+  <p align="center">
 Matjar is a cross platform E-Commerce app with high quality, low cost and short time span.
 The main and the most important capabilities of the product is to help the customer to search, check and buy the items they need and the seller to sell their product easily.
+  </p>
+</p>
+
+
+
+
+
 
 ## Getting Started
 
