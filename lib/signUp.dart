@@ -34,7 +34,7 @@ class SignUpState extends State<SignUp> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
-  TextEditingController();
+      TextEditingController();
   int currentIndex = 3;
   String err = "";
 
@@ -69,7 +69,7 @@ class SignUpState extends State<SignUp> {
                 ? Color.fromRGBO(83, 169, 252, 1)
                 : Color.fromRGBO(83, 169, 252, 1);
             Color textColor =
-            (!userData.darkmode) ? Colors.black : Colors.white;
+                (!userData.darkmode) ? Colors.black : Colors.white;
             Color boxShadowColor = (!userData.darkmode)
                 ? Colors.grey.withOpacity(0.16)
                 : Colors.white.withOpacity(0.05);
@@ -80,7 +80,7 @@ class SignUpState extends State<SignUp> {
             return Scaffold(
                 resizeToAvoidBottomPadding: false,
                 backgroundColor:
-                (!userData.darkmode) ? Colors.white : Colors.black,
+                    (!userData.darkmode) ? Colors.white : Colors.black,
                 appBar: AppBar(
                   titleSpacing: 0,
                   backgroundColor: (!userData.darkmode)
@@ -102,7 +102,7 @@ class SignUpState extends State<SignUp> {
                   iconSize: 30,
                   currentIndex: currentIndex,
                   backgroundColor:
-                  (!userData.darkmode) ? Colors.white : Colors.black,
+                      (!userData.darkmode) ? Colors.white : Colors.black,
                   selectedFontSize: 13,
                   showSelectedLabels: false,
                   showUnselectedLabels: false,
@@ -164,9 +164,10 @@ class SignUpState extends State<SignUp> {
                       if (currentIndex == 3) {
                         if (user.uid == 'ING2u4fnlgQBpkUqrCoitD619iD3' ||
                             user == null) {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) =>
-                                  Profile()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Profile()));
                         } else {
                           Navigator.push(
                               context,
@@ -178,8 +179,8 @@ class SignUpState extends State<SignUp> {
                   },
                 ),
                 body: Container(
-                  margin: EdgeInsets.only(
-                      left: 30, top: 30, right: 30, bottom: 10),
+                  margin:
+                      EdgeInsets.only(left: 30, top: 30, right: 30, bottom: 10),
                   decoration: BoxDecoration(
                     color: boxDecorationColor,
                     boxShadow: [
@@ -189,7 +190,7 @@ class SignUpState extends State<SignUp> {
                             : Color.fromRGBO(27, 27, 27, 1),
                         offset: Offset(0, 2),
                         spreadRadius: 1,
-                        blurRadius: 5,// changes position of shadow
+                        blurRadius: 5, // changes position of shadow
                       ),
                     ],
                   ),
@@ -215,7 +216,6 @@ class SignUpState extends State<SignUp> {
 
 ///////////////////////////////////////////error
 
-
                             Container(
                               margin: EdgeInsets.all(10),
                               child: TextField(
@@ -228,7 +228,6 @@ class SignUpState extends State<SignUp> {
                                   border: InputBorder.none,
                                   labelText: "First Name",
                                   labelStyle: TextStyle(color: textColor),
-
                                 ),
                               ),
                             ),
@@ -245,7 +244,6 @@ class SignUpState extends State<SignUp> {
                                   border: InputBorder.none,
                                   labelText: "Last Name",
                                   labelStyle: TextStyle(color: textColor),
-
                                 ),
                               ),
                             ),
@@ -263,7 +261,6 @@ class SignUpState extends State<SignUp> {
                                   border: InputBorder.none,
                                   labelText: "Email",
                                   labelStyle: TextStyle(color: textColor),
-
                                 ),
                               ),
                             ),
@@ -280,7 +277,6 @@ class SignUpState extends State<SignUp> {
                                   border: InputBorder.none,
                                   labelText: "Password",
                                   labelStyle: TextStyle(color: textColor),
-
                                 ),
                                 obscureText: true,
                               ),
@@ -326,7 +322,7 @@ class SignUpState extends State<SignUp> {
                                     if (_passwordController.text.length < 6) {
                                       setState(() {
                                         passError =
-                                        "Password Must be greater than or equal 6 Characters";
+                                            "Password Must be greater than or equal 6 Characters";
                                       });
                                       return;
                                     }
@@ -338,8 +334,8 @@ class SignUpState extends State<SignUp> {
                                             .collection('Users')
                                             .get()
                                             .then((QuerySnapshot snapshot) {
-                                          snapshot.docs.forEach((
-                                              DocumentSnapshot doc) {
+                                          snapshot.docs
+                                              .forEach((DocumentSnapshot doc) {
                                             x = doc.data()['email'].toString();
 
                                             if (x == _emailController.text) {
@@ -357,16 +353,25 @@ class SignUpState extends State<SignUp> {
                                         if (notexist) {
                                           dynamic result = await AuthService()
                                               .signup(
-                                              _emailController.text,
-                                              _passwordController.text,
-                                              _firstNameController.text.trim(),
-                                              _lastNameController.text.trim());
-                                          Navigator.of(context).pushNamed(
-                                              '/Login');
+                                                  _emailController.text.trim(),
+                                                  _passwordController.text
+                                                      .trim(),
+                                                  _firstNameController.text
+                                                      .trim(),
+                                                  _lastNameController.text
+                                                      .trim())
+                                              .then((user) {
+                                            AuthService().login(
+                                                _emailController.text.trim(),
+                                                _passwordController.text
+                                                    .trim());
+                                            Navigator.of(context)
+                                                .pushNamed("/Home");
+                                          });
                                         } else {
                                           setState(() {
                                             error =
-                                            "  The email address is already in use by another account ";
+                                                "  The email address is already in use by another account ";
                                           });
                                         }
                                         notexist = true;
@@ -375,7 +380,8 @@ class SignUpState extends State<SignUp> {
                                   },
                                   style: ButtonStyle(
                                     backgroundColor:
-                                    MaterialStateProperty.all<Color>(buttonColor),
+                                        MaterialStateProperty.all<Color>(
+                                            buttonColor),
                                   ),
                                 ),
                               ),
@@ -399,15 +405,14 @@ class SignUpState extends State<SignUp> {
                                       "Login",
                                       style: TextStyle(color: linkColor),
                                     ),
-                                    onPressed: () =>
-                                        Navigator.of(context).pushNamed(
-                                            '/Login'),
+                                    onPressed: () => Navigator.of(context)
+                                        .pushNamed('/Login'),
                                   ),
                                 ),
                               ],
                             ),
                             Visibility(
-                              visible: (error.length>0),
+                              visible: (error.length > 0),
                               child: Container(
                                 alignment: Alignment.center,
                                 child: Text(
@@ -421,7 +426,7 @@ class SignUpState extends State<SignUp> {
                             ),
 
                             Visibility(
-                              visible: (passError.length>0),
+                              visible: (passError.length > 0),
                               child: Container(
                                 alignment: Alignment.center,
                                 child: Text(
@@ -438,7 +443,7 @@ class SignUpState extends State<SignUp> {
                           padding: EdgeInsets.all(5),
                         ), */
                             Visibility(
-                              visible: (err.length>0),
+                              visible: (err.length > 0),
                               child: Container(
                                 padding: EdgeInsets.only(bottom: 10),
                                 child: Text(
@@ -450,15 +455,13 @@ class SignUpState extends State<SignUp> {
                                 ),
                               ),
                             ),
-
                           ],
                         ),
                       ),
                     ],
                   ),
                 ));
-          }
-          else {
+          } else {
             return Scaffold(
               body: Center(
                 child: Center(

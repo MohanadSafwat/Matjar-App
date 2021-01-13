@@ -28,19 +28,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   ProductService _productService = new ProductService();
 
-  _MyHomePageState() {
-    listFeaturedItems();
-  }
-  List<Item> featuredItems = new List();
-
-  void listFeaturedItems() async {
-    List<Item> featuredItemList = await _productService.featuredItems();
-    setState(() {
-      featuredItems = featuredItemList;
-    });
-  }
-
-
   var cat = [];
   var getItem = [];
   Future getItems(String doc) async {
@@ -108,21 +95,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 'icon': Icons.umbrella_rounded
               },
               {
-                'name': 'electronics',
+                'name': 'Kitchen Tools',
                 'color': (!userData.darkmode) ? Colors.red : Colors.white,
                 'icon': Icons.food_bank_rounded
               },
             ];
-            Color textColor = (!userData.darkmode)
-                ? Colors.black
-                : Colors.white ;
-            Color boxShadowColor = (!userData.darkmode) ?  Colors.grey.withOpacity(0.16)
-                :  Colors.white.withOpacity(0.05);
-            Color boxDecorationColor = (!userData.darkmode) ?   Colors.white
+            Color textColor =
+                (!userData.darkmode) ? Colors.black : Colors.white;
+            Color boxShadowColor = (!userData.darkmode)
+                ? Colors.grey.withOpacity(0.16)
+                : Colors.white.withOpacity(0.05);
+            Color boxDecorationColor = (!userData.darkmode)
+                ? Colors.white
                 : Color.fromRGBO(27, 27, 27, 1);
-            Color buttonColor = (!userData.darkmode) ?   Colors.white
+            Color buttonColor = (!userData.darkmode)
+                ? Colors.white
                 : Color.fromRGBO(255, 0, 0, 1);
-
 
             maxCat = DatabaseService(uid: user.uid)
                 .getMaxCat(rec: userData.recommended);
@@ -135,7 +123,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       ? Color.fromRGBO(255, 0, 0, 1)
                       : Color.fromRGBO(27, 27, 27, 0.4),
                   toolbarHeight: 75,
-
                   title: Icon(
                     Matjar.matjar_logo,
                     size: 70,
@@ -150,7 +137,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   type: BottomNavigationBarType.fixed,
                   iconSize: 30,
                   currentIndex: currentIndex,
-                  backgroundColor:  (!userData.darkmode) ? Colors.white : Colors.black,
+                  backgroundColor:
+                      (!userData.darkmode) ? Colors.white : Colors.black,
                   selectedFontSize: 13,
                   showSelectedLabels: false,
                   showUnselectedLabels: false,
@@ -158,36 +146,28 @@ class _MyHomePageState extends State<MyHomePage> {
                     BottomNavigationBarItem(
                       icon: Icon(
                         Matjar.home,
-                        color: (!userData.darkmode)
-                            ? Colors.red
-                            : Colors.white,
+                        color: (!userData.darkmode) ? Colors.red : Colors.white,
                       ),
                       label: "",
                     ),
                     BottomNavigationBarItem(
                       icon: Icon(
                         Matjar.categories,
-                        color: (!userData.darkmode)
-                            ? Colors.red
-                            : Colors.white,
+                        color: (!userData.darkmode) ? Colors.red : Colors.white,
                       ),
                       label: "",
                     ),
                     BottomNavigationBarItem(
                       icon: Icon(
                         Matjar.cart,
-                        color: (!userData.darkmode)
-                            ? Colors.red
-                            : Colors.white,
+                        color: (!userData.darkmode) ? Colors.red : Colors.white,
                       ),
                       label: "",
                     ),
                     BottomNavigationBarItem(
                       icon: Icon(
                         Matjar.sign_in_and_sign_up_logo,
-                        color:(!userData.darkmode)
-                            ? Colors.red
-                            : Colors.white,
+                        color: (!userData.darkmode) ? Colors.red : Colors.white,
                       ),
                       label: "",
                     ),
@@ -199,28 +179,20 @@ class _MyHomePageState extends State<MyHomePage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    Categories()));
+                                builder: (context) => Categories()));
                       }
                       if (currentIndex == 2) {
-                        if (user.uid ==
-                            'ING2u4fnlgQBpkUqrCoitD619iD3' ||
+                        if (user.uid == 'ING2u4fnlgQBpkUqrCoitD619iD3' ||
                             user == null) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Login()));
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Login()));
                         } else {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      Cart()));
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Cart()));
                         }
                       }
                       if (currentIndex == 3) {
-                        if (user.uid ==
-                            'ING2u4fnlgQBpkUqrCoitD619iD3' ||
+                        if (user.uid == 'ING2u4fnlgQBpkUqrCoitD619iD3' ||
                             user == null) {
                           Navigator.push(
                               context,
@@ -230,8 +202,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      ProfileLoggedIn()));
+                                  builder: (context) => ProfileLoggedIn()));
                         }
                       }
                     });
@@ -402,7 +373,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                   Padding(
                                                     padding:
                                                         const EdgeInsets.only(
-                                                          top: 10,
+                                                            top: 10,
                                                             left: 8.0,
                                                             bottom: 12),
                                                     child: Column(
@@ -427,14 +398,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                     TextStyle(
                                                                   fontSize:
                                                                       10.0,
-                                                                      color: textColor,
+                                                                  color:
+                                                                      textColor,
                                                                 )),
                                                             Text(
                                                               "${products[index].price}",
                                                               style: TextStyle(
                                                                   fontSize:
                                                                       12.0,
-                                                                  color: textColor,
+                                                                  color:
+                                                                      textColor,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold),
@@ -485,7 +458,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                                   semanticContainer: true,
                                                   shape: RoundedRectangleBorder(
                                                     borderRadius:
-                                                    BorderRadius.circular(10.0),
+                                                        BorderRadius.circular(
+                                                            10.0),
                                                   ),
                                                   clipBehavior: Clip.antiAlias,
                                                   child: InkWell(
@@ -596,7 +570,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                             scrollDirection: Axis.horizontal,
                                             itemBuilder: (context, index) =>
                                                 Padding(
-
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: 1, vertical: 1),
                                               child: Card(
@@ -739,7 +712,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                     }),
                               ),
                             ),
-                            SizedBox(height: 20,),
+                            SizedBox(
+                              height: 20,
+                            ),
                           ]),
                     ]),
                   ),

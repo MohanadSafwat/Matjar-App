@@ -184,8 +184,7 @@ class _SignUpSeller extends State<SignUpSeller> {
 
                         new TextField(
                           controller: _firstNameController,
-                          style:
-                          TextStyle(fontSize: 20, color: textColor),
+                          style: TextStyle(fontSize: 20, color: textColor),
                           decoration: new InputDecoration(
                               labelStyle: TextStyle(color: textColor),
                               labelText: 'First Name',
@@ -193,9 +192,7 @@ class _SignUpSeller extends State<SignUpSeller> {
                         ),
                         new Padding(padding: EdgeInsets.all(10)),
                         new TextField(
-                          obscureText: true,
-                          style:
-                          TextStyle(fontSize: 20, color: textColor),
+                          style: TextStyle(fontSize: 20, color: textColor),
                           controller: _lastNameController,
                           decoration: new InputDecoration(
                               labelStyle: TextStyle(color: textColor),
@@ -204,11 +201,8 @@ class _SignUpSeller extends State<SignUpSeller> {
                         ),
                         new Padding(padding: EdgeInsets.all(10)),
                         new TextField(
-                          obscureText: true,
-
                           controller: _emailController,
-                          style:
-                          TextStyle(fontSize: 20, color: textColor),
+                          style: TextStyle(fontSize: 20, color: textColor),
                           decoration: new InputDecoration(
                               labelStyle: TextStyle(color: textColor),
                               labelText: 'Email',
@@ -217,8 +211,7 @@ class _SignUpSeller extends State<SignUpSeller> {
                         new Padding(padding: EdgeInsets.all(10)),
                         new TextField(
                           obscureText: true,
-                          style:
-                          TextStyle(fontSize: 20, color: textColor),
+                          style: TextStyle(fontSize: 20, color: textColor),
                           controller: _passwordController,
                           decoration: new InputDecoration(
                             labelStyle: TextStyle(color: textColor),
@@ -278,9 +271,14 @@ class _SignUpSeller extends State<SignUpSeller> {
                                               _emailController.text,
                                               _passwordController.text,
                                               _firstNameController.text.trim(),
-                                              _lastNameController.text.trim());
-                                      Navigator.of(context)
-                                          .pushNamed('/ProfileLoginSeller');
+                                              _lastNameController.text.trim())
+                                          .then((user) {
+                                        AuthService().login(
+                                            _emailController.text.trim(),
+                                            _passwordController.text.trim());
+                                        Navigator.of(context)
+                                            .pushNamed("/Home");
+                                      });
                                     } else {
                                       setState(() {
                                         error =
@@ -319,15 +317,13 @@ class _SignUpSeller extends State<SignUpSeller> {
                                       TextStyle(fontSize: 16, color: linkColor),
                                 ),
                               ),
-
                             ],
                           ),
                         ),
                       ],
-
                     ),
                     Visibility(
-                      visible:(error.length>0) ,
+                      visible: (error.length > 0),
                       child: Container(
                         alignment: Alignment.center,
                         child: Text(
@@ -339,9 +335,8 @@ class _SignUpSeller extends State<SignUpSeller> {
                         ),
                       ),
                     ),
-
                     Visibility(
-                      visible:(passError.length>0) ,
+                      visible: (passError.length > 0),
                       child: Container(
                         alignment: Alignment.center,
                         child: Text(
@@ -353,7 +348,6 @@ class _SignUpSeller extends State<SignUpSeller> {
                         ),
                       ),
                     ),
-
                   ],
                 ),
               ),
