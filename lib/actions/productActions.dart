@@ -140,6 +140,7 @@ getUrl() {
 
 int count;
 counter() async {
+
   await FirebaseFirestore.instance
       .collection('variable')
       .doc('itemIdCounter')
@@ -203,6 +204,11 @@ Future getSellerProductId(String id) async {
 Stream<DocumentSnapshot> Product(String id) {
   CollectionReference firebase =
       FirebaseFirestore.instance.collection('products');
+  return firebase.doc(id).snapshots();
+}
+Stream<DocumentSnapshot> CartItems(String id) {
+  CollectionReference firebase =
+  FirebaseFirestore.instance.collection('Users');
   return firebase.doc(id).snapshots();
 }
 
