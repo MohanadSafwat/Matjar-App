@@ -8,6 +8,13 @@ import 'constants.dart';
 import 'package:matjar_login_signup/cartItem.dart';
 import 'package:matjar_login_signup/modules/item.dart';
 import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:matjar_login_signup/actions/productActions.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 
 class Payment extends StatefulWidget {
@@ -212,7 +219,7 @@ Row(
           
 
 
-Text('Price in euros: e$priseineuro',style: TextStyle(fontSize: 20,color: Colors.black),),
+Text('Price in euros: e${priseineuro}',style: TextStyle(fontSize: 20,color: Colors.black),),
  
  ],
 ),
@@ -233,7 +240,7 @@ Row(
           
 
 
-Text('Price in Pound: $priseinpound L.E',style: TextStyle(fontSize: 20,color: Colors.black),),
+Text('Price in Pound: ${priseinpound} L.E',style: TextStyle(fontSize: 20,color: Colors.black),),
  
  ],
 ),
@@ -254,7 +261,7 @@ Row(
           
 
 
-Text('Price in dollars: \$ $priseindollar',style: TextStyle(fontSize: 20,color: Colors.black),),
+Text('Price in dollars: \$ ${priseindollar}',style: TextStyle(fontSize: 20,color: Colors.black),),
  
  ],
 )
@@ -274,7 +281,7 @@ Text('Price in dollars: \$ $priseindollar',style: TextStyle(fontSize: 20,color: 
           
           
           Container(
-            margin: EdgeInsets.only(left:190),
+            margin: EdgeInsets.only(left:100),
             width: 100,
             child: Builder(
                       builder:
@@ -300,10 +307,14 @@ if(cvv.toString().isEmpty||currencyChosen==0||valid.toString().isEmpty||nameonca
    
 }      
 else{
-print(cvv);
 Scaffold.of(context).showSnackBar(SnackBar(
   content: Text('Purchased Successfully'),));
+List<Item> orderedItems=items;
+
 deleteItems( context,items);//////////remove items from cartscreen
+
+removeItemFromStock(orderedItems);
+
 await Future.delayed(Duration(seconds: 2));
 Navigator.push(context,MaterialPageRoute(builder: (context) => MyHomePage()));
 }
@@ -334,5 +345,21 @@ cartitem.removeItems(items);
 }
 
 
-
+   removeItemFromStock(List<Item> items) async {
+    int newValue;
+for(int i=0;i<items.length;i++)
+{
+if(items[i].numberInStock>1)
+{items[i].numberInStock=items[i].numberInStock-1;
+newValue=items[i].numberInStock;
+await FirebaseFirestore.instance.collection("products").doc(items[i].id).update({'no0fItemsInStock':newValue});
 }
+else
+{  
+await FirebaseFirestore.instance.collection("products").doc(items[i].id).delete();
+await FirebaseFirestore.instance.collection("Categories").doc(items[i].categoryName).collection("items").doc(items[i].id).delete();
+}
+ }
+  }
+
+    }
