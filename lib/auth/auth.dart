@@ -7,7 +7,7 @@ class AuthService {
 
   // create user obj based on firebase user
   Userinit _userFromFirebaseUser(User user) {
-    return user != null ? Userinit(uid: user.uid) : null;
+    return user != null ? Userinit(uid: user.uid) :  Userinit(uid: 'ING2u4fnlgQBpkUqrCoitD619iD3');
   }
 
   // auth change user stream
@@ -88,6 +88,7 @@ class AuthService {
   // sign out
   Future signOut() async {
     try {
+      print('signout');
       return await _auth.signOut();
     } catch (error) {
       print(error.toString());
