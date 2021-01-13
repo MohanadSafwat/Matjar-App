@@ -53,6 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
           cat.add(element.id);
         });
       });
+      print(cat);
       cat.forEach((element) {
         getItems(element);
       });
