@@ -20,67 +20,36 @@ class _ProfileInfoSellerState extends State<ProfileInfoSeller> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             Account userData = snapshot.data;
+            Color textColor =
+                (!userData.darkmode) ? Colors.black : Colors.white;
+            Color boxShadowColor = (!userData.darkmode)
+                ? Colors.grey.withOpacity(0.16)
+                : Colors.white.withOpacity(0.05);
+            Color boxDecorationColor = (!userData.darkmode)
+                ? Colors.white
+                : Color.fromRGBO(27, 27, 27, 1);
+            Color buttonColor = Color.fromRGBO(255, 0, 0, 1);
 
             return Scaffold(
-              backgroundColor: Colors.white,
+              backgroundColor:
+                  (!userData.darkmode) ? Colors.white : Colors.black,
               appBar: AppBar(
-                title: Text(
-                  "Matjar",
-                  style: TextStyle(
-                    fontSize: 40,
-                    fontFamily: "DancingScript",
-                  ),
+                toolbarHeight: 75,
+                titleSpacing: 0,
+                backgroundColor: (!userData.darkmode)
+                    ? Color.fromRGBO(255, 0, 0, 1)
+                    : Color.fromRGBO(27, 27, 27, 0.4),
+                // toolbarHeight: 75,
+
+                title: Icon(
+                  Matjar.matjar_logo,
+                  size: 70,
                 ),
-                backgroundColor: mainColor,
-                toolbarHeight: 80,
-                centerTitle: true,
-              ),
-              bottomNavigationBar: BottomNavigationBar(
-                type: BottomNavigationBarType.fixed,
-                iconSize: 30,
-                currentIndex: currentIndex,
-                backgroundColor: Colors.white,
-                selectedFontSize: 13,
-                showSelectedLabels: false,
-                showUnselectedLabels: false,
-                items: [
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      Matjar.home,
-                      color: Color.fromRGBO(255, 0, 0, 1),
-                    ),
-                    label: "",
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      Matjar.categories,
-                      color: Color.fromRGBO(255, 0, 0, 1),
-                    ),
-                    label: "",
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      Matjar.cart,
-                      color: Color.fromRGBO(255, 0, 0, 1),
-                    ),
-                    label: "",
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      Matjar.sign_in_and_sign_up_logo,
-                      color: Color.fromRGBO(255, 0, 0, 1),
-                    ),
-                    label: "",
+                actions: [
+                  SizedBox(
+                    width: 210,
                   ),
                 ],
-                onTap: (index) {
-                  setState(() {
-                    currentIndex = index;
-                    if (currentIndex == 3) {
-                      Navigator.of(context).pushNamed('/Profile');
-                    }
-                  });
-                },
               ),
               body: Container(
                 margin: EdgeInsets.symmetric(horizontal: 33, vertical: 25),
@@ -91,6 +60,7 @@ class _ProfileInfoSellerState extends State<ProfileInfoSeller> {
                         Icon(
                           Matjar.sign_in_and_sign_up_logo,
                           size: 28,
+                          color: textColor,
                         ),
                         SizedBox(
                           width: 10,
@@ -105,6 +75,7 @@ class _ProfileInfoSellerState extends State<ProfileInfoSeller> {
                               style: TextStyle(
                                 fontFamily: 'Source Sans Pro',
                                 fontSize: 25,
+                                color: textColor,
                               ),
                             ),
                           ],
@@ -117,25 +88,34 @@ class _ProfileInfoSellerState extends State<ProfileInfoSeller> {
                         child: Text(
                           'First Name',
                           style: TextStyle(
-                              fontSize: 17, fontFamily: 'Source Sans Pro'),
+                            fontSize: 17,
+                            fontFamily: 'Source Sans Pro',
+                            color: textColor,
+                          ),
                         ),
                       ),
                     ]),
                     Container(
-                      child: Text(userData.firstName.capitalize()),
+                      child: Text(
+                        userData.firstName.capitalize(),
+                        style: TextStyle(
+                          color: textColor,
+                        ),
+                      ),
                       margin: EdgeInsets.symmetric(
                         horizontal: 10,
                       ),
                       padding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: boxDecorationColor,
                         boxShadow: [
                           BoxShadow(
-                              blurRadius: 3,
-                              spreadRadius: 3,
-                              offset: Offset(0, 3),
-                              color: Colors.grey.withOpacity(0.16)),
+                            offset: Offset(0, 2),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            color: boxShadowColor,
+                          ),
                         ],
                       ),
                     ),
@@ -145,25 +125,34 @@ class _ProfileInfoSellerState extends State<ProfileInfoSeller> {
                         child: Text(
                           'Last Name',
                           style: TextStyle(
-                              fontSize: 17, fontFamily: 'Source Sans Pro'),
+                            fontSize: 17,
+                            fontFamily: 'Source Sans Pro',
+                            color: textColor,
+                          ),
                         ),
                       ),
                     ]),
                     Container(
-                      child: Text(userData.lastName.capitalize()),
+                      child: Text(
+                        userData.lastName.capitalize(),
+                        style: TextStyle(
+                          color: textColor,
+                        ),
+                      ),
                       margin: EdgeInsets.symmetric(
                         horizontal: 10,
                       ),
                       padding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: boxDecorationColor,
                         boxShadow: [
                           BoxShadow(
-                              blurRadius: 3,
-                              spreadRadius: 3,
-                              offset: Offset(0, 3),
-                              color: Colors.grey.withOpacity(0.16)),
+                            offset: Offset(0, 2),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            color: boxShadowColor,
+                          ),
                         ],
                       ),
                     ),
@@ -173,25 +162,34 @@ class _ProfileInfoSellerState extends State<ProfileInfoSeller> {
                         child: Text(
                           'Email',
                           style: TextStyle(
-                              fontSize: 17, fontFamily: 'Source Sans Pro'),
+                            fontSize: 17,
+                            fontFamily: 'Source Sans Pro',
+                            color: textColor,
+                          ),
                         ),
                       ),
                     ]),
                     Container(
-                      child: Text(userData.email),
+                      child: Text(
+                        userData.email,
+                        style: TextStyle(
+                          color: textColor,
+                        ),
+                      ),
                       margin: EdgeInsets.symmetric(
                         horizontal: 10,
                       ),
                       padding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: boxDecorationColor,
                         boxShadow: [
                           BoxShadow(
-                              blurRadius: 3,
-                              spreadRadius: 3,
-                              offset: Offset(0, 3),
-                              color: Colors.grey.withOpacity(0.16)),
+                            offset: Offset(0, 2),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            color: boxShadowColor,
+                          ),
                         ],
                       ),
                     ),
@@ -201,25 +199,34 @@ class _ProfileInfoSellerState extends State<ProfileInfoSeller> {
                         child: Text(
                           'Address',
                           style: TextStyle(
-                              fontSize: 17, fontFamily: 'Source Sans Pro'),
+                            fontSize: 17,
+                            fontFamily: 'Source Sans Pro',
+                            color: textColor,
+                          ),
                         ),
                       ),
                     ]),
                     Container(
-                      child: Text(userData.address.capitalize()),
+                      child: Text(
+                        userData.address.capitalize(),
+                        style: TextStyle(
+                          color: textColor,
+                        ),
+                      ),
                       margin: EdgeInsets.symmetric(
                         horizontal: 10,
                       ),
                       padding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: boxDecorationColor,
                         boxShadow: [
                           BoxShadow(
-                              blurRadius: 3,
-                              spreadRadius: 3,
-                              offset: Offset(0, 3),
-                              color: Colors.grey.withOpacity(0.16)),
+                            offset: Offset(0, 2),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            color: boxShadowColor,
+                          ),
                         ],
                       ),
                     ),
@@ -229,25 +236,34 @@ class _ProfileInfoSellerState extends State<ProfileInfoSeller> {
                         child: Text(
                           'Contact',
                           style: TextStyle(
-                              fontSize: 17, fontFamily: 'Source Sans Pro'),
+                            fontSize: 17,
+                            fontFamily: 'Source Sans Pro',
+                            color: textColor,
+                          ),
                         ),
                       ),
                     ]),
                     Container(
-                      child: Text(userData.contact.capitalize()),
+                      child: Text(
+                        userData.contact.capitalize(),
+                        style: TextStyle(
+                          color: textColor,
+                        ),
+                      ),
                       margin: EdgeInsets.symmetric(
                         horizontal: 10,
                       ),
                       padding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: boxDecorationColor,
                         boxShadow: [
                           BoxShadow(
-                              blurRadius: 3,
-                              spreadRadius: 3,
-                              offset: Offset(0, 3),
-                              color: Colors.grey.withOpacity(0.16)),
+                            offset: Offset(0, 2),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            color: boxShadowColor,
+                          ),
                         ],
                       ),
                     ),
@@ -271,7 +287,7 @@ class _ProfileInfoSellerState extends State<ProfileInfoSeller> {
                               color: Colors.white,
                             ),
                           ),
-                          color: Color.fromRGBO(244, 52, 52, 1),
+                          color: buttonColor,
                         ),
                         SizedBox(
                           width: 50,
@@ -286,7 +302,7 @@ class _ProfileInfoSellerState extends State<ProfileInfoSeller> {
                               color: Colors.white,
                             ),
                           ),
-                          color: Color.fromRGBO(244, 52, 52, 1),
+                          color: buttonColor,
                         ),
                       ],
                     )
@@ -298,7 +314,6 @@ class _ProfileInfoSellerState extends State<ProfileInfoSeller> {
             return Scaffold(
               body: Center(
                 child: CircularProgressIndicator(
-                  backgroundColor: mainColor,
                 ),
               ),
             );
