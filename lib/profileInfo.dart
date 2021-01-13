@@ -26,10 +26,11 @@ class _ProfileInfoState extends State<ProfileInfo> {
                 ? Colors.black
                 : Colors.white ;
             Color boxShadowColor = (!userData.darkmode) ?  Colors.grey.withOpacity(0.16)
-                :  Colors.white.withOpacity(0.16);
+                :  Colors.white.withOpacity(0.05);
             Color boxDecorationColor = (!userData.darkmode) ?   Colors.white
                 : Color.fromRGBO(27, 27, 27, 1);
             Color buttonColor = Color.fromRGBO(255, 0, 0, 1);
+
             return Scaffold(
               backgroundColor:
               (!userData.darkmode) ? Colors.white : Colors.black,
@@ -161,14 +162,17 @@ class _ProfileInfoState extends State<ProfileInfo> {
                       ),
                     ]),
                     Container(
-                      child: Text(userData.firstName.capitalize()),
+                      child: Text(userData.firstName.capitalize(),
+                        style: TextStyle(
+                        color: textColor,
+                      ),),
                       margin: EdgeInsets.symmetric(
                         horizontal: 10,
                       ),
                       padding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: boxDecorationColor,
                         boxShadow: [
                           BoxShadow(
                               offset: Offset(0, 2),
@@ -191,14 +195,17 @@ class _ProfileInfoState extends State<ProfileInfo> {
                     ]),
                     SizedBox(height: 5,),
                     Container(
-                      child: Text(userData.lastName.capitalize()),
+                      child: Text(userData.lastName.capitalize(),
+                      style: TextStyle(
+                        color: textColor,
+                      ),),
                       margin: EdgeInsets.symmetric(
                         horizontal: 10,
                       ),
                       padding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: boxDecorationColor,
                         boxShadow: [
                           BoxShadow(
                               offset: Offset(0, 2),
@@ -219,14 +226,17 @@ class _ProfileInfoState extends State<ProfileInfo> {
                       ),
                     ]),
                     Container(
-                      child: Text(userData.email),
+                      child: Text(userData.email,
+                        style: TextStyle(
+                          color: textColor,
+                        ),),
                       margin: EdgeInsets.symmetric(
                         horizontal: 10,
                       ),
                       padding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: boxDecorationColor,
                         boxShadow: [
                           BoxShadow(
                               offset: Offset(0, 2),
@@ -247,14 +257,17 @@ class _ProfileInfoState extends State<ProfileInfo> {
                       ),
                     ]),
                     Container(
-                      child: Text(userData.address.capitalize()),
+                      child: Text(userData.address.capitalize(),
+                        style: TextStyle(
+                          color: textColor,
+                        ),),
                       margin: EdgeInsets.symmetric(
                         horizontal: 10,
                       ),
                       padding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: boxDecorationColor,
                         boxShadow: [
                           BoxShadow(
                               offset: Offset(0, 2),
@@ -275,14 +288,16 @@ class _ProfileInfoState extends State<ProfileInfo> {
                       ),
                     ]),
                     Container(
-                      child: Text(userData.contact.capitalize()),
+                      child: Text(userData.contact.capitalize(),style: TextStyle(
+                        color: textColor,
+                      ),),
                       margin: EdgeInsets.symmetric(
                         horizontal: 10,
                       ),
                       padding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: boxDecorationColor,
                         boxShadow: [
                           BoxShadow(
                               offset: Offset(0, 2),
