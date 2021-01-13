@@ -29,6 +29,12 @@ You can follow the official getting started [here](https://flutter.dev/docs/get-
 
 After downloading Flutter and Andriod Studio:
  - Open Andriod Studio and open the project.
+ - Go to the terminal and execute the following commands in console to get the required dependencies:
+```
+  flutter pub get 
+  flutter pub upgrade 
+```
+
  - Choose your device or emulator from device list.
  - Run the code.
 
