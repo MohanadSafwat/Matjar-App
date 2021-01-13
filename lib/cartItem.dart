@@ -14,8 +14,8 @@ notifyListeners();
 }
 
 removeItems(List<Item> items){
-int i=0;
-for(i=0;i<items.length;i++){
+
+for(int i=0;i<items.length;i++){
 items.remove(items[i]);
 }
 notifyListeners();
@@ -23,10 +23,17 @@ notifyListeners();
 }
 
 
-
+deleteItem( Item item)
+{
+items.remove(item);
+notifyListeners();
+}
 
 
 
 }
+
+
+
 
 
