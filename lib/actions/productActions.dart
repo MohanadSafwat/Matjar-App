@@ -230,6 +230,7 @@ Future getSellerProducts() async {
   }
   return products;
 }
+var productReview = <Map>[];
 
 addReviewToProducts(
     Map<String, dynamic> info, String itemId, String comment, double rate) {
@@ -242,9 +243,9 @@ addReviewToProducts(
     'comment': comment,
     'noOfStars': rate
   };
-  sellerItem.add(map);
+  productReview.add(map);
   return firestore2.doc(itemId).update({
-    'itemReviews': FieldValue.arrayUnion(sellerItem),
+    'itemReviews': FieldValue.arrayUnion(productReview),
     // :FieldValue.arrayUnion(itemCategoryName),
     //
   }).then((value) => print('add review to products'));
