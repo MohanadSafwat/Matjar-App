@@ -192,12 +192,15 @@ class _SignUpSeller extends State<SignUpSeller> {
                         ),
                         new Padding(padding: EdgeInsets.all(10)),
                         new TextField(
+
                           style: TextStyle(fontSize: 20, color: textColor),
                           controller: _lastNameController,
                           decoration: new InputDecoration(
                               labelStyle: TextStyle(color: textColor),
                               labelText: 'Last Name',
-                              border: InputBorder.none),
+                              border: InputBorder.none
+
+                          ),
                         ),
                         new Padding(padding: EdgeInsets.all(10)),
                         new TextField(
@@ -277,7 +280,7 @@ class _SignUpSeller extends State<SignUpSeller> {
                                             _emailController.text.trim(),
                                             _passwordController.text.trim());
                                         Navigator.of(context)
-                                            .pushNamed("/Home");
+                                            .pushNamed("/ProfileLoginSeller");
                                       });
                                     } else {
                                       setState(() {
