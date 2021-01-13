@@ -4,6 +4,7 @@ import 'Cart.dart';
 import 'categories.dart';
 import 'constants.dart';
 import 'firebase/userDatabase.dart';
+import 'login.dart';
 import 'matjar_icons.dart';
 import 'modules/user.dart';
 
@@ -112,10 +113,20 @@ class _ProfileInfoState extends State<ProfileInfo> {
                                   Categories()));
                     }
                     if (currentIndex == 2) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Cart()));
+                      if (user.uid ==
+                          'ING2u4fnlgQBpkUqrCoitD619iD3' ||
+                          user == null) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Login()));
+                      } else {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    Cart()));
+                      }
                     }
                   });
                 },
