@@ -27,7 +27,8 @@ class CustomButton extends StatelessWidget {
   final String text;
   final double vertical, horizontal;
   final Function fnc;
-  CustomButton({@required this.text, this.horizontal, this.vertical,this.fnc});
+  Color color;
+  CustomButton({@required this.text, this.horizontal, this.vertical,this.fnc, this.color});
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
@@ -39,7 +40,8 @@ class CustomButton extends StatelessWidget {
         ),
       ),
       onPressed: fnc,
-      color: Colors.red,
+      color: color,
+
       padding: EdgeInsets.symmetric(vertical: vertical, horizontal: horizontal),
     );
   }
@@ -47,17 +49,20 @@ class CustomButton extends StatelessWidget {
 
 class CustomTextField extends StatelessWidget {
   final String lable;
+  Color textColor;
   final TextEditingController control ;
-  CustomTextField({@required this.lable, this.control});
+  CustomTextField({@required this.lable, this.control, this.textColor});
   @override
   Widget build(BuildContext context) {
     return TextField(controller: control ,
+      style: TextStyle(fontSize: 15, color: textColor),
       decoration: InputDecoration(
         labelText: lable,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+        border: InputBorder.none,
+        labelStyle: TextStyle(color: textColor),
+
           
-        ),
+
       ),
     );
   }
