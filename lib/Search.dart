@@ -117,7 +117,7 @@ class DataSearch extends SearchDelegate<String> {
     DatabaseService(uid: uid)
         .searchUpdate(searchList: recentSearch, searchItem: query);
     if (query == 'Electronics' ||
-        query == 'electronics' ||
+        query == 'Kitchen Tools' ||
         query == 'fashion' ||
         query == 'mobiles')
       return Items(category: query, show: false);
