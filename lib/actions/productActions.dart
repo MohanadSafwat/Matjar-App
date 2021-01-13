@@ -69,7 +69,7 @@ Future<void> addProductToCart(Item item, String userId) {
   CollectionReference user =FirebaseFirestore.instance.collection('Users');
   var map = {};
   map = {'itemCategoryName': item.categoryName, 'itemId': item.id, 'itemPrice':item.price,
-    'itemUrl':item.url, 'itemName':item.name
+    'itemUrl':item.url, 'itemName':item.name,'noInStock':item.numberInStock
   };
   cartItems.add(map);
   return user.doc(userId).update({
