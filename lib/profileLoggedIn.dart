@@ -26,7 +26,7 @@ class _ProfileLoggedInState extends State<ProfileLoggedIn> {
     final user = Provider.of<Userinit>(context);
 
     return StreamBuilder<Account>(
-        stream: DatabaseService(uid: user.uid).userData,
+        stream: DatabaseService(uid:user.uid).userData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             Account userData = snapshot.data;
@@ -41,7 +41,7 @@ class _ProfileLoggedInState extends State<ProfileLoggedIn> {
                 ? Colors.black
                 : Colors.white ;
 
-            
+
 
                 return Scaffold(
                   backgroundColor:
@@ -341,13 +341,7 @@ class _ProfileLoggedInState extends State<ProfileLoggedIn> {
                                 SizedBox(
                                   width: 120,
                                 ),
-                                /* FlatButton(
-                                  onPressed: () {},
-                                  child: Icon(
-                                    Matjar.toggle_off,
-                                    size: 20,
-                                  ),
-                                ), */
+
                                 Switch(
                                   value: darkmodeVal,
                                   onChanged: switchButton,
@@ -496,7 +490,7 @@ class _ProfileLoggedInState extends State<ProfileLoggedIn> {
             return Scaffold(
               body: Center(
                 child: CircularProgressIndicator(
-                  backgroundColor: mainColor,
+                  // backgroundColor: mainColor,
                 ),
               ),
             );
