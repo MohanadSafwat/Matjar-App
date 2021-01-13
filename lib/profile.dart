@@ -3,6 +3,7 @@ import 'package:matjar_login_signup/modules/user.dart';
 import 'Cart.dart';
 import 'categories.dart';
 import 'firebase/userDatabase.dart';
+import 'login.dart';
 import 'matjar_icons1.dart';
 import 'matjar_icons.dart';
 import 'constants.dart';
@@ -116,10 +117,20 @@ class _ProfileState extends State<Profile> {
                               Categories()));
                 }
                 if (currentIndex == 2) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Cart()));
+                  if (user.uid ==
+                      'ING2u4fnlgQBpkUqrCoitD619iD3' ||
+                      user == null) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Login()));
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                Cart()));
+                  }
                 }
               });
             },
