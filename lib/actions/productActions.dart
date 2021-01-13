@@ -91,7 +91,7 @@ Future<void> darkModeToggle(String userId, bool toggle) {
     'darkmode': toggle,
     // :FieldValue.arrayUnion(itemCategoryName),
     //
-  }).then((value) => print('darkModeToggled'));
+  }).then((value) {});
 }
 
 // List<Map<String,String>>SellerItems=[];

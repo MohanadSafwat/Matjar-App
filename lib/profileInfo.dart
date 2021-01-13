@@ -354,18 +354,6 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         SizedBox(
                           width: 50,
                         ),
-                        FlatButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Change Password',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontFamily: 'Source Sans Pro',
-                              color: Colors.white,
-                            ),
-                          ),
-                          color: buttonColor,
-                        ),
                       ],
                     )
                   ],

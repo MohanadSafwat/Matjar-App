@@ -108,9 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Color boxDecorationColor = (!userData.darkmode)
                 ? Colors.white
                 : Color.fromRGBO(27, 27, 27, 1);
-            Color buttonColor = (!userData.darkmode)
-                ? Color.fromRGBO(255, 0, 0, 1)
-                : Colors.white;
+            Color buttonColor = Color.fromRGBO(255, 0, 0, 1);
 
             maxCat = DatabaseService(uid: user.uid)
                 .getMaxCat(rec: userData.recommended);
