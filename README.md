@@ -1,6 +1,10 @@
-# matjar
+<div align="center">
 
-A new Flutter application.
+# MATJAR
+</div>
+
+Matjar is a cross platform E-Commerce app with high quality, low cost and short time span.
+
 
 ## Getting Started
 
