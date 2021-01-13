@@ -490,16 +490,16 @@ class _SellerDashboardState extends State<SellerDashboard> {
                                         ),
                                         count.toString());
                                     addCounter(count);
-                                    setState(() {
-                                      sellerProducts.add({
-                                        'photoUrl': url,
-                                        'itemPrice': double.parse(
-                                            itemPriceController.text),
-                                        'itemName': itemNameController.text,
-                                        'noOfItemsInStock': int.parse(
-                                            itemNoInStockController.text),
-                                      });
-                                    });
+                                    // setState(() {
+                                    //   sellerProducts.add({
+                                    //     'photoUrl': url,
+                                    //     'itemPrice': double.parse(
+                                    //         itemPriceController.text),
+                                    //     'itemName': itemNameController.text,
+                                    //     'noOfItemsInStock': int.parse(
+                                    //         itemNoInStockController.text),
+                                    //   });
+                                    // });
                                   },
                                 ),
                               ],
