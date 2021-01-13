@@ -336,7 +336,7 @@ class LoginSellerState extends State<LoginSeller> {
 
                                                 if (check) {
                                                   Navigator.of(context)
-                                                      .pushNamed('/Home');
+                                                      .pushNamed('/ProfileLoginSeller');
                                                 } else {
                                                   setState(() {
                                                     error =
