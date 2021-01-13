@@ -18,7 +18,7 @@ The main and the most important capabilities of the product is to help the custo
 ## Getting Started
 
 This project is mainly created using Flutter and Firebase.
-To run the code
+To run the code you need first to download Flutter environment:
 - First you must download Flutter SDK.
 - Next you have to add Flutter to the PATH environment variable.
 - Then you have to download Android Studio to install the latest Android SDK.
@@ -26,5 +26,12 @@ To run the code
 - Finally you have to install the Flutter and Dart plugins in Android Studio.
 
 You can follow the official getting started [here](https://flutter.dev/docs/get-started/install).
+
+After downloading Flutter and Andriod Studio:
+ - Open Andriod Studio and open the project.
+ - Choose your device or emulator from device list.
+ - Run the code.
+
+
 
 
