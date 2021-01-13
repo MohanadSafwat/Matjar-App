@@ -26,7 +26,7 @@ class DatabaseService {
       'recommended': {
         'Electronics': 0,
         'mobiles': 0,
-        'electronics': 0,
+        'Kitchen Tools': 0,
         'fashion': 0
       }
     });
