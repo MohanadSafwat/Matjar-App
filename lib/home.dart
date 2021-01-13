@@ -120,7 +120,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 :  Colors.white.withOpacity(0.05);
             Color boxDecorationColor = (!userData.darkmode) ?   Colors.white
                 : Color.fromRGBO(27, 27, 27, 1);
-            Color buttonColor = Color.fromRGBO(255, 0, 0, 1);
+            Color buttonColor = (!userData.darkmode) ?   Colors.white
+                : Color.fromRGBO(255, 0, 0, 1);
+
 
             maxCat = DatabaseService(uid: user.uid)
                 .getMaxCat(rec: userData.recommended);
@@ -516,10 +518,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                           height: 130,
                                                           child: Icon(
                                                             e["icon"],
-                                                            color: (!userData
-                                                                    .darkmode)
-                                                                ? Colors.white
-                                                                : Colors.red,
+                                                            color: buttonColor,
                                                             size: 80,
                                                           )),
                                                     ),
