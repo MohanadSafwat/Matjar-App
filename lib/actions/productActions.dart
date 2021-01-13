@@ -103,7 +103,7 @@ Future<void> addProductIdToSeller(
   var map = {};
   map = {'itemCategoryName': itemCategoryName, 'itemId': itemId};
   sellerItem.add(map);
-  return firestore2.doc('3Nd2P2oDZDUdOuLqLYYewwH6jDs2').update({
+  return firestore2.doc(sellerId).update({
     'items': FieldValue.arrayUnion(sellerItem),
     // :FieldValue.arrayUnion(itemCategoryName),
     //
@@ -126,7 +126,8 @@ Future<String> uploadImage() async {
 
     if (image != null) {
       //Upload to Firebase
-      var snapshot = await _storage.ref().child('itemPhotos').putFile(file);
+      print(count);
+      var snapshot = await _storage.ref().child('$count').putFile(file);
 
       var downloadUrl = await snapshot.ref.getDownloadURL();
       photoUrl = downloadUrl;
@@ -193,7 +194,7 @@ Future getSellerProductId(String id) async {
   try {
     await FirebaseFirestore.instance
         .collection("sellers")
-        .doc('3Nd2P2oDZDUdOuLqLYYewwH6jDs2')
+        .doc(sendID())
         .get()
         .then((documentsnapshot) {
       productId = documentsnapshot.data()["items"];
@@ -218,7 +219,7 @@ Stream<DocumentSnapshot> CartItems(String id) {
 Future getSellerProducts() async {
   List products = [];
   getSellerId();
-  await getSellerProductId('3Nd2P2oDZDUdOuLqLYYewwH6jDs2');
+  await getSellerProductId(sendID());
   CollectionReference firestore2 =
       FirebaseFirestore.instance.collection("products");
 
