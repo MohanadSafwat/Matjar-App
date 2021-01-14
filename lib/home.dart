@@ -111,6 +111,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 ? Colors.white
                 : Color.fromRGBO(27, 27, 27, 1);
             Color buttonColor = Color.fromRGBO(255, 0, 0, 1);
+            Color appBarColor= (!userData.darkmode)
+                ? Color.fromRGBO(255, 0, 0, 1)
+                : Color.fromRGBO(27, 27, 27, 0.4);
+
 
             maxCat = DatabaseService(uid: user.uid)
                 .getMaxCat(rec: userData.recommended);
@@ -237,7 +241,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                                     list: getItem,
                                                     recentSearch:
                                                         userData.recent,
-                                                    uid: user.uid),
+                                                    uid: user.uid,
+                                                    colors:{'textColor':textColor,
+                                                      'boxDecorationColor':boxDecorationColor,
+                                                      'boxShadowColor':boxShadowColor,
+                                                      'buttonColor':buttonColor,
+                                                      'appBarColor':appBarColor,
+
+
+                                                    }
+                                                ),
                                               );
                                             },
                                             decoration: InputDecoration(
@@ -254,7 +267,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                                             list: getItem,
                                                             recentSearch:
                                                                 userData.recent,
-                                                            uid: user.uid),
+                                                            uid: user.uid,
+                                                            colors:{'textColor':textColor,
+                                                              'boxDecorationColor':boxDecorationColor,
+                                                              'boxShadowColor':boxShadowColor,
+                                                              'buttonColor':buttonColor,
+                                                              'appBarColor':appBarColor,
+
+
+                                                            }),
                                                       );
                                                     }),
                                                 enabledBorder:

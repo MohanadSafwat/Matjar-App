@@ -2,11 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:matjar_login_signup/modules/item.dart';
+import 'package:matjar_login_signup/profile.dart';
+import 'package:matjar_login_signup/profileLoggedIn.dart';
 import 'package:matjar_login_signup/selected_item.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_select/smart_select.dart';
+import 'Cart.dart';
 import 'Search.dart';
 import 'actions/productService.dart';
 import 'firebase/userDatabase.dart';
+import 'login.dart';
 import 'matjar_icons.dart';
 import 'modules/item.dart';
 import 'Categories.dart';
@@ -31,7 +36,7 @@ class _ItemsState extends State<Items> {
   List<Item> ref = [];
   List<Item> ref2 = [];
   List<Item> ref3 = [];
-
+int currentIndex = 0;
   bool flagSort = false;
   bool flagFilter = false;
   bool flag = false;
@@ -82,7 +87,9 @@ class _ItemsState extends State<Items> {
     } catch (e) {
       print(e);
     }
+
   }
+
 
   @override
   void initState() {
@@ -99,10 +106,26 @@ class _ItemsState extends State<Items> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             Account userData = snapshot.data;
+            Color textColor =
+                (!userData.darkmode) ? Colors.black : Colors.white;
+            Color boxShadowColor = (!userData.darkmode)
+                ? Colors.grey.withOpacity(0.16)
+                : Colors.white.withOpacity(0.05);
+            Color boxDecorationColor = (!userData.darkmode)
+                ? Colors.white
+                : Color.fromRGBO(27, 27, 27, 1);
+            Color buttonColor = Color.fromRGBO(255, 0, 0, 1);
+            Color appBarColor= (!userData.darkmode)
+                ? Color.fromRGBO(255, 0, 0, 1)
+                : Color.fromRGBO(27, 27, 27, 0.4);
             return Scaffold(
+                backgroundColor:
+                    (!userData.darkmode) ? Colors.white : Colors.black,
                 appBar: show
                     ? AppBar(
-                        backgroundColor: Color.fromRGBO(255, 0, 0, 1),
+                        backgroundColor: (!userData.darkmode)
+                            ? Color.fromRGBO(255, 0, 0, 1)
+                            : Color.fromRGBO(27, 27, 27, 0.4),
                         toolbarHeight: 75,
                         centerTitle: true,
                         leading: FlatButton(
@@ -130,7 +153,16 @@ class _ItemsState extends State<Items> {
                                   delegate: DataSearch(
                                       list: getItem,
                                       recentSearch: userData.recent,
-                                      uid: user.uid),
+                                      uid: user.uid,
+                                    colors:{'textColor':textColor,
+                                      'boxDecorationColor':boxDecorationColor,
+                                      'boxShadowColor':boxShadowColor,
+                                      'buttonColor':buttonColor,
+                                      'appBarColor':appBarColor,
+
+
+                                    }
+                                  ),
                                 );
                               },
                               child: Icon(
@@ -141,6 +173,88 @@ class _ItemsState extends State<Items> {
                         ],
                       )
                     : null,
+                bottomNavigationBar: BottomNavigationBar(
+                  type: BottomNavigationBarType.fixed,
+                  iconSize: 30,
+                  currentIndex: currentIndex,
+                  backgroundColor:
+                  (!userData.darkmode) ? Colors.white : Colors.black,
+                  selectedFontSize: 13,
+                  showSelectedLabels: false,
+                  showUnselectedLabels: false,
+                  items: [
+                    BottomNavigationBarItem(
+                      icon: Icon(
+                        Matjar.home,
+                        color: (!userData.darkmode) ? Colors.red : Colors.white,
+                      ),
+                      label: "",
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(
+                        Matjar.categories,
+                        color: (!userData.darkmode) ? Colors.red : Colors.white,
+                      ),
+                      label: "",
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(
+                        Matjar.cart,
+                        color: (!userData.darkmode) ? Colors.red : Colors.white,
+                      ),
+                      label: "",
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(
+                        Matjar.sign_in_and_sign_up_logo,
+                        color: (!userData.darkmode) ? Colors.red : Colors.white,
+                      ),
+                      label: "",
+                    ),
+                  ],
+                  onTap: (index) {
+                    setState(() {
+                      currentIndex = index;
+                      if (currentIndex == 0) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyHomePage()));
+                      }
+                      if (currentIndex == 1) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Categories()));
+                      }
+                      if (currentIndex == 2) {
+                        if (user.uid == 'gHCkBQhbQ2YA5L631wDangP0FsJ2' ||
+                            user == null) {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Login()));
+                        } else {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Cart()));
+                        }
+                      }
+                      if (currentIndex == 3) {
+                        if (user.uid == 'gHCkBQhbQ2YA5L631wDangP0FsJ2' ||
+                            user == null) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Profile()));
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProfileLoggedIn()));
+                        }
+                      }
+                    });
+                  },
+                ),
+
                 body: Stack(children: <Widget>[
                   Positioned.fill(
                     child: ListView(
@@ -150,25 +264,59 @@ class _ItemsState extends State<Items> {
                             children: <Widget>[
                               Container(
                                 height: 60,
-                                color: Colors.white,
+                                color: (!userData.darkmode)
+                                    ? Colors.white
+                                    : Colors.black,
                                 child: Row(
                                   children: <Widget>[
                                     SizedBox(width: width * 0.1),
-                                    IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          flagSort = false;
-                                          flagFilter = true;
-                                        });
-                                      },
-                                      icon: Icon(Matjar.filter,
-                                          color: Colors.red),
+                                    Expanded(
+                                      child: FlatButton(
+                                        child: Row(
+                                          children: [
+                                            Icon(Matjar.filter,
+                                                color: (!userData.darkmode)
+                                                    ? Colors.red
+                                                    : Colors.white),
+                                            SizedBox(width: 10),
+                                            Text(
+                                              "Filter",
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: (!userData.darkmode)
+                                                      ? Colors.red
+                                                      : Colors.white),
+                                            ),
+                                          ],
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            flagSort = false;
+                                            flagFilter = true;
+                                          });
+                                        },
+                                      ),
                                     ),
-                                    Text("filter",
-                                        style: TextStyle(
-                                            fontSize: 20, color: Colors.red)),
-                                    SizedBox(width: width * 0.3),
-                                    IconButton(
+                                    SizedBox(width: 75),
+                                    Expanded(
+                                      child: FlatButton(
+                                        child: Row(
+                                          children: [
+                                            Icon(Matjar.sort,
+                                                color: (!userData.darkmode)
+                                                    ? Colors.red
+                                                    : Colors.white),
+                                            SizedBox(width: 10),
+                                            Text(
+                                              "Sort",
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: (!userData.darkmode)
+                                                      ? Colors.red
+                                                      : Colors.white),
+                                            ),
+                                          ],
+                                        ),
                                         onPressed: () {
                                           setState(() {
                                             flagSort = true;
@@ -177,12 +325,7 @@ class _ItemsState extends State<Items> {
                                             flagPriceLimitation = false;
                                           });
                                         },
-                                        icon: Icon(Matjar.sort,
-                                            color: Colors.red)),
-                                    Text(
-                                      "sort",
-                                      style: TextStyle(
-                                          fontSize: 20, color: Colors.red),
+                                      ),
                                     ),
                                     SizedBox(width: width * 0.1),
                                   ],
@@ -213,7 +356,10 @@ class _ItemsState extends State<Items> {
                                           },
                                           child: Text(
                                             'LOW TO HIGH',
-                                            style: TextStyle(color: Colors.red),
+                                            style: TextStyle(
+                                                color: (!userData.darkmode)
+                                                    ? Colors.red
+                                                    : Colors.white),
                                           ),
                                         ),
                                         FlatButton(
@@ -231,8 +377,10 @@ class _ItemsState extends State<Items> {
                                             },
                                             child: Text(
                                               'HIGH TO LOW',
-                                              style:
-                                                  TextStyle(color: Colors.red),
+                                              style: TextStyle(
+                                                  color: (!userData.darkmode)
+                                                      ? Colors.red
+                                                      : Colors.white),
                                             ))
                                       ],
                                     ),
@@ -270,11 +418,15 @@ class _ItemsState extends State<Items> {
                                           },
                                           child: Text(
                                             'Brand',
-                                            style: TextStyle(color: Colors.red),
+                                            style: TextStyle(
+                                                color: (!userData.darkmode)
+                                                    ? Colors.red
+                                                    : Colors.white),
                                           ),
                                         ),
                                         FlatButton(
                                             onPressed: () {
+
                                               setState(() {
                                                 flagPriceLimitation = true;
                                                 flagBrand = false;
@@ -282,8 +434,10 @@ class _ItemsState extends State<Items> {
                                             },
                                             child: Text(
                                               'Price Limitation',
-                                              style:
-                                                  TextStyle(color: Colors.red),
+                                              style: TextStyle(
+                                                  color: (!userData.darkmode)
+                                                      ? Colors.red
+                                                      : Colors.white),
                                             ))
                                       ],
                                     ),
@@ -293,6 +447,7 @@ class _ItemsState extends State<Items> {
                               Visibility(
                                 visible: flagBrand,
                                 child: Container(
+                                  color: boxDecorationColor,
                                   child: ListView.builder(
                                       itemCount: brands.length,
                                       scrollDirection: Axis.vertical,
@@ -304,6 +459,9 @@ class _ItemsState extends State<Items> {
                                           child: Row(
                                             children: [
                                               Checkbox(
+                                                checkColor: textColor,
+
+
                                                 value:
                                                     brandCheckBoxValues[index],
                                                 onChanged: (newValue) {
@@ -350,7 +508,8 @@ class _ItemsState extends State<Items> {
                                                   });
                                                 },
                                               ),
-                                              Text(brands[index]),
+                                              Text(brands[index],
+                                              style: TextStyle(color: textColor,),)
                                             ],
                                           ),
                                         );
@@ -362,6 +521,7 @@ class _ItemsState extends State<Items> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(.0),
                                   child: Container(
+                                    color: boxDecorationColor,
                                     child: Row(
                                       children: [
                                         Expanded(
@@ -372,6 +532,7 @@ class _ItemsState extends State<Items> {
                                               controller: priceFrom,
                                               decoration: new InputDecoration(
                                                 labelText: "From",
+                                                labelStyle: TextStyle(color:textColor ),
                                                 errorText: validatePriceFrom
                                                     ? 'Value Can\'t Be Empty'
                                                     : null,
@@ -389,6 +550,8 @@ class _ItemsState extends State<Items> {
                                               controller: priceTo,
                                               decoration: InputDecoration(
                                                 labelText: 'To',
+                                                labelStyle: TextStyle(color:textColor ),
+
                                                 errorText: validatePriceTo
                                                     ? 'Value Can\'t Be Empty'
                                                     : null,
@@ -448,7 +611,7 @@ class _ItemsState extends State<Items> {
                               Padding(
                                 padding: const EdgeInsets.all(25.0),
                                 child: Container(
-                                  height: 530,
+                                  height: 300,
                                   child: StreamBuilder<QuerySnapshot>(
                                       stream: (query != null)
                                           ? _productService.loadSearch()
@@ -525,106 +688,121 @@ class _ItemsState extends State<Items> {
                                                 Padding(
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: 1, vertical: 1),
-                                              child: Card(
-                                                elevation: 0,
-                                                semanticContainer: true,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
-                                                ),
-                                                clipBehavior: Clip.antiAlias,
-                                                child: Column(
-                                                  crossAxisAlignment:
+                                                  child: Card(
+                                                    elevation: 0,
+                                                    color: boxDecorationColor,
+                                                    semanticContainer: true,
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                      BorderRadius.circular(10.0),
+                                                    ),
+                                                    clipBehavior: Clip.antiAlias,
+                                                    child: Column(
+                                                      crossAxisAlignment:
                                                       CrossAxisAlignment.start,
-                                                  children: <Widget>[
-                                                    Expanded(
-                                                      child: Material(
-                                                        child: InkWell(
-                                                          onTap: () async {
-                                                            await DatabaseService(uid: user.uid).recommendedUpdate(
-                                                                cat: (!flag)
-                                                                    ? products[
-                                                                            index]
+                                                      children: <Widget>[
+                                                        Expanded(
+                                                          child: Material(
+                                                            child: InkWell(
+                                                              onTap: () async {
+                                                                await DatabaseService(uid: user.uid).recommendedUpdate(
+                                                                    cat: (!flag)
+                                                                        ? products[
+                                                                    index]
                                                                         .categoryName
-                                                                    : temp[index]
+                                                                        : temp[index]
                                                                         .categoryName,
-                                                                count: (!flag)
-                                                                    ? userData
+                                                                    count: (!flag)
+                                                                        ? userData
                                                                         .recommended[products[
-                                                                            index]
+                                                                    index]
                                                                         .categoryName]
-                                                                    : userData
+                                                                        : userData
                                                                         .recommended[temp[
-                                                                            index]
+                                                                    index]
                                                                         .categoryName],
-                                                                rec: userData
-                                                                    .recommended);
-                                                            Navigator.of(context).pushNamed(
-                                                                SelectedItem.id,
-                                                                arguments: (!flag)
-                                                                    ? products[
-                                                                        index]
-                                                                    : temp[
-                                                                        index]);
-                                                          },
-                                                          child: GridTile(
-                                                            child:
-                                                                Image.network(
-                                                              (!flag)
-                                                                  ? products[
-                                                                          index]
+                                                                    rec: userData
+                                                                        .recommended);
+                                                                Navigator.of(context).pushNamed(
+                                                                    SelectedItem.id,
+                                                                    arguments: (!flag)
+                                                                        ? products[
+                                                                    index]
+                                                                        : temp[
+                                                                    index]);
+                                                              },
+                                                              child: Center(
+                                                                child: Image.network(
+                                                                  (!flag)
+                                                                      ? products[
+                                                                  index]
                                                                       .url
-                                                                  : temp[index]
+                                                                      : temp[index]
                                                                       .url,
-                                                              fit: BoxFit.cover,
+                                                                  fit: BoxFit.cover,
+                                                                ),
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Column(
-                                                        crossAxisAlignment:
+                                                        Padding(
+                                                          padding:
+                                                          const EdgeInsets.only(
+                                                              top: 10,
+                                                              left: 8.0,
+                                                              bottom: 12),
+                                                          child: Column(
+                                                            crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .start,
-                                                        children: <Widget>[
-                                                          Text(
-                                                            (!flag)
-                                                                ? "\$${products[index].price}"
-                                                                : "\$${temp[index].price}",
-                                                            style: TextStyle(
-                                                                fontSize: 18.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          ),
-                                                          Text(
-                                                            (!flag)
-                                                                ? products[
-                                                                        index]
+                                                            children: <Widget>[
+                                                              Text(
+                                                                (!flag)
+                                                                    ? products[
+                                                                index]
                                                                     .name
-                                                                : temp[index]
+                                                                    : temp[index]
                                                                     .name,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            textAlign:
+
+                                                                textAlign:
                                                                 TextAlign.left,
-                                                            style: TextStyle(
-                                                                fontSize: 15.0,
-                                                                color: Colors
-                                                                    .grey),
+                                                                style: TextStyle(
+                                                                    fontSize: 12.0,
+                                                                    color: textColor),
+                                                              ),
+                                                              Row(
+                                                                children: [
+                                                                  Text("Egp ",
+                                                                      style:
+                                                                      TextStyle(
+                                                                        fontSize:
+                                                                        10.0,
+                                                                        color:
+                                                                        textColor,
+                                                                      )),
+                                                                  Text(
+                                                                    (!flag)
+                                                                        ? "${products[index].price}"
+                                                                        : "${temp[index].price}",
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                        12.0,
+                                                                        color:
+                                                                        textColor,
+                                                                        fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
                                                           ),
-                                                        ],
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+
+
                                             ),
                                           );
                                         }
@@ -640,52 +818,6 @@ class _ItemsState extends State<Items> {
                   ),
 
                   //.....................................................................................................................
-                  Positioned(
-                      width: width,
-                      bottom: 0,
-                      child: Container(
-                        color: Colors.white,
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              IconButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                MyHomePage()));
-                                  },
-                                  icon: Icon(
-                                    Matjar.home,
-                                    color: Colors.red,
-                                  )),
-                              IconButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                Categories()));
-                                  },
-                                  icon: Icon(
-                                    Matjar.categories,
-                                    color: Colors.red,
-                                  )),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Matjar.cart,
-                                    color: Colors.red,
-                                  )),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Matjar.sign_in_and_sign_up_logo,
-                                    color: Colors.red,
-                                  )),
-                            ]),
-                      ))
                 ]));
           } else {
             return Scaffold(
