@@ -34,12 +34,12 @@ class _CategoriesState extends State<Categories> {
                 'icon': Icons.electrical_services_outlined
               },
               {
-                'name': 'mobiles',
+                'name': 'Mobiles',
                 'color': Colors.white,
                 'icon': Icons.phone_android_rounded
               },
               {
-                'name': 'fashion',
+                'name': 'Fashion',
                 'color': Colors.white,
                 'icon': Icons.umbrella_rounded
               },
@@ -131,7 +131,7 @@ class _CategoriesState extends State<Categories> {
                                 builder: (context) => MyHomePage()));
                       }
                       if (currentIndex == 2) {
-                        if (user.uid == 'ING2u4fnlgQBpkUqrCoitD619iD3' ||
+                        if (user.uid == 'gHCkBQhbQ2YA5L631wDangP0FsJ2' ||
                             user == null) {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) => Login()));
@@ -141,7 +141,7 @@ class _CategoriesState extends State<Categories> {
                         }
                       }
                       if (currentIndex == 3) {
-                        if (user.uid == 'ING2u4fnlgQBpkUqrCoitD619iD3' ||
+                        if (user.uid == 'gHCkBQhbQ2YA5L631wDangP0FsJ2' ||
                             user == null) {
                           Navigator.push(
                               context,

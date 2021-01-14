@@ -26,7 +26,7 @@ class LandingPage extends StatelessWidget {
           backgroundColor: mainColor,
         ),
       );
-    } else if (user.uid == "ING2u4fnlgQBpkUqrCoitD619iD3") {
+    } else if (user.uid == "gHCkBQhbQ2YA5L631wDangP0FsJ2") {
       return MyHomePage();
     } else {
       return StreamBuilder<Account>(

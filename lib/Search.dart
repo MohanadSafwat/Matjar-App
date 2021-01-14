@@ -118,8 +118,8 @@ class DataSearch extends SearchDelegate<String> {
         .searchUpdate(searchList: recentSearch, searchItem: query);
     if (query == 'Electronics' ||
         query == 'Kitchen Tools' ||
-        query == 'fashion' ||
-        query == 'mobiles')
+        query == 'Fashion' ||
+        query == 'Mobiles')
       return Items(category: query, show: false);
     else
       return Items(query: query, show: false);

@@ -223,7 +223,7 @@ bool notexist=true;
                                 lastDoc = false;
                                  if (notexist  )           
                                      {
-                               dynamic result = await AuthService().signup(
+                               dynamic result = await AuthService().signupSeller(
                                      _emailController.text,
                                   _passwordController.text,
                                   _firstNameController.text.trim(),

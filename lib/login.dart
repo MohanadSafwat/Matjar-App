@@ -144,7 +144,7 @@ class LoginState extends State<Login> {
                                 builder: (context) => Categories()));
                       }
                       if (currentIndex == 2) {
-                        if (user.uid == 'ING2u4fnlgQBpkUqrCoitD619iD3' ||
+                        if (user.uid == 'gHCkBQhbQ2YA5L631wDangP0FsJ2' ||
                             user == null) {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) => Login()));
@@ -154,7 +154,7 @@ class LoginState extends State<Login> {
                         }
                       }
                       if (currentIndex == 3) {
-                        if (user.uid == 'ING2u4fnlgQBpkUqrCoitD619iD3' ||
+                        if (user.uid == 'gHCkBQhbQ2YA5L631wDangP0FsJ2' ||
                             user == null) {
                           Navigator.push(
                               context,
@@ -291,6 +291,7 @@ class LoginState extends State<Login> {
                                           ),
                                         ),
                                         onPressed: () async {
+                                          
                                           try {
                                             final UserRef =
                                                 await FirebaseFirestore.instance

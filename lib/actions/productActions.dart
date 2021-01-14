@@ -16,7 +16,7 @@ var photoUrl;
 class ProductAction {
   // Item item;
 
-  // FirebaseFirestore firestore = FirebaseFirestore.instance.collection('mobiles');
+  // FirebaseFirestore firestore = FirebaseFirestore.instance.collection('Mobiles');
   // ProductAction(this.item);
   CollectionReference firestoreCategories =
       FirebaseFirestore.instance.collection('Categories');

@@ -181,7 +181,7 @@ class _SelectedItem extends State<SelectedItem> {
                                           builder: (context) => RaisedButton(
                                             onPressed: () {
                                               if (user.uid ==
-                                                  'ING2u4fnlgQBpkUqrCoitD619iD3') {
+                                                  'gHCkBQhbQ2YA5L631wDangP0FsJ2') {
                                                 Navigator.of(context)
                                                     .pushNamed('/Login');
                                               } else {
@@ -679,7 +679,7 @@ class _SelectedItem extends State<SelectedItem> {
                                   ),
                                 ),
                                 visible: ((() {
-                                  if (id == 'ING2u4fnlgQBpkUqrCoitD619iD3') {
+                                  if (id == 'gHCkBQhbQ2YA5L631wDangP0FsJ2') {
                                     return false;
                                   } else
                                     return true;

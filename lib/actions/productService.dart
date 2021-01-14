@@ -4,7 +4,7 @@ import 'package:matjar_login_signup/modules/item.dart';
 
 class ProductService {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  // CollectionReference _productReference = FirebaseFirestore.instance.collection('Categories').doc('mobiles').collection('items');
+  // CollectionReference _productReference = FirebaseFirestore.instance.collection('Categories').doc('Mobiles').collection('items');
   CollectionReference _productReference =
       FirebaseFirestore.instance.collection('products');
 

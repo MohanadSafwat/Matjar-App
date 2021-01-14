@@ -25,9 +25,9 @@ class DatabaseService {
       'recent': [],
       'recommended': {
         'Electronics': 0,
-        'mobiles': 0,
+        'Mobiles': 0,
         'Kitchen Tools': 0,
-        'fashion': 0
+        'Fashion': 0
       }
     });
   }

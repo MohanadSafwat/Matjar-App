@@ -9,7 +9,7 @@ class AuthService {
   Userinit _userFromFirebaseUser(User user) {
     return user != null
         ? Userinit(uid: user.uid)
-        : Userinit(uid: 'ING2u4fnlgQBpkUqrCoitD619iD3');
+        : Userinit(uid: 'gHCkBQhbQ2YA5L631wDangP0FsJ2');
   }
 
   // auth change user stream
