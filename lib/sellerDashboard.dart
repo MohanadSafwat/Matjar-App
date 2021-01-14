@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:matjar_login_signup/actions/productActions.dart';
 import 'package:matjar_login_signup/modules/item.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_select/smart_select.dart';
 import 'Custom Widget/customComponents.dart';
 import 'firebase/userDatabase.dart';
 import 'matjar_icons.dart';
@@ -25,7 +26,7 @@ class SellerDashboard extends StatefulWidget {
 class _SellerDashboardState extends State<SellerDashboard> {
   ProductAction productAction;
   String url;
-  var sellerItems=[];
+  var sellerItems = [];
   TextEditingController itemNameController = TextEditingController();
   TextEditingController itemPriceController = TextEditingController();
   TextEditingController itemCategoryController = TextEditingController();
@@ -39,6 +40,14 @@ class _SellerDashboardState extends State<SellerDashboard> {
   TextEditingController itemSpecsValue2Controller = TextEditingController();
   TextEditingController itemSpecsValue3Controller = TextEditingController();
   TextEditingController itemSpecsValue4Controller = TextEditingController();
+
+  String value = 'flutter';
+  List<S2Choice<String>> options = [
+    S2Choice<String>(value: 'Mobiles', title: 'Mobiles'),
+    S2Choice<String>(value: 'Electronics', title: 'Electronics'),
+    S2Choice<String>(value: 'Fashion', title: 'Fashion'),
+    S2Choice<String>(value: 'Kitchen Tools', title: 'Kitchen Tools'),
+  ];
 
   var photoText = 'Photo';
   List sellerProducts = [];
@@ -235,11 +244,39 @@ class _SellerDashboardState extends State<SellerDashboard> {
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: CustomTextField(
-                                textColor: textColor,
-                                lable: 'Category',
-                                control: itemCategoryController,
-                              ),
+                              // child: CustomTextField(
+                              //   textColor: textColor,
+                              //   lable: 'Category',
+                              //   control: itemCategoryController,
+                              // ),
+                              child: SmartSelect<String>.single(
+                                  title: 'Categories',
+                                  choiceHeaderStyle: S2ChoiceHeaderStyle(
+                                    textStyle: TextStyle(color: textColor),
+                                  ),
+                                  modalHeaderStyle: S2ModalHeaderStyle(
+                                    backgroundColor: (!userData.darkmode)
+                                        ? Color.fromRGBO(255, 0, 0, 1)
+                                        : Color.fromRGBO(27, 27, 27, 0.4),
+                                    textStyle: TextStyle(color: white),
+                                    centerTitle: true,
+                                  ),
+                                  choiceStyle: S2ChoiceStyle(
+                                    color: textColor,
+                                    titleStyle: TextStyle(
+                                      color: textColor,
+                                    ),
+                                    subtitleStyle: TextStyle(
+                                      color: textColor,
+                                    ),
+                                  ),
+                                  modalStyle: S2ModalStyle(
+
+                                      backgroundColor: boxDecorationColor),
+                                  value: value,
+                                  choiceItems: options,
+                                  onChange: (state) =>
+                                      setState(() => value = state.value)),
                             ),
                           ),
                           Padding(padding: EdgeInsets.all(5)),
@@ -475,7 +512,7 @@ class _SellerDashboardState extends State<SellerDashboard> {
                                           price: double.parse(
                                               itemPriceController.text),
                                           categoryName:
-                                              itemCategoryController.text,
+                                              value.toString(),
                                           sellerId: sellerId.toString(),
                                           numberInStock: int.parse(
                                               itemNoInStockController.text),
@@ -495,7 +532,8 @@ class _SellerDashboardState extends State<SellerDashboard> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => SellerDashboard()));
+                                            builder: (context) =>
+                                                SellerDashboard()));
                                   },
                                 ),
                               ],
@@ -511,123 +549,128 @@ class _SellerDashboardState extends State<SellerDashboard> {
                       margin: EdgeInsets.only(left: 25),
                     ),
                     StreamBuilder<QuerySnapshot>(
-                      stream: SellerItems(),
-                      builder: (context, snapshot) {
-                        if(snapshot.hasData){
-                          sellerItems.clear();
+                        stream: SellerItems(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            sellerItems.clear();
 
-                          for(var doc in snapshot.data.docs){
-                            if(doc['itemSellerId']==userData.uid){
-                              sellerItems.add(doc);
+                            for (var doc in snapshot.data.docs) {
+                              if (doc['itemSellerId'] == userData.uid) {
+                                sellerItems.add(doc);
+                              }
+                              print(sellerItems);
                             }
-                            print(sellerItems);
-
-                          }
-                        return Padding(
-                          padding: const EdgeInsets.only(left: 35.0),
-                          child: Container(
-                            height: 200,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: sellerItems.length,
-                              itemBuilder: (context, index) => Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 1, vertical: 1),
-                                child: Card(
-                                  elevation: 0,
-                                  color: boxDecorationColor,
-                                  semanticContainer: true,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  clipBehavior: Clip.antiAlias,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Material(
-                                          child: InkWell(
-                                            child: GridTile(
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(12.0),
-                                                child: Image.network(
-                                                 sellerItems[index]['photoUrl'],
-                                                  fit: BoxFit.cover,
+                            return Padding(
+                              padding: const EdgeInsets.only(left: 35.0),
+                              child: Container(
+                                height: 200,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: sellerItems.length,
+                                  itemBuilder: (context, index) => Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 1, vertical: 1),
+                                    child: Card(
+                                      elevation: 0,
+                                      color: boxDecorationColor,
+                                      semanticContainer: true,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      clipBehavior: Clip.antiAlias,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Material(
+                                              child: InkWell(
+                                                child: GridTile(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            12.0),
+                                                    child: Image.network(
+                                                      sellerItems[index]
+                                                          ['photoUrl'],
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 10, left: 8.0, bottom: 12),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text(
+                                                  "${sellerItems[index]['itemName']}",
+                                                  textAlign: TextAlign.left,
+                                                  overflow: TextOverflow.fade,
+                                                  style: TextStyle(
+                                                      fontSize: 10.0,
+                                                      color: textColor),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Text("Egp ",
+                                                        style: TextStyle(
+                                                          fontSize: 10.0,
+                                                          color: textColor,
+                                                        )),
+                                                    Text(
+                                                      '${sellerItems[index]['itemPrice']}',
+                                                      softWrap: true,
+                                                      style: TextStyle(
+                                                          fontSize: 12.0,
+                                                          color: textColor,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Text("no in stock ",
+                                                        style: TextStyle(
+                                                          fontSize: 10.0,
+                                                          color: textColor,
+                                                        )),
+                                                    Text(
+                                                      "${sellerItems[index]['noOfItemsInStock']}",
+                                                      style: TextStyle(
+                                                          fontSize: 12.0,
+                                                          color: textColor,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 10, left: 8.0, bottom: 12),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                              "${sellerItems[index]['itemName']}",
-                                              textAlign: TextAlign.left,
-                                              overflow: TextOverflow.fade,
-                                              style: TextStyle(
-                                                  fontSize: 10.0, color: textColor),
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text("Egp ",
-                                                    style: TextStyle(
-                                                      fontSize: 10.0,
-                                                      color: textColor,
-                                                    )),
-                                                Text(
-                                                  '${sellerItems[index]['itemPrice']}',
-                                                  softWrap: true,
-                                                  style: TextStyle(
-                                                      fontSize: 12.0,
-                                                      color: textColor,
-                                                      fontWeight: FontWeight.bold),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text("no in stock ",
-                                                    style: TextStyle(
-                                                      fontSize: 10.0,
-                                                      color: textColor,
-                                                    )),
-                                                Text(
-                                                  "${sellerItems[index]['noOfItemsInStock']}",
-                                                  style: TextStyle(
-                                                      fontSize: 12.0,
-                                                      color: textColor,
-                                                      fontWeight: FontWeight.bold),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ),
-                        );}
-                        else{
-                          return Scaffold(
-                            body: Center(
-                              child: CircularProgressIndicator(),
-                            ),
-                          );
-                        }
-                      }
-                    ),
+                            );
+                          } else {
+                            return Scaffold(
+                              body: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            );
+                          }
+                        }),
                   ],
                 ));
-
           } else {
             return Scaffold(
               body: Center(
