@@ -36,7 +36,7 @@ class _ItemsState extends State<Items> {
   List<Item> ref = [];
   List<Item> ref2 = [];
   List<Item> ref3 = [];
-int currentIndex = 0;
+  int currentIndex = 0;
   bool flagSort = false;
   bool flagFilter = false;
   bool flag = false;
@@ -87,9 +87,7 @@ int currentIndex = 0;
     } catch (e) {
       print(e);
     }
-
   }
-
 
   @override
   void initState() {
@@ -115,7 +113,7 @@ int currentIndex = 0;
                 ? Colors.white
                 : Color.fromRGBO(27, 27, 27, 1);
             Color buttonColor = Color.fromRGBO(255, 0, 0, 1);
-            Color appBarColor= (!userData.darkmode)
+            Color appBarColor = (!userData.darkmode)
                 ? Color.fromRGBO(255, 0, 0, 1)
                 : Color.fromRGBO(27, 27, 27, 0.4);
             return Scaffold(
@@ -154,15 +152,14 @@ int currentIndex = 0;
                                       list: getItem,
                                       recentSearch: userData.recent,
                                       uid: user.uid,
-                                    colors:{'textColor':textColor,
-                                      'boxDecorationColor':boxDecorationColor,
-                                      'boxShadowColor':boxShadowColor,
-                                      'buttonColor':buttonColor,
-                                      'appBarColor':appBarColor,
-
-
-                                    }
-                                  ),
+                                      colors: {
+                                        'textColor': textColor,
+                                        'boxDecorationColor':
+                                            boxDecorationColor,
+                                        'boxShadowColor': boxShadowColor,
+                                        'buttonColor': buttonColor,
+                                        'appBarColor': appBarColor,
+                                      }),
                                 );
                               },
                               child: Icon(
@@ -178,7 +175,7 @@ int currentIndex = 0;
                   iconSize: 30,
                   currentIndex: currentIndex,
                   backgroundColor:
-                  (!userData.darkmode) ? Colors.white : Colors.black,
+                      (!userData.darkmode) ? Colors.white : Colors.black,
                   selectedFontSize: 13,
                   showSelectedLabels: false,
                   showUnselectedLabels: false,
@@ -254,7 +251,6 @@ int currentIndex = 0;
                     });
                   },
                 ),
-
                 body: Stack(children: <Widget>[
                   Positioned.fill(
                     child: ListView(
@@ -426,7 +422,6 @@ int currentIndex = 0;
                                         ),
                                         FlatButton(
                                             onPressed: () {
-
                                               setState(() {
                                                 flagPriceLimitation = true;
                                                 flagBrand = false;
@@ -460,8 +455,6 @@ int currentIndex = 0;
                                             children: [
                                               Checkbox(
                                                 checkColor: textColor,
-
-
                                                 value:
                                                     brandCheckBoxValues[index],
                                                 onChanged: (newValue) {
@@ -508,8 +501,12 @@ int currentIndex = 0;
                                                   });
                                                 },
                                               ),
-                                              Text(brands[index],
-                                              style: TextStyle(color: textColor,),)
+                                              Text(
+                                                brands[index],
+                                                style: TextStyle(
+                                                  color: textColor,
+                                                ),
+                                              )
                                             ],
                                           ),
                                         );
@@ -532,7 +529,8 @@ int currentIndex = 0;
                                               controller: priceFrom,
                                               decoration: new InputDecoration(
                                                 labelText: "From",
-                                                labelStyle: TextStyle(color:textColor ),
+                                                labelStyle:
+                                                    TextStyle(color: textColor),
                                                 errorText: validatePriceFrom
                                                     ? 'Value Can\'t Be Empty'
                                                     : null,
@@ -550,8 +548,8 @@ int currentIndex = 0;
                                               controller: priceTo,
                                               decoration: InputDecoration(
                                                 labelText: 'To',
-                                                labelStyle: TextStyle(color:textColor ),
-
+                                                labelStyle:
+                                                    TextStyle(color: textColor),
                                                 errorText: validatePriceTo
                                                     ? 'Value Can\'t Be Empty'
                                                     : null,
@@ -623,6 +621,7 @@ int currentIndex = 0;
                                             var data = doc.data();
                                             if (query != null) {
                                               if (data['itemName']
+                                                  .toLowerCase()
                                                   .startsWith(query))
                                                 products.add(Item(
                                                     brand: data['itemBrand'],
@@ -639,8 +638,7 @@ int currentIndex = 0;
                                                     url: data['photoUrl'],
                                                     categoryName: data[
                                                         'itemCategoryName'],
-                                                    reviews: (data['itemReviews'] ==
-                                                            null)
+                                                    reviews: (data['itemReviews'] == null)
                                                         ? null
                                                         : data['itemReviews'],
                                                     rate: (data['rate'] == null)
@@ -688,121 +686,121 @@ int currentIndex = 0;
                                                 Padding(
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: 1, vertical: 1),
-                                                  child: Card(
-                                                    elevation: 0,
-                                                    color: boxDecorationColor,
-                                                    semanticContainer: true,
-                                                    shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                      BorderRadius.circular(10.0),
-                                                    ),
-                                                    clipBehavior: Clip.antiAlias,
-                                                    child: Column(
-                                                      crossAxisAlignment:
+                                              child: Card(
+                                                elevation: 0,
+                                                color: boxDecorationColor,
+                                                semanticContainer: true,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                clipBehavior: Clip.antiAlias,
+                                                child: Column(
+                                                  crossAxisAlignment:
                                                       CrossAxisAlignment.start,
-                                                      children: <Widget>[
-                                                        Expanded(
-                                                          child: Material(
-                                                            child: InkWell(
-                                                              onTap: () async {
-                                                                await DatabaseService(uid: user.uid).recommendedUpdate(
-                                                                    cat: (!flag)
-                                                                        ? products[
-                                                                    index]
+                                                  children: <Widget>[
+                                                    Expanded(
+                                                      child: Material(
+                                                        child: InkWell(
+                                                          onTap: () async {
+                                                            await DatabaseService(uid: user.uid).recommendedUpdate(
+                                                                cat: (!flag)
+                                                                    ? products[
+                                                                            index]
                                                                         .categoryName
-                                                                        : temp[index]
+                                                                    : temp[index]
                                                                         .categoryName,
-                                                                    count: (!flag)
-                                                                        ? userData
+                                                                count: (!flag)
+                                                                    ? userData
                                                                         .recommended[products[
-                                                                    index]
+                                                                            index]
                                                                         .categoryName]
-                                                                        : userData
+                                                                    : userData
                                                                         .recommended[temp[
-                                                                    index]
+                                                                            index]
                                                                         .categoryName],
-                                                                    rec: userData
-                                                                        .recommended);
-                                                                Navigator.of(context).pushNamed(
-                                                                    SelectedItem.id,
-                                                                    arguments: (!flag)
-                                                                        ? products[
-                                                                    index]
-                                                                        : temp[
-                                                                    index]);
-                                                              },
-                                                              child: Center(
-                                                                child: Image.network(
-                                                                  (!flag)
-                                                                      ? products[
-                                                                  index]
+                                                                rec: userData
+                                                                    .recommended);
+                                                            Navigator.of(context).pushNamed(
+                                                                SelectedItem.id,
+                                                                arguments: (!flag)
+                                                                    ? products[
+                                                                        index]
+                                                                    : temp[
+                                                                        index]);
+                                                          },
+                                                          child: Center(
+                                                            child:
+                                                                Image.network(
+                                                              (!flag)
+                                                                  ? products[
+                                                                          index]
                                                                       .url
-                                                                      : temp[index]
+                                                                  : temp[index]
                                                                       .url,
-                                                                  fit: BoxFit.cover,
-                                                                ),
-                                                              ),
+                                                              fit: BoxFit.cover,
                                                             ),
                                                           ),
                                                         ),
-                                                        Padding(
-                                                          padding:
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
                                                           const EdgeInsets.only(
                                                               top: 10,
                                                               left: 8.0,
                                                               bottom: 12),
-                                                          child: Column(
-                                                            crossAxisAlignment:
+                                                      child: Column(
+                                                        crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .start,
-                                                            children: <Widget>[
+                                                        children: <Widget>[
+                                                          Text(
+                                                            (!flag)
+                                                                ? products[
+                                                                        index]
+                                                                    .name
+                                                                : temp[index]
+                                                                    .name,
+                                                            textAlign:
+                                                                TextAlign.left,
+                                                            style: TextStyle(
+                                                                fontSize: 12.0,
+                                                                color:
+                                                                    textColor),
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Text("Egp ",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        10.0,
+                                                                    color:
+                                                                        textColor,
+                                                                  )),
                                                               Text(
                                                                 (!flag)
-                                                                    ? products[
-                                                                index]
-                                                                    .name
-                                                                    : temp[index]
-                                                                    .name,
-
-                                                                textAlign:
-                                                                TextAlign.left,
+                                                                    ? "${products[index].price}"
+                                                                    : "${temp[index].price}",
                                                                 style: TextStyle(
-                                                                    fontSize: 12.0,
-                                                                    color: textColor),
-                                                              ),
-                                                              Row(
-                                                                children: [
-                                                                  Text("Egp ",
-                                                                      style:
-                                                                      TextStyle(
-                                                                        fontSize:
-                                                                        10.0,
-                                                                        color:
-                                                                        textColor,
-                                                                      )),
-                                                                  Text(
-                                                                    (!flag)
-                                                                        ? "${products[index].price}"
-                                                                        : "${temp[index].price}",
-                                                                    style: TextStyle(
-                                                                        fontSize:
+                                                                    fontSize:
                                                                         12.0,
-                                                                        color:
+                                                                    color:
                                                                         textColor,
-                                                                        fontWeight:
+                                                                    fontWeight:
                                                                         FontWeight
                                                                             .bold),
-                                                                  ),
-                                                                ],
                                                               ),
                                                             ],
                                                           ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-
-
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
                                             ),
                                           );
                                         }
