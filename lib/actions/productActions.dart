@@ -101,6 +101,7 @@ Future<void> addProductIdToSeller(
   CollectionReference firestore2 =
       FirebaseFirestore.instance.collection("sellers");
   var map = {};
+  sellerItem.clear();
   map = {'itemCategoryName': itemCategoryName, 'itemId': itemId};
   sellerItem.add(map);
   return firestore2.doc(sellerId).update({
