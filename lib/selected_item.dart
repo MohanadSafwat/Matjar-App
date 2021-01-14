@@ -186,7 +186,7 @@ class _SelectedItem extends State<SelectedItem> {
                                                     .pushNamed('/Login');
                                               } else {
                                                 addProductToCart(
-                                                    item, user.uid);
+                                                    item, user.uid,snapshot.data.data()['noOfItemsInStock']);
                                                 Navigator.of(context).pushNamed(
                                                     Cart.id,
                                                     arguments: item);
