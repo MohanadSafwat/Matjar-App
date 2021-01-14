@@ -54,7 +54,11 @@ class _MyHomePageState extends State<MyHomePage> {
           cat.add(element.id);
         });
       });
-      print(cat);
+      getItem.clear();
+      getItems('Electronics');
+      getItems('Fashion');
+      getItems('Kitchen Tools');
+      getItems('Mobiles');
       cat.forEach((element) {
         getItems(element);
       });
@@ -111,10 +115,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ? Colors.white
                 : Color.fromRGBO(27, 27, 27, 1);
             Color buttonColor = Color.fromRGBO(255, 0, 0, 1);
-            Color appBarColor= (!userData.darkmode)
+            Color appBarColor = (!userData.darkmode)
                 ? Color.fromRGBO(255, 0, 0, 1)
                 : Color.fromRGBO(27, 27, 27, 0.4);
-
 
             maxCat = DatabaseService(uid: user.uid)
                 .getMaxCat(rec: userData.recommended);
@@ -242,15 +245,17 @@ class _MyHomePageState extends State<MyHomePage> {
                                                     recentSearch:
                                                         userData.recent,
                                                     uid: user.uid,
-                                                    colors:{'textColor':textColor,
-                                                      'boxDecorationColor':boxDecorationColor,
-                                                      'boxShadowColor':boxShadowColor,
-                                                      'buttonColor':buttonColor,
-                                                      'appBarColor':appBarColor,
-
-
-                                                    }
-                                                ),
+                                                    colors: {
+                                                      'textColor': textColor,
+                                                      'boxDecorationColor':
+                                                          boxDecorationColor,
+                                                      'boxShadowColor':
+                                                          boxShadowColor,
+                                                      'buttonColor':
+                                                          buttonColor,
+                                                      'appBarColor':
+                                                          appBarColor,
+                                                    }),
                                               );
                                             },
                                             decoration: InputDecoration(
@@ -268,13 +273,17 @@ class _MyHomePageState extends State<MyHomePage> {
                                                             recentSearch:
                                                                 userData.recent,
                                                             uid: user.uid,
-                                                            colors:{'textColor':textColor,
-                                                              'boxDecorationColor':boxDecorationColor,
-                                                              'boxShadowColor':boxShadowColor,
-                                                              'buttonColor':buttonColor,
-                                                              'appBarColor':appBarColor,
-
-
+                                                            colors: {
+                                                              'textColor':
+                                                                  textColor,
+                                                              'boxDecorationColor':
+                                                                  boxDecorationColor,
+                                                              'boxShadowColor':
+                                                                  boxShadowColor,
+                                                              'buttonColor':
+                                                                  buttonColor,
+                                                              'appBarColor':
+                                                                  appBarColor,
                                                             }),
                                                       );
                                                     }),

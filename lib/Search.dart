@@ -28,7 +28,6 @@ class _homeeState extends State<homee> {
     });
   }
 
-
   Future<void> getAllItems() async {
     try {
       await FirebaseFirestore.instance
@@ -58,63 +57,60 @@ class _homeeState extends State<homee> {
     final user = Provider.of<Userinit>(context);
 
     return StreamBuilder<Account>(
-      stream: DatabaseService(uid: user.uid).userData,
-      builder: (context, snapshot) {
-    if (snapshot.hasData) {
-    Account userData = snapshot.data;
-    Color textColor =
-    (!userData.darkmode) ? Colors.black : Colors.white;
-    Color boxShadowColor = (!userData.darkmode)
-        ? Colors.grey.withOpacity(0.16)
-        : Colors.white.withOpacity(0.05);
-    Color boxDecorationColor = (!userData.darkmode)
-        ? Colors.white
-        : Color.fromRGBO(27, 27, 27, 1);
-    Color buttonColor = Color.fromRGBO(255, 0, 0, 1);
-    Color appBarColor= (!userData.darkmode)
-        ? Color.fromRGBO(255, 0, 0, 1)
-        : Color.fromRGBO(27, 27, 27, 0.4);
+        stream: DatabaseService(uid: user.uid).userData,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            Account userData = snapshot.data;
+            Color textColor =
+                (!userData.darkmode) ? Colors.black : Colors.white;
+            Color boxShadowColor = (!userData.darkmode)
+                ? Colors.grey.withOpacity(0.16)
+                : Colors.white.withOpacity(0.05);
+            Color boxDecorationColor = (!userData.darkmode)
+                ? Colors.white
+                : Color.fromRGBO(27, 27, 27, 1);
+            Color buttonColor = Color.fromRGBO(255, 0, 0, 1);
+            Color appBarColor = (!userData.darkmode)
+                ? Color.fromRGBO(255, 0, 0, 1)
+                : Color.fromRGBO(27, 27, 27, 0.4);
 
-        return Scaffold(
-          backgroundColor:
-          (!userData.darkmode) ? Colors.white : Colors.black,
-          appBar: AppBar(
-            title: Text("Searchable Text"),
-            actions: <Widget>[
-              IconButton(
-                  icon: Icon(Icons.search,
-                  color: textColor,),
-                  onPressed: () {
-                    showSearch(
-                      context: context,
-                      delegate: DataSearch(list: getItem, colors:{'textColor':textColor,
-                        'boxDecorationColor':boxDecorationColor,
-                        'boxShadowColor':boxShadowColor,
-                        'buttonColor':buttonColor,
-                        'appBarColor':appBarColor,
-
-
-
-
-
-                      }),
-                    );
-                  })
-            ],
-          ),
-          drawer: Drawer(),
-        );}
-    else{
-      return Scaffold(
-        body: Center(
-          child: Center(
-            child: CircularProgressIndicator(),
-          ),
-        ),
-      );
-    }
-      }
-    );
+            return Scaffold(
+              backgroundColor:
+                  (!userData.darkmode) ? Colors.white : Colors.black,
+              appBar: AppBar(
+                title: Text("Searchable Text"),
+                actions: <Widget>[
+                  IconButton(
+                      icon: Icon(
+                        Icons.search,
+                        color: textColor,
+                      ),
+                      onPressed: () {
+                        showSearch(
+                          context: context,
+                          delegate: DataSearch(list: getItem, colors: {
+                            'textColor': textColor,
+                            'boxDecorationColor': boxDecorationColor,
+                            'boxShadowColor': boxShadowColor,
+                            'buttonColor': buttonColor,
+                            'appBarColor': appBarColor,
+                          }),
+                        );
+                      })
+                ],
+              ),
+              drawer: Drawer(),
+            );
+          } else {
+            return Scaffold(
+              body: Center(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            );
+          }
+        });
   }
 }
 
@@ -122,13 +118,16 @@ class DataSearch extends SearchDelegate<String> {
   List<dynamic> list;
   List<dynamic> recentSearch;
   String uid;
-  Map<String,Color> colors={};
-  DataSearch({this.list, this.recentSearch, this.uid, this.colors} );
+  Map<String, Color> colors = {};
+  DataSearch({this.list, this.recentSearch, this.uid, this.colors});
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-          icon: Icon(Icons.clear,color:Colors.white,),
+          icon: Icon(
+            Icons.clear,
+            color: Colors.white,
+          ),
           onPressed: () {
             query = "";
           })
@@ -153,8 +152,12 @@ class DataSearch extends SearchDelegate<String> {
     final ThemeData theme = Theme.of(context);
     assert(theme != null);
     return theme.copyWith(
+      textTheme: TextTheme(
+          headline6: TextStyle(
+        color: Colors.white,
+      )),
       inputDecorationTheme:
-      InputDecorationTheme(hintStyle: TextStyle(color: Colors.white)),
+          InputDecorationTheme(hintStyle: TextStyle(color: Colors.white)),
       primaryColor: colors['appBarColor'],
       primaryIconTheme: theme.primaryIconTheme.copyWith(color: Colors.white),
       primaryColorBrightness: Brightness.light,
@@ -172,7 +175,7 @@ class DataSearch extends SearchDelegate<String> {
         query == 'Mobiles')
       return Items(category: query, show: false);
     else
-      return Items(query: query, show: false);
+      return Items(query: query.toLowerCase(), show: false);
   }
 
   @override
@@ -181,25 +184,24 @@ class DataSearch extends SearchDelegate<String> {
     var suggestionList = query.isEmpty
         ? [...recentSearch]
         : list
-            .where((element) => element.startsWith(query.toLowerCase()))
+            .where((element) =>
+                element.toLowerCase().startsWith(query.toLowerCase()))
             .toList();
-
 
     return Container(
       height: height,
       color: colors['boxDecorationColor'],
       child: ListView.builder(
         itemBuilder: (context, index) => ListTile(
-
           onTap: () {
             query = suggestionList[index];
             showResults(context);
           },
-          leading: Icon(Icons.search,
+          leading: Icon(
+            Icons.search,
             color: colors['textColor'],
           ),
           title: RichText(
-
             text: TextSpan(
               text: suggestionList[index].substring(0, query.length),
               style: TextStyle(
@@ -207,9 +209,7 @@ class DataSearch extends SearchDelegate<String> {
                 fontWeight: FontWeight.bold,
               ),
               children: [
-
                 TextSpan(
-
                   text: suggestionList[index].substring(query.length),
                   style: TextStyle(
                     color: colors['textColor'],

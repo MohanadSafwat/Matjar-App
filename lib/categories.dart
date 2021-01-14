@@ -159,98 +159,92 @@ class _CategoriesState extends State<Categories> {
                 ),
                 body: Stack(children: <Widget>[
                   Positioned.fill(
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                        //................................................
+                      child: ListView(children: <Widget>[
+                    //................................................
 //................................................................................................
-                        SizedBox(height: 100),
-                        Row(children: <Widget>[
-                          SizedBox(
-                            width: width * 0.07,
-                          ),
-                          Icon(Matjar.categories, color: textColor),
-                          SizedBox(
-                            width: width * 0.05,
-                          ),
-                          Text(
-                            "Categories",
-                            style: TextStyle(fontSize: 30, color: textColor),
-                          ),
-                        ]),
-                        SizedBox(
-                          height: 40,
-                        ),
-                        Center(
-                            child: Wrap(
-                                alignment: WrapAlignment.center,
-                                spacing: 45.0, // gap between adjacent chips
-                                runSpacing: 7.0, // gap between lines
-                                children: data
-                                    .map((e) => Column(
-                                          children: <Widget>[
-                                            Card(
-                                              elevation: 0,
-                                              semanticContainer: true,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                              ),
-                                              clipBehavior: Clip.antiAlias,
-                                              child: InkWell(
-                                                onTap: () async {
-                                                  await DatabaseService(
-                                                          uid: user.uid)
-                                                      .recommendedUpdate(
-                                                          cat: e["name"],
-                                                          count: userData
-                                                                  .recommended[
+                    SizedBox(height: 50),
+                    Row(children: <Widget>[
+                      SizedBox(
+                        width: width * 0.07,
+                      ),
+                      Icon(Matjar.categories, color: textColor),
+                      SizedBox(
+                        width: width * 0.05,
+                      ),
+                      Text(
+                        "Categories",
+                        style: TextStyle(fontSize: 30, color: textColor),
+                      ),
+                    ]),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Center(
+                        child: Wrap(
+                            alignment: WrapAlignment.center,
+                            spacing: 45.0, // gap between adjacent chips
+                            runSpacing: 7.0, // gap between lines
+                            children: data
+                                .map((e) => Column(
+                                      children: <Widget>[
+                                        Card(
+                                          elevation: 0,
+                                          semanticContainer: true,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          clipBehavior: Clip.antiAlias,
+                                          child: InkWell(
+                                            onTap: () async {
+                                              await DatabaseService(
+                                                      uid: user.uid)
+                                                  .recommendedUpdate(
+                                                      cat: e["name"],
+                                                      count:
+                                                          userData.recommended[
                                                               e["name"]],
-                                                          rec: userData
-                                                              .recommended);
+                                                      rec:
+                                                          userData.recommended);
 
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          Items(
-                                                        category: e["name"],
-                                                        show: true,
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                                child: Container(
-                                                  color: e["color"],
-                                                  child: SizedBox(
-                                                      width: 130,
-                                                      height: 130,
-                                                      child: Icon(
-                                                        e["icon"],
-                                                        color: buttonColor,
-                                                        size: 80,
-                                                      )),
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) => Items(
+                                                    category: e["name"],
+                                                    show: true,
+                                                  ),
                                                 ),
-                                              ),
+                                              );
+                                            },
+                                            child: Container(
+                                              color: e["color"],
+                                              child: SizedBox(
+                                                  width: 130,
+                                                  height: 130,
+                                                  child: Icon(
+                                                    e["icon"],
+                                                    color: buttonColor,
+                                                    size: 80,
+                                                  )),
                                             ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                e["name"]
-                                                    .toString()
-                                                    .capitalize(),
-                                                style: TextStyle(
-                                                  color: (!userData.darkmode)
-                                                      ? Colors.black
-                                                      : Colors.white,
-                                                ),
-                                              ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            e["name"].toString().capitalize(),
+                                            style: TextStyle(
+                                              color: (!userData.darkmode)
+                                                  ? Colors.black
+                                                  : Colors.white,
                                             ),
-                                          ],
-                                        ))
-                                    .toList())),
-                      ])),
+                                          ),
+                                        ),
+                                      ],
+                                    ))
+                                .toList())),
+                  ])),
                 ]));
           } else {
             return Scaffold(
