@@ -241,7 +241,7 @@ class LoginState extends State<Login> {
                                   ),
                                 ),
                               ),
-                            ),)
+                            ),),
 
                             Container(
                               color: boxDecorationColor,
