@@ -119,7 +119,7 @@ class _ProfileState extends State<Profile> {
                   });
                 },
               ),
-              body: SingleChildScrollView(
+              body: Center(
                 child: Container(
                   child: Column(
                     children: [

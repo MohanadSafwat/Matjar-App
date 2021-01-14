@@ -157,7 +157,7 @@ class _CategoriesState extends State<Categories> {
                     });
                   },
                 ),
-                body: Stack(children: <Widget>[
+                body: ListView(children: <Widget>[
                   Positioned.fill(
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

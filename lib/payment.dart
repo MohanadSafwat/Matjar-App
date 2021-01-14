@@ -271,8 +271,8 @@ class _PaymentState extends State<Payment> {
                     ],
                   )),
               Container(
-                  margin: EdgeInsets.only(left: 100),
-                  width: 100,
+                  //margin: EdgeInsets.only(left: 50),
+                  width: 150,
                   child: Builder(
                     builder: (context) => RaisedButton(
                         child: Text(
@@ -337,9 +337,9 @@ class _PaymentState extends State<Payment> {
   removeItemFromStock(List<CardItem> items) async {
     int newValue;
     for (int i = 0; i < items.length; i++) {
-      if (items[i].quantity< items[i].noInStock) {
+      if (items[i].quantity < items[i].noInStock) {
         items[i].noInStock -= items[i].quantity.toInt();
-        newValue=int.parse(items[i].noInStock.toString());
+        newValue = int.parse(items[i].noInStock.toString());
         await upateStockInCategories(
             newValue, items[i].itemId, items[i].itemCategoryName);
         await FirebaseFirestore.instance

@@ -57,7 +57,7 @@ class _ProfileLogInSellerState extends State<ProfileLogInSeller> {
                   ),
                 ],
               ),
-              body: SingleChildScrollView(
+              body: Center(
                 child: Container(
                   child: Column(
                     children: [

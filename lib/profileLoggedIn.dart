@@ -119,7 +119,7 @@ class _ProfileLoggedInState extends State<ProfileLoggedIn> {
                   });
                 },
               ),
-              body: SingleChildScrollView(
+              body: Center(
                 child: Container(
                   child: Column(
                     children: [
