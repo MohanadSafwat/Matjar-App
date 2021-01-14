@@ -28,10 +28,18 @@ class _SignUpSeller extends State<SignUpSeller> {
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   var x, y;
   String uid, error = "", passError = "";
   bool notexist = true;
   bool lastDoc = false;
+  void autoDeleteString() {
+    setState(() {
+      error = "";
+      passError = "";
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +54,7 @@ class _SignUpSeller extends State<SignUpSeller> {
                 ? Color.fromRGBO(83, 169, 252, 1)
                 : Color.fromRGBO(83, 169, 252, 1);
             Color textColor =
-            (!userData.darkmode) ? Colors.black : Colors.white;
+                (!userData.darkmode) ? Colors.black : Colors.white;
             Color boxShadowColor = (!userData.darkmode)
                 ? Colors.grey.withOpacity(0.16)
                 : Colors.white.withOpacity(0.05);
@@ -56,7 +64,7 @@ class _SignUpSeller extends State<SignUpSeller> {
             Color buttonColor = Color.fromRGBO(255, 0, 0, 1);
             return new Scaffold(
               backgroundColor:
-              (!userData.darkmode) ? Colors.white : Colors.black,
+                  (!userData.darkmode) ? Colors.white : Colors.black,
               appBar: AppBar(
                 titleSpacing: 0,
                 centerTitle: true,
@@ -79,7 +87,7 @@ class _SignUpSeller extends State<SignUpSeller> {
                 iconSize: 30,
                 currentIndex: currentIndex,
                 backgroundColor:
-                (!userData.darkmode) ? Colors.white : Colors.black,
+                    (!userData.darkmode) ? Colors.white : Colors.black,
                 selectedFontSize: 13,
                 showSelectedLabels: false,
                 showUnselectedLabels: false,
@@ -155,11 +163,11 @@ class _SignUpSeller extends State<SignUpSeller> {
               ),
               body: new Container(
                 margin:
-                EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 20),
+                    EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 20),
                 padding: new EdgeInsets.all(30),
                 width: 380,
                 decoration:
-                BoxDecoration(color: boxDecorationColor, boxShadow: [
+                    BoxDecoration(color: boxDecorationColor, boxShadow: [
                   BoxShadow(
                     color: (!userData.darkmode)
                         ? Colors.grey
@@ -192,15 +200,12 @@ class _SignUpSeller extends State<SignUpSeller> {
                         ),
                         new Padding(padding: EdgeInsets.all(10)),
                         new TextField(
-
                           style: TextStyle(fontSize: 20, color: textColor),
                           controller: _lastNameController,
                           decoration: new InputDecoration(
                               labelStyle: TextStyle(color: textColor),
                               labelText: 'Last Name',
-                              border: InputBorder.none
-
-                          ),
+                              border: InputBorder.none),
                         ),
                         new Padding(padding: EdgeInsets.all(10)),
                         new TextField(
@@ -222,6 +227,17 @@ class _SignUpSeller extends State<SignUpSeller> {
                             border: InputBorder.none,
                           ),
                         ),
+                        new Padding(padding: EdgeInsets.all(10)),
+                        new TextField(
+                          obscureText: true,
+                          style: TextStyle(fontSize: 20, color: textColor),
+                          controller: _confirmPasswordController,
+                          decoration: new InputDecoration(
+                            labelStyle: TextStyle(color: textColor),
+                            labelText: 'Confirm Password',
+                            border: InputBorder.none,
+                          ),
+                        ),
                         Container(
                           margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                           width: 290.0,
@@ -236,16 +252,23 @@ class _SignUpSeller extends State<SignUpSeller> {
                                 ),
                               ),
                               onPressed: () async {
-                                if (_passwordController.text.length < 6) {
+                                autoDeleteString();
+                                if (_passwordController.text !=
+                                    _confirmPasswordController.text) {
+                                  setState(() {
+                                    error = '*Unmatched passwords';
+                                  });
+                                } else if (_passwordController.text.length <
+                                    6) {
                                   setState(() {
                                     passError =
-                                    "Password Must be bigger than 6 Characters";
+                                        "*Password Must be greater than or equal 6 Characters";
                                   });
-                                  return;
+                                } else {
+                                  passError = "";
+                                  error = '';
                                 }
-                                if (passError == "") {}
-
-                                if (passError == "") {
+                                if (passError == "" && error == "") {
                                   try {
                                     final UserRef = await FirebaseFirestore
                                         .instance
@@ -271,21 +294,23 @@ class _SignUpSeller extends State<SignUpSeller> {
                                     if (notexist) {
                                       dynamic result = await AuthService()
                                           .signupSeller(
-                                          _emailController.text,
-                                          _passwordController.text,
-                                          _firstNameController.text.trim(),
-                                          _lastNameController.text.trim())
-                                          .then((user) {
-                                        AuthService().login(
-                                            _emailController.text.trim(),
-                                            _passwordController.text.trim());
-                                        Navigator.of(context)
-                                            .pushNamed("/ProfileLoginSeller");
-                                      });
+                                              _emailController.text,
+                                              _passwordController.text,
+                                              _firstNameController.text.trim(),
+                                              _lastNameController.text.trim())
+                                          .then(
+                                        (r) async {
+                                          await AuthService().login(
+                                            _emailController.text,
+                                            _passwordController.text,
+                                          );
+                                        },
+                                      );
+                                      Navigator.of(context).pushNamed('/Home');
                                     } else {
                                       setState(() {
                                         error =
-                                        "  The email address is already in use by another account ";
+                                            "  *The email address is already in use by another account ";
                                       });
                                     }
                                     notexist = true;
@@ -294,8 +319,8 @@ class _SignUpSeller extends State<SignUpSeller> {
                               },
                               style: ButtonStyle(
                                 backgroundColor:
-                                MaterialStateProperty.all<Color>(
-                                    buttonColor),
+                                    MaterialStateProperty.all<Color>(
+                                        buttonColor),
                               ),
                             ),
                           ),
@@ -307,7 +332,7 @@ class _SignUpSeller extends State<SignUpSeller> {
                               new Text(
                                 'Already have an account?',
                                 style:
-                                TextStyle(fontSize: 16, color: textColor),
+                                    TextStyle(fontSize: 16, color: textColor),
                               ),
                               new FlatButton(
                                 onPressed: () {
@@ -317,7 +342,7 @@ class _SignUpSeller extends State<SignUpSeller> {
                                 child: new Text(
                                   'Log in',
                                   style:
-                                  TextStyle(fontSize: 16, color: linkColor),
+                                      TextStyle(fontSize: 16, color: linkColor),
                                 ),
                               ),
                             ],

@@ -37,23 +37,13 @@ class SignUpState extends State<SignUp> {
       TextEditingController();
   int currentIndex = 3;
   String err = "";
-  /* Future<void> _createUser() async {
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
-              email: _emailController.text, password: _passwordController.text)
-          .then((userCredential) {
-        //User updateUser = FirebaseAuth.instance.currentUser;
-        DatabaseService()
-            .userSetup(_firstNameController.text, _lastNameController.text);
-        Navigator.of(context).pushNamed('/Login');
-      });
-    } on FirebaseAuthException catch (e) {
-      print("Error: $e");
-    } catch (e) {
-      print("Error: $e");
-    }
-  } */
+  void autoDeleteString() {
+    setState(() {
+      error = "";
+      passError = "";
+      err = "";
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -310,20 +300,23 @@ class SignUpState extends State<SignUp> {
                                     ),
                                   ),
                                   onPressed: () async {
+                                    autoDeleteString();
                                     if (_passwordController.text !=
                                         _confirmPasswordController.text) {
                                       setState(() {
                                         err = '*Unmatched passwords';
                                       });
-                                    }
-                                    if (_passwordController.text.length < 6) {
+                                    } else if (_passwordController.text.length <
+                                        6) {
                                       setState(() {
                                         passError =
-                                            "Password Must be greater than or equal 6 Characters";
+                                            "*Password Must be greater than or equal 6 Characters";
                                       });
-                                      return;
+                                    } else {
+                                      passError = "";
+                                      err = '';
                                     }
-                                    if (passError == "") {
+                                    if (passError == "" && err == "") {
                                       try {
                                         final UserRef = await FirebaseFirestore
                                             .instance
@@ -354,18 +347,21 @@ class SignUpState extends State<SignUp> {
                                                   _firstNameController.text
                                                       .trim(),
                                                   _lastNameController.text
-                                                      .trim())  .then((r) async {
-                                            await AuthService().login(
-                                              _emailController.text,
-                                              _passwordController.text,
-                                            );
-                                          },);
+                                                      .trim())
+                                              .then(
+                                            (r) async {
+                                              await AuthService().login(
+                                                _emailController.text,
+                                                _passwordController.text,
+                                              );
+                                            },
+                                          );
                                           Navigator.of(context)
                                               .pushNamed('/Home');
                                         } else {
                                           setState(() {
                                             error =
-                                                "  The email address is already in use by another account ";
+                                                "  *The email address is already in use by another account ";
                                           });
                                         }
                                         notexist = true;

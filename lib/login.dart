@@ -208,7 +208,7 @@ class LoginState extends State<Login> {
 ////////////////////////////////////////// validation text error
 
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(3.0),
                               child: Container(
                                 alignment: Alignment.center,
                                 child: Text(
@@ -222,30 +222,28 @@ class LoginState extends State<Login> {
                               ),
                             ),
 
-                            Padding(
-                              padding: EdgeInsets.all(10),
-                            ),
-
                             Visibility(
-                              visible: (userData.uid =='gHCkBQhbQ2YA5L631wDangP0FsJ2'),
-                              child:  Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'You should sign in first to acces the cart',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: buttonColor,
-                                    fontWeight: FontWeight.bold,
+                              visible: (userData.uid ==
+                                  'gHCkBQhbQ2YA5L631wDangP0FsJ2'),
+                              child: Padding(
+                                padding: const EdgeInsets.all(1.0),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'You should sign in first to acces the cart',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: buttonColor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),),
+                            ),
 
                             Container(
                               color: boxDecorationColor,
-                              margin: EdgeInsets.all(10),
+                              margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: TextField(
@@ -308,7 +306,6 @@ class LoginState extends State<Login> {
                                           ),
                                         ),
                                         onPressed: () async {
-                                          
                                           try {
                                             final UserRef =
                                                 await FirebaseFirestore.instance
