@@ -549,7 +549,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                               sellerId: data['itemSellerId'],
                                               specs: data['itemSpecs'],
                                               numberInStock:
-                                                  data['noOfItemsInStock'],
+                                                  data['noOfItemsInStock']
+                                                      .toInt(),
                                               url: data['photoUrl'],
                                               reviews:
                                                   (data['itemReviews'] == null)
