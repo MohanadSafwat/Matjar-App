@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:matjar_login_signup/Cart.dart';
+import 'package:matjar_login_signup/emptyCart.dart';
 import 'package:matjar_login_signup/profile.dart';
 import 'package:matjar_login_signup/profileLoggedIn.dart';
 import 'package:matjar_login_signup/selected_item.dart';
@@ -185,8 +186,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       if (currentIndex == 2) {
                         if (user.uid == 'gHCkBQhbQ2YA5L631wDangP0FsJ2' ||
                             user == null) {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Login()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => EmptyCart()));
                         } else {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) => Cart()));
