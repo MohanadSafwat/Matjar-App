@@ -64,6 +64,7 @@ class _SellerDashboardState extends State<SellerDashboard> {
   Widget build(BuildContext context) {
     final user = Provider.of<Userinit>(context);
     counter();
+    print(counter);
     int count = getCounter();
     getSellerId();
     String sellerId = sendID();
@@ -491,16 +492,10 @@ class _SellerDashboardState extends State<SellerDashboard> {
                                         ),
                                         count.toString());
                                     addCounter(count);
-                                    // setState(() {
-                                    //   sellerProducts.add({
-                                    //     'photoUrl': url,
-                                    //     'itemPrice': double.parse(
-                                    //         itemPriceController.text),
-                                    //     'itemName': itemNameController.text,
-                                    //     'noOfItemsInStock': int.parse(
-                                    //         itemNoInStockController.text),
-                                    //   });
-                                    // });
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => SellerDashboard()));
                                   },
                                 ),
                               ],
