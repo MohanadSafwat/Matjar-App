@@ -306,7 +306,7 @@ class _SignUpSeller extends State<SignUpSeller> {
                                           );
                                         },
                                       );
-                                      Navigator.of(context).pushNamed('/Home');
+                                      Navigator.of(context).pushNamed('/ProfileLoginSeller');
                                     } else {
                                       setState(() {
                                         error =
