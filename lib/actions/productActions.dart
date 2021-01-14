@@ -66,6 +66,7 @@ class ProductAction {
 
 var cartItems = <Map>[];
 Future<void> addProductToCart(Item item, String userId ,int noInStock) {
+  cartItems.clear();
   CollectionReference user = FirebaseFirestore.instance.collection('Users');
   var map = {};
   map = {
@@ -101,7 +102,7 @@ Future<void> addProductIdToSeller(
   CollectionReference firestore2 =
       FirebaseFirestore.instance.collection("sellers");
   var map = {};
-  sellerItem.clear();
+   sellerItem.clear();
   map = {'itemCategoryName': itemCategoryName, 'itemId': itemId};
   sellerItem.add(map);
   return firestore2.doc(sellerId).update({
