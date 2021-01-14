@@ -19,10 +19,10 @@ class _SignUpSeller extends State<SignUpSeller> {
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  var x,y;
- String uid,error="",passError="";
-bool notexist=true;
- bool lastDoc = false;
+  var x, y;
+  String uid, error = "", passError = "";
+  bool notexist = true;
+  bool lastDoc = false;
 
   @override
   Widget build(BuildContext context) {
@@ -109,35 +109,30 @@ bool notexist=true;
                       color: Color.fromRGBO(255, 0, 0, 10),
                     )),
                 new Padding(padding: EdgeInsets.all(10)),
-                ////////////////////////////////////////////////////////////////////////////////error    
-               Container(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                       error,
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: mainColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                ////////////////////////////////////////////////////////////////////////////////error
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    error,
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: mainColor,
+                      fontWeight: FontWeight.bold,
                     ),
-                   
+                  ),
+                ),
 
-                       Container(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                       passError  ,
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: mainColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    passError,
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: mainColor,
+                      fontWeight: FontWeight.bold,
                     ),
-                          
-
-
-
+                  ),
+                ),
 
                 new TextField(
                   controller: _firstNameController,
@@ -177,71 +172,61 @@ bool notexist=true;
                         ),
                       ),
                       onPressed: () async {
-
-                         if(_passwordController.text.length < 6){
-                    setState(() { passError  =  "Password Must be >= 6 Characters";  });
-                    return;
-                      }else{
-                         setState(() {
-                    passError  =  "";  });
-                      }
-                       
-                              
-
-                           if( passError=="" )
-                        {
-                               try {
-                                             final UserRef = await Firestore.instance
-                                                .collection('Users')
-                                                    // ignore: deprecated_member_use
-                                                  .getDocuments()
-                                         .then((QuerySnapshot snapshot) {
-                                          // ignore: deprecated_member_use
-                                          snapshot.documents.forEach((DocumentSnapshot doc) { 
-                                            x =  doc.data()['email'].toString();
-                                            
-                                            
-
-                                              if ( x == _emailController.text) {
-                                                                     notexist=false;
-                                             }  
-                                             if( doc.id =="zzzzzzzzzz"){
-                                               lastDoc = true;
-                                             }
-                                               
-                                      
-                                              });
-                                          
-                              
-                               });
-                                                    
-                                 } on FirebaseAuthException catch(e){} 
-                         
-
-                         if(lastDoc)
-                              {
-                                lastDoc = false;
-                                 if (notexist  )           
-                                     {
-                               dynamic result = await AuthService().signupSeller(
-                                     _emailController.text,
-                                  _passwordController.text,
-                                  _firstNameController.text.trim(),
-                                  _lastNameController.text.trim());
-                               Navigator.of(context).pushNamed('/ProfileLoginSeller');
-                                      }
-
-                                      else  {
-                                          setState(() { error = "  The email address is already in use by another account " ;});
-                                       
-                                      }
-                                      notexist = true ;
-                                       }    
-
+                        if (_passwordController.text.length < 6) {
+                          setState(() {
+                            passError = "Password Must be >= 6 Characters";
+                          });
+                          return;
+                        } else {
+                          setState(() {
+                            passError = "";
+                          });
                         }
-                          },
-                      
-                      
+
+                        if (passError == "") {
+                          try {
+                            final UserRef = await FirebaseFirestore.instance
+                                .collection('Users')
+                                .get()
+                                .then((QuerySnapshot snapshot) {
+                              snapshot.docs.forEach((DocumentSnapshot doc) {
+                                x = doc.data()['email'].toString();
+
+                                if (x == _emailController.text) {
+                                  notexist = false;
+                                }
+                                if (doc.id == "zzzzzzzzzz") {
+                                  lastDoc = true;
+                                }
+                              });
+                            });
+                          } on FirebaseAuthException catch (e) {}
+
+                          if (lastDoc) {
+                            lastDoc = false;
+                            if (notexist) {
+                              dynamic result = await AuthService()
+                                  .signupSeller(
+                                      _emailController.text.trim(),
+                                      _passwordController.text.trim(),
+                                      _firstNameController.text.trim(),
+                                      _lastNameController.text.trim())
+                                  .then((user) {
+                                AuthService().login(
+                                    _emailController.text.trim(),
+                                    _passwordController.text.trim());
+                                Navigator.of(context).pushNamed("/Home");
+                              });
+                            } else {
+                              setState(() {
+                                error =
+                                    "  The email address is already in use by another account ";
+                              });
+                            }
+                            notexist = true;
+                          }
+                        }
+                      },
                       style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all<Color>(mainColor),
