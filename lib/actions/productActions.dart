@@ -216,6 +216,10 @@ Stream<DocumentSnapshot> CartItems(String id) {
   CollectionReference firebase = FirebaseFirestore.instance.collection('Users');
   return firebase.doc(id).snapshots();
 }
+Stream<QuerySnapshot> SellerItems() {
+  return FirebaseFirestore.instance.collection('products').snapshots();
+
+}
 
 Future getSellerProducts() async {
   List products = [];

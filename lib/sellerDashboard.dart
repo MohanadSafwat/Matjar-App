@@ -25,6 +25,7 @@ class SellerDashboard extends StatefulWidget {
 class _SellerDashboardState extends State<SellerDashboard> {
   ProductAction productAction;
   String url;
+  var sellerItems=[];
   TextEditingController itemNameController = TextEditingController();
   TextEditingController itemPriceController = TextEditingController();
   TextEditingController itemCategoryController = TextEditingController();
@@ -514,101 +515,124 @@ class _SellerDashboardState extends State<SellerDashboard> {
                           style: TextStyle(fontSize: 20, color: textColor)),
                       margin: EdgeInsets.only(left: 25),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 35.0),
-                      child: Container(
-                        height: 200,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: sellerProducts.length,
-                          itemBuilder: (context, index) => Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 1, vertical: 1),
-                            child: Card(
-                              elevation: 0,
-                              color: boxDecorationColor,
-                              semanticContainer: true,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              clipBehavior: Clip.antiAlias,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Material(
-                                      child: InkWell(
-                                        child: GridTile(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(12.0),
-                                            child: Image.network(
-                                              sellerProducts[index]['photoUrl'],
-                                              fit: BoxFit.cover,
+                    StreamBuilder<QuerySnapshot>(
+                      stream: SellerItems(),
+                      builder: (context, snapshot) {
+                        if(snapshot.hasData){
+                          sellerItems.clear();
+
+                          for(var doc in snapshot.data.docs){
+                            if(doc['itemSellerId']==userData.uid){
+                              sellerItems.add(doc);
+                            }
+                            print(sellerItems);
+
+                          }
+                        return Padding(
+                          padding: const EdgeInsets.only(left: 35.0),
+                          child: Container(
+                            height: 200,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: sellerItems.length,
+                              itemBuilder: (context, index) => Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 1, vertical: 1),
+                                child: Card(
+                                  elevation: 0,
+                                  color: boxDecorationColor,
+                                  semanticContainer: true,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  clipBehavior: Clip.antiAlias,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Material(
+                                          child: InkWell(
+                                            child: GridTile(
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(12.0),
+                                                child: Image.network(
+                                                 sellerItems[index]['photoUrl'],
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 10, left: 8.0, bottom: 12),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text(
+                                              "${sellerItems[index]['itemName']}",
+                                              textAlign: TextAlign.left,
+                                              overflow: TextOverflow.fade,
+                                              style: TextStyle(
+                                                  fontSize: 10.0, color: textColor),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text("Egp ",
+                                                    style: TextStyle(
+                                                      fontSize: 10.0,
+                                                      color: textColor,
+                                                    )),
+                                                Text(
+                                                  '${sellerItems[index]['itemPrice']}',
+                                                  softWrap: true,
+                                                  style: TextStyle(
+                                                      fontSize: 12.0,
+                                                      color: textColor,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text("no in stock ",
+                                                    style: TextStyle(
+                                                      fontSize: 10.0,
+                                                      color: textColor,
+                                                    )),
+                                                Text(
+                                                  "${sellerItems[index]['noOfItemsInStock']}",
+                                                  style: TextStyle(
+                                                      fontSize: 12.0,
+                                                      color: textColor,
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 10, left: 8.0, bottom: 12),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          "${sellerProducts[index]['itemName']}",
-                                          textAlign: TextAlign.left,
-                                          overflow: TextOverflow.fade,
-                                          style: TextStyle(
-                                              fontSize: 10.0, color: textColor),
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text("Egp ",
-                                                style: TextStyle(
-                                                  fontSize: 10.0,
-                                                  color: textColor,
-                                                )),
-                                            Text(
-                                              '${sellerProducts[index]['itemPrice']}',
-                                              softWrap: true,
-                                              style: TextStyle(
-                                                  fontSize: 12.0,
-                                                  color: textColor,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text("no in stock ",
-                                                style: TextStyle(
-                                                  fontSize: 10.0,
-                                                  color: textColor,
-                                                )),
-                                            Text(
-                                              "${sellerProducts[index]['noOfItemsInStock']}",
-                                              style: TextStyle(
-                                                  fontSize: 12.0,
-                                                  color: textColor,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
+                        );}
+                        else{
+                          return Scaffold(
+                            body: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
+                        }
+                      }
                     ),
                   ],
                 ));
+
           } else {
             return Scaffold(
               body: Center(
