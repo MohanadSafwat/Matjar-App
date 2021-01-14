@@ -4,15 +4,15 @@ import 'matjar_icons.dart';
 import 'constants.dart';
 
 var white = Colors.white;
-int currentIndex = 3;
 
-class emptyCart extends StatefulWidget {
-  static String id='emptyCart';
+class EmptyCart extends StatefulWidget {
+  static String id = 'emptyCart';
   @override
   _CartState createState() => _CartState();
 }
 
-class _CartState extends State<emptyCart> {
+class _CartState extends State<EmptyCart> {
+  int currentIndex = 3;
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -28,6 +28,7 @@ class _CartState extends State<emptyCart> {
         toolbarHeight: 80,
         centerTitle: true,
       ),
+      backgroundColor: Colors.white,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         iconSize: 30,
@@ -72,49 +73,52 @@ class _CartState extends State<emptyCart> {
             });
           }, */
       ),
-      body: Column(
-        children: [
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 20),
-            height: 300,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('images/cart2.png'),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 370,
+              child: Icon(
+                Matjar.empty_cart,
+                size: 370,
+                color: mainColor,
               ),
             ),
-          ),
-          Container(
-            width: 310.0,
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.grey,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 3,
-                  blurRadius: 7,
-                  offset: Offset(0, 3), // changes position of shadow
-                ),
-              ],
-            ),
-            child: ButtonTheme(
-              child: ElevatedButton(
-                onPressed: () {},
-                child: Text(
-                  "Your Cart is Empty",
-                  style: TextStyle(
-                    color: Colors.grey[800],
-                    fontSize: 25,
+            Container(
+              width: 310.0,
+              height: 80,
+              decoration: BoxDecoration(
+                color: Colors.grey,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.3),
+                    spreadRadius: 7,
+                    blurRadius: 7,
+                    //offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: ButtonTheme(
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: Text(
+                    "Your Cart is Empty or you are not logged in",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500),
+                    textAlign: TextAlign.center,
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
                   ),
                 ),
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
