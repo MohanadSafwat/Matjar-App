@@ -226,6 +226,23 @@ class LoginState extends State<Login> {
                               padding: EdgeInsets.all(10),
                             ),
 
+                            Visibility(
+                              visible: (userData.uid =='gHCkBQhbQ2YA5L631wDangP0FsJ2'),
+                              child:  Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  'You should sign in first to acces the cart',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: buttonColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),)
+
                             Container(
                               color: boxDecorationColor,
                               margin: EdgeInsets.all(10),
