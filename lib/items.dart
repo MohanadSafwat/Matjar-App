@@ -81,6 +81,11 @@ class _ItemsState extends State<Items> {
           cat.add(element.id);
         });
       });
+      getItem.clear();
+      getItems('Electronics');
+      getItems('Fashion');
+      getItems('Kitchen Tools');
+      getItems('Mobiles');
       cat.forEach((element) {
         getItems(element);
       });
